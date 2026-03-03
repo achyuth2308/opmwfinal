@@ -1,0 +1,321 @@
+import { useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { ArrowRight, ChevronRight } from 'lucide-react'
+import AnimatedButton from '@/components/shared/AnimatedButton'
+import { HERO_STATS } from '@/constants/stats'
+
+const stagger = {
+    container: {
+        hidden: {},
+        show: {
+            transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+        },
+    },
+    item: {
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+    },
+}
+
+const HeroSection = () => {
+    const sectionRef = useRef(null)
+
+    return (
+        <section
+            ref={sectionRef}
+            style={{
+                height: 'calc(100vh - 64px)', // Fixed height matching the screen minus navbar
+                minHeight: '800px', // Fallback for extremely short screens
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 'clamp(60px, 8vw, 120px) clamp(24px, 5vw, 80px)',
+                position: 'relative',
+                overflow: 'hidden',
+            }}
+            aria-label="Hero section"
+        >
+            {/* Background Video */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: 0.15,
+                    pointerEvents: 'none',
+                    zIndex: 0,
+                    mixBlendMode: 'screen',
+                }}
+            >
+                <source src="/Futuristic_Office_Tech_Visual.mp4" type="video/mp4" />
+            </video>
+
+            {/* Subtle cyan radial spot behind content */}
+            <div
+                aria-hidden="true"
+                style={{
+                    position: 'absolute',
+                    top: '30%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 'clamp(400px, 60vw, 900px)',
+                    height: 'clamp(300px, 40vw, 600px)',
+                    background:
+                        'radial-gradient(ellipse at center, rgba(110,231,250,0.05) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                    zIndex: 0,
+                }}
+            />
+
+            <motion.div
+                variants={stagger.container}
+                initial="hidden"
+                animate="show"
+                style={{
+                    maxWidth: 860,
+                    margin: '0 auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: 0,
+                    position: 'relative',
+                    zIndex: 1,
+                }}
+            >
+                {/* Pill badge */}
+                <motion.div variants={stagger.item} style={{ marginBottom: 28 }}>
+                    <span className="pill-badge">
+                        <span
+                            style={{
+                                width: 5,
+                                height: 5,
+                                borderRadius: '50%',
+                                background: 'var(--accent)',
+                                display: 'inline-block',
+                                boxShadow: '0 0 6px rgba(110,231,250,0.8)',
+                                animation: 'pulse 2s ease-in-out infinite',
+                            }}
+                        />
+                        Enterprise Operations Platform
+                    </span>
+                </motion.div>
+
+                {/* H1 */}
+                <motion.h1
+                    variants={stagger.item}
+                    style={{
+                        fontSize: 'clamp(48px, 7.5vw, 96px)',
+                        fontWeight: 800,
+                        letterSpacing: '-0.04em',
+                        lineHeight: 1.05,
+                        color: 'var(--text-primary)',
+                        marginBottom: 0,
+                        fontFamily: 'Inter, sans-serif',
+                    }}
+                >
+                    <span style={{ display: 'block' }}>
+                        One Platform
+                        <span className="text-gradient-accent">.</span>
+                    </span>
+                    <span style={{ display: 'block' }}>
+                        Multiple Solutions
+                        <span className="text-gradient-accent">.</span>
+                    </span>
+                </motion.h1>
+
+                {/* Tagline */}
+                <motion.p
+                    variants={stagger.item}
+                    style={{
+                        marginTop: 24,
+                        fontSize: 11,
+                        fontFamily: 'JetBrains Mono, monospace',
+                        letterSpacing: '0.2em',
+                        textTransform: 'uppercase',
+                        color: 'var(--text-muted)',
+                        background: 'linear-gradient(90deg, var(--text-muted) 0%, var(--text-secondary) 50%, var(--text-muted) 100%)',
+                        backgroundSize: '200% auto',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        animation: 'shimmer 4s linear infinite',
+                    }}
+                >
+                    Scalable Execution at Scale
+                </motion.p>
+
+                {/* Subtext */}
+                <motion.p
+                    variants={stagger.item}
+                    style={{
+                        marginTop: 20,
+                        fontSize: 'clamp(14px, 1.5vw, 17px)',
+                        color: 'var(--text-secondary)',
+                        lineHeight: 1.75,
+                        maxWidth: 580,
+                    }}
+                >
+                    Integrated BPO
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
+                    International Voice
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
+                    Web Applications
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
+                    Enterprise HRMS
+                </motion.p>
+
+                {/* CTA buttons */}
+                <motion.div
+                    variants={stagger.item}
+                    style={{
+                        display: 'flex',
+                        gap: 12,
+                        marginTop: 36,
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Link to="/services/bpo" style={{ textDecoration: 'none' }}>
+                        <AnimatedButton variant="primary" size="lg">
+                            Explore Services
+                            <ArrowRight size={16} />
+                        </AnimatedButton>
+                    </Link>
+                    <Link to="/projects" style={{ textDecoration: 'none' }}>
+                        <AnimatedButton variant="ghost" size="lg">
+                            View Projects
+                            <ChevronRight size={16} />
+                        </AnimatedButton>
+                    </Link>
+                </motion.div>
+
+                {/* Stats row */}
+                <motion.div
+                    variants={stagger.item}
+                    style={{
+                        marginTop: 56,
+                        display: 'flex',
+                        gap: 'clamp(24px, 4vw, 56px)',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        position: 'relative',
+                    }}
+                >
+                    {/* Horizontal rule behind stats */}
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: 'calc(100% + 48px)',
+                            height: 1,
+                            background:
+                                'linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)',
+                        }}
+                    />
+
+                    {HERO_STATS.map((stat, i) => (
+                        <div
+                            key={stat.label}
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: 4,
+                                paddingTop: 24,
+                                position: 'relative',
+                            }}
+                        >
+                            {/* Accent top line */}
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    width: 24,
+                                    height: 2,
+                                    background: 'linear-gradient(90deg, transparent, var(--accent), transparent)',
+                                    borderRadius: 1,
+                                }}
+                            />
+                            <span
+                                style={{
+                                    fontSize: 'clamp(22px, 3vw, 32px)',
+                                    fontWeight: 800,
+                                    fontFamily: 'JetBrains Mono, monospace',
+                                    color: 'var(--text-primary)',
+                                    letterSpacing: '-0.02em',
+                                }}
+                            >
+                                {stat.value}
+                            </span>
+                            <span
+                                style={{
+                                    fontSize: 11,
+                                    fontFamily: 'JetBrains Mono, monospace',
+                                    letterSpacing: '0.1em',
+                                    textTransform: 'uppercase',
+                                    color: 'var(--text-muted)',
+                                }}
+                            >
+                                {stat.label}
+                            </span>
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* Scroll indicator */}
+                <motion.div
+                    variants={stagger.item}
+                    style={{ marginTop: 48 }}
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                    <div
+                        style={{
+                            width: 24,
+                            height: 36,
+                            border: '1.5px solid rgba(255,255,255,0.12)',
+                            borderRadius: 12,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            paddingTop: 6,
+                            margin: '0 auto',
+                        }}
+                    >
+                        <motion.div
+                            animate={{ y: [0, 8, 0], opacity: [0.6, 0.2, 0.6] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                            style={{
+                                width: 3,
+                                height: 8,
+                                borderRadius: 2,
+                                background: 'rgba(255,255,255,0.3)',
+                            }}
+                        />
+                    </div>
+                </motion.div>
+            </motion.div>
+
+            <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.4; }
+        }
+      `}</style>
+        </section>
+    )
+}
+
+export default HeroSection

@@ -1,0 +1,391 @@
+import { useState, useEffect, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import PropTypes from 'prop-types'
+import { X, Upload, CheckCircle2, Loader2 } from 'lucide-react'
+import { PREFERRED_CITIES } from '@/constants/careers'
+import { submitApplication } from '@/services/careers.service'
+
+const initialForm = {
+    full_name: '',
+    email: '',
+    phone: '',
+    position: '',
+    preferred_city: '',
+    cover_note: '',
+    resume: null,
+}
+
+const ApplyForm = ({ role, onClose }) => {
+    const [form, setForm] = useState({ ...initialForm, position: role ? role.title : '' })
+    const [isLoading, setIsLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(null)
+    const [fieldErrors, setFieldErrors] = useState({})
+    const [fileName, setFileName] = useState('')
+
+    const handleEsc = useCallback((e) => {
+        if (e.key === 'Escape') onClose()
+    }, [onClose])
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleEsc)
+        document.body.style.overflow = 'hidden'
+        return () => {
+            document.removeEventListener('keydown', handleEsc)
+            document.body.style.overflow = ''
+        }
+    }, [handleEsc])
+
+    useEffect(() => {
+        if (role) setForm((prev) => ({ ...prev, position: role.title }))
+    }, [role])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setForm((prev) => ({ ...prev, [name]: value }))
+        setFieldErrors((prev) => ({ ...prev, [name]: undefined }))
+    }
+
+    const handleFile = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            setForm((prev) => ({ ...prev, resume: file }))
+            setFileName(file.name)
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setIsLoading(true)
+        setError(null)
+        setFieldErrors({})
+
+        try {
+            const fd = new FormData()
+            fd.append('full_name', form.full_name)
+            fd.append('email', form.email)
+            fd.append('phone', form.phone)
+            fd.append('position', form.position)
+            fd.append('preferred_city', form.preferred_city)
+            fd.append('cover_note', form.cover_note)
+            if (form.resume) fd.append('resume', form.resume)
+
+            await submitApplication(fd)
+            setSuccess(true)
+        } catch (err) {
+            if (err.type === 'validation' && err.fieldErrors) {
+                setFieldErrors(err.fieldErrors)
+                setError(err.message || 'Please fix the errors below.')
+            } else {
+                setError(err.message || 'Submission failed. Please try again.')
+            }
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    return (
+        <AnimatePresence>
+            <>
+                {/* Backdrop */}
+                <motion.div
+                    key="apply-backdrop"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={onClose}
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        background: 'rgba(0,0,0,0.65)',
+                        backdropFilter: 'blur(6px)',
+                        WebkitBackdropFilter: 'blur(6px)',
+                        zIndex: 9000,
+                    }}
+                    aria-hidden="true"
+                />
+
+                {/* Drawer */}
+                <motion.div
+                    key="apply-panel"
+                    initial={{ x: '100%' }}
+                    animate={{ x: 0 }}
+                    exit={{ x: '100%' }}
+                    transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Apply for position"
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 9001,
+                        width: 'min(560px, 100vw)',
+                        background: '#0F1219',
+                        borderLeft: '1px solid var(--border)',
+                        overflowY: 'auto',
+                        padding: 'clamp(28px, 4vw, 48px)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 20,
+                    }}
+                >
+                    {/* Close */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div>
+                            <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 4 }}>
+                                Application
+                            </p>
+                            <h2
+                                style={{
+                                    fontSize: 20,
+                                    fontWeight: 700,
+                                    color: 'var(--text-primary)',
+                                    letterSpacing: '-0.02em',
+                                }}
+                            >
+                                {role ? role.title : 'Apply Now'}
+                            </h2>
+                        </div>
+                        <button
+                            onClick={onClose}
+                            aria-label="Close application form"
+                            style={{
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid var(--border)',
+                                borderRadius: 8,
+                                width: 36,
+                                height: 36,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: 'var(--text-secondary)',
+                                transition: 'all 200ms ease',
+                                flexShrink: 0,
+                            }}
+                        >
+                            <X size={16} />
+                        </button>
+                    </div>
+
+                    <div style={{ height: 1, background: 'var(--border)' }} />
+
+                    {success ? (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            style={{ textAlign: 'center', padding: '48px 0' }}
+                        >
+                            <CheckCircle2 size={48} style={{ color: 'var(--accent)', margin: '0 auto 20px' }} />
+                            <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>
+                                Application submitted!
+                            </h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
+                                We review every application carefully and will reach out within 5 business days.
+                            </p>
+                        </motion.div>
+                    ) : (
+                        <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                            {/* Full name */}
+                            <div>
+                                <label htmlFor="apply-name" className="field-label">Full Name *</label>
+                                <input
+                                    id="apply-name"
+                                    name="full_name"
+                                    type="text"
+                                    required
+                                    placeholder="Your full name"
+                                    value={form.full_name}
+                                    onChange={handleChange}
+                                    className={`field-input${fieldErrors.full_name ? ' error' : ''}`}
+                                />
+                                {fieldErrors.full_name && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.full_name}</p>}
+                            </div>
+
+                            {/* Email */}
+                            <div>
+                                <label htmlFor="apply-email" className="field-label">Email *</label>
+                                <input
+                                    id="apply-email"
+                                    name="email"
+                                    type="email"
+                                    required
+                                    placeholder="you@email.com"
+                                    value={form.email}
+                                    onChange={handleChange}
+                                    className={`field-input${fieldErrors.email ? ' error' : ''}`}
+                                />
+                                {fieldErrors.email && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.email}</p>}
+                            </div>
+
+                            {/* Phone */}
+                            <div>
+                                <label htmlFor="apply-phone" className="field-label">Phone *</label>
+                                <input
+                                    id="apply-phone"
+                                    name="phone"
+                                    type="tel"
+                                    required
+                                    placeholder="+91 XXXXX XXXXX"
+                                    value={form.phone}
+                                    onChange={handleChange}
+                                    className={`field-input${fieldErrors.phone ? ' error' : ''}`}
+                                />
+                                {fieldErrors.phone && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.phone}</p>}
+                            </div>
+
+                            {/* Position (pre-filled, readonly) */}
+                            <div>
+                                <label htmlFor="apply-position" className="field-label">Position</label>
+                                <input
+                                    id="apply-position"
+                                    name="position"
+                                    type="text"
+                                    value={form.position}
+                                    readOnly
+                                    className="field-input"
+                                    style={{ opacity: 0.6, cursor: 'not-allowed' }}
+                                />
+                            </div>
+
+                            {/* Preferred city */}
+                            <div>
+                                <label htmlFor="apply-city" className="field-label">Preferred City *</label>
+                                <select
+                                    id="apply-city"
+                                    name="preferred_city"
+                                    required
+                                    value={form.preferred_city}
+                                    onChange={handleChange}
+                                    className={`field-input${fieldErrors.preferred_city ? ' error' : ''}`}
+                                >
+                                    <option value="">Select preferred city</option>
+                                    {PREFERRED_CITIES.map((city) => (
+                                        <option key={city} value={city}>{city}</option>
+                                    ))}
+                                </select>
+                                {fieldErrors.preferred_city && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.preferred_city}</p>}
+                            </div>
+
+                            {/* Resume upload */}
+                            <div>
+                                <label className="field-label" htmlFor="apply-resume">Resume *</label>
+                                <label
+                                    htmlFor="apply-resume"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 10,
+                                        padding: '12px 16px',
+                                        border: '1px dashed rgba(110,231,250,0.2)',
+                                        borderRadius: 8,
+                                        cursor: 'pointer',
+                                        fontSize: 13,
+                                        color: fileName ? 'var(--text-primary)' : 'var(--text-muted)',
+                                        background: 'rgba(110,231,250,0.03)',
+                                        transition: 'border-color 200ms ease',
+                                    }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.4)' }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.2)' }}
+                                >
+                                    <Upload size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+                                    {fileName || 'Upload PDF or DOC (max 5MB)'}
+                                </label>
+                                <input
+                                    id="apply-resume"
+                                    type="file"
+                                    accept=".pdf,.doc,.docx"
+                                    onChange={handleFile}
+                                    style={{ position: 'absolute', width: 1, height: 1, opacity: 0, overflow: 'hidden' }}
+                                />
+                            </div>
+
+                            {/* Cover note */}
+                            <div>
+                                <label htmlFor="apply-cover" className="field-label">Cover Note</label>
+                                <textarea
+                                    id="apply-cover"
+                                    name="cover_note"
+                                    rows={4}
+                                    placeholder="Tell us why you're a great fit for this role..."
+                                    value={form.cover_note}
+                                    onChange={handleChange}
+                                    className="field-input"
+                                    style={{ resize: 'vertical', minHeight: 100 }}
+                                />
+                            </div>
+
+                            {/* Error */}
+                            {error && (
+                                <div
+                                    style={{
+                                        padding: '12px 16px',
+                                        background: 'rgba(248,113,113,0.08)',
+                                        border: '1px solid rgba(248,113,113,0.25)',
+                                        borderRadius: 8,
+                                        fontSize: 13,
+                                        color: 'rgba(248,113,113,0.9)',
+                                    }}
+                                >
+                                    {error}
+                                </div>
+                            )}
+
+                            {/* Submit */}
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                style={{
+                                    padding: '14px 24px',
+                                    borderRadius: 8,
+                                    background: 'rgba(110,231,250,0.1)',
+                                    border: '1px solid rgba(110,231,250,0.3)',
+                                    color: 'var(--accent)',
+                                    fontSize: 15,
+                                    fontWeight: 600,
+                                    fontFamily: 'Inter, sans-serif',
+                                    cursor: isLoading ? 'not-allowed' : 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: 8,
+                                    transition: 'all 200ms ease',
+                                    opacity: isLoading ? 0.7 : 1,
+                                }}
+                                onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.18)' }}
+                                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.1)' }}
+                            >
+                                {isLoading ? (
+                                    <>
+                                        <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
+                                        Submitting…
+                                    </>
+                                ) : (
+                                    'Submit Application'
+                                )}
+                            </button>
+                        </form>
+                    )}
+                </motion.div>
+            </>
+        </AnimatePresence>
+    )
+}
+
+ApplyForm.propTypes = {
+    role: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        department: PropTypes.string.isRequired,
+        cities: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }),
+    onClose: PropTypes.func.isRequired,
+}
+
+ApplyForm.defaultProps = {
+    role: null,
+}
+
+export default ApplyForm
