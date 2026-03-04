@@ -46,9 +46,8 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
     const sidebarContent = (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             {/* Logo */}
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', padding: '24px 20px', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 7, background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)' }}>OP</div>
-                <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>OPMW</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', padding: '24px 20px', borderBottom: '1px solid var(--border)' }}>
+                <img src="/logo (2).png" alt="OPMW Logo" style={{ height: 26, width: 'auto', objectFit: 'contain' }} />
             </Link>
 
             {/* User info */}

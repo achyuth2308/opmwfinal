@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Mail, MapPin } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
+import TypewriterText from '@/components/shared/TypewriterText'
 import BranchCard from '@/components/contact/BranchCard'
 import ContactForm from '@/components/contact/ContactForm'
 import { LOCATIONS } from '@/constants/locations'
@@ -11,7 +12,7 @@ const Contact = () => {
             {/* Hero */}
             <section
                 style={{
-                    padding: 'clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px) clamp(40px, 5vw, 60px)',
+                    padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px) clamp(40px, 5vw, 60px)',
                     textAlign: 'center',
                     position: 'relative',
                 }}
@@ -39,9 +40,6 @@ const Contact = () => {
                         <span className="pill-badge">Contact</span>
                     </motion.div>
                     <motion.h1
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.55, delay: 0.1 }}
                         style={{
                             fontSize: 'clamp(36px, 5.5vw, 72px)',
                             fontWeight: 800,
@@ -50,8 +48,12 @@ const Contact = () => {
                             marginBottom: 16,
                         }}
                     >
-                        Let's talk operations
-                        <span style={{ color: 'var(--accent)' }}>.</span>
+                        <TypewriterText
+                            text={[
+                                { text: "Let's talk operations" }
+                            ]}
+                            delay={0.2}
+                        />
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}

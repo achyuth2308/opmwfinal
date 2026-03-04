@@ -61,7 +61,7 @@ const AboutOPMW = () => {
                             lineHeight: 1.15,
                         }}
                     >
-                        Execution at scale,<br />built from ground up.
+                        Execution at scale,<br />built from ground up
                     </h2>
                     <p
                         style={{

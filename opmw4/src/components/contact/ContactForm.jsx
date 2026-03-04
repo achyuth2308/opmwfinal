@@ -31,13 +31,71 @@ const ContactForm = () => {
         }
     )
 
+    const [localFieldErrors, setLocalFieldErrors] = useState({})
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setForm((prev) => ({ ...prev, [name]: value }))
+        if (localFieldErrors[name]) {
+            setLocalFieldErrors((prev) => ({ ...prev, [name]: '' }))
+        }
+    }
+
+    const validate = () => {
+        const errs = {}
+
+        // Name validation
+        if (!form.name.trim()) {
+            errs.name = 'Full name is required'
+        } else if (form.name.trim().length < 3) {
+            errs.name = 'Name must be at least 3 characters long'
+        } else if (/\s\s+/.test(form.name)) {
+            errs.name = 'Multiple consecutive spaces are not allowed'
+        } else if (/\d/.test(form.name)) {
+            errs.name = 'Numbers are not allowed'
+        } else if (/[^a-zA-Z ]/.test(form.name)) {
+            errs.name = 'Special characters are not allowed'
+        }
+
+        // Email validation
+        if (!form.email.trim()) {
+            errs.email = 'Email is required'
+        } else if (/\s/.test(form.email)) {
+            errs.email = 'Email cannot contain spaces'
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+            errs.email = 'Invalid email format'
+        }
+
+        // Company validation
+        if (form.company && /\s\s+/.test(form.company)) {
+            errs.company = 'Multiple consecutive spaces are not allowed'
+        }
+
+        // Message validation
+        if (!form.message.trim()) {
+            errs.message = 'Message is required'
+        } else {
+            const wordCount = form.message.trim().split(/\s+/).filter(w => w.length > 0).length
+            if (wordCount > 200) {
+                errs.message = `Message cannot exceed 200 words (currently ${wordCount} words)`
+            }
+        }
+
+        // Service Interest
+        if (!form.service_interest) {
+            errs.service_interest = 'Please select a service'
+        }
+
+        return errs
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
+        const errs = validate()
+        if (Object.keys(errs).length > 0) {
+            setLocalFieldErrors(errs)
+            return
+        }
         handleSubmit(form, () => setForm(initialForm))
     }
 
@@ -99,9 +157,13 @@ const ContactForm = () => {
                         placeholder="Your full name"
                         value={form.name}
                         onChange={handleChange}
-                        className={`field-input${fieldErrors.name ? ' error' : ''}`}
+                        className={`field-input${localFieldErrors.name || fieldErrors.name ? ' error' : ''}`}
                     />
-                    {fieldErrors.name && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.name}</p>}
+                    {(localFieldErrors.name || fieldErrors.name) && (
+                        <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
+                            {localFieldErrors.name || fieldErrors.name}
+                        </p>
+                    )}
                 </div>
 
                 {/* Email */}
@@ -115,9 +177,13 @@ const ContactForm = () => {
                         placeholder="you@company.com"
                         value={form.email}
                         onChange={handleChange}
-                        className={`field-input${fieldErrors.email ? ' error' : ''}`}
+                        className={`field-input${localFieldErrors.email || fieldErrors.email ? ' error' : ''}`}
                     />
-                    {fieldErrors.email && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.email}</p>}
+                    {(localFieldErrors.email || fieldErrors.email) && (
+                        <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
+                            {localFieldErrors.email || fieldErrors.email}
+                        </p>
+                    )}
                 </div>
 
                 {/* Company */}
@@ -130,8 +196,13 @@ const ContactForm = () => {
                         placeholder="Your company"
                         value={form.company}
                         onChange={handleChange}
-                        className="field-input"
+                        className={`field-input${localFieldErrors.company ? ' error' : ''}`}
                     />
+                    {localFieldErrors.company && (
+                        <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
+                            {localFieldErrors.company}
+                        </p>
+                    )}
                 </div>
 
                 {/* Service interest */}
@@ -143,16 +214,16 @@ const ContactForm = () => {
                         required
                         value={form.service_interest}
                         onChange={handleChange}
-                        className={`field-input${fieldErrors.service_interest ? ' error' : ''}`}
+                        className={`field-input${localFieldErrors.service_interest || fieldErrors.service_interest ? ' error' : ''}`}
                     >
                         <option value="">Select a service</option>
                         {SERVICE_OPTIONS.map((opt) => (
                             <option key={opt} value={opt}>{opt}</option>
                         ))}
                     </select>
-                    {fieldErrors.service_interest && (
+                    {(localFieldErrors.service_interest || fieldErrors.service_interest) && (
                         <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
-                            {fieldErrors.service_interest}
+                            {localFieldErrors.service_interest || fieldErrors.service_interest}
                         </p>
                     )}
                 </div>
@@ -168,10 +239,14 @@ const ContactForm = () => {
                         placeholder="Tell us about your requirements..."
                         value={form.message}
                         onChange={handleChange}
-                        className={`field-input${fieldErrors.message ? ' error' : ''}`}
+                        className={`field-input${localFieldErrors.message || fieldErrors.message ? ' error' : ''}`}
                         style={{ resize: 'vertical', minHeight: 120 }}
                     />
-                    {fieldErrors.message && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.message}</p>}
+                    {(localFieldErrors.message || fieldErrors.message) && (
+                        <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
+                            {localFieldErrors.message || fieldErrors.message}
+                        </p>
+                    )}
                 </div>
 
                 {/* Error banner */}

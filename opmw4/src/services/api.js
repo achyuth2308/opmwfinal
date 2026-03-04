@@ -19,7 +19,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('opmw_token')
+        const token = localStorage.getItem('opmw-token')
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -42,7 +42,8 @@ apiClient.interceptors.response.use(
         const { status, data } = error.response
 
         if (status === 401) {
-            localStorage.removeItem('opmw_token')
+            localStorage.removeItem('opmw-token')
+            localStorage.removeItem('opmw-user')
             window.location.href = '/'
             return Promise.reject({ message: 'Session expired. Please try again.', type: 'auth' })
         }

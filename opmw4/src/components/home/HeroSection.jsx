@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import AnimatedButton from '@/components/shared/AnimatedButton'
+import TypewriterText from '@/components/shared/TypewriterText'
 import { HERO_STATS } from '@/constants/stats'
 
 const stagger = {
@@ -109,27 +110,36 @@ const HeroSection = () => {
                     </span>
                 </motion.div>
 
-                {/* H1 */}
+                {/* H1 with Typewriter Animation and Custom Colors */}
                 <motion.h1
                     variants={stagger.item}
                     style={{
-                        fontSize: 'clamp(48px, 7.5vw, 96px)',
+                        fontSize: 'clamp(44px, 7vw, 92px)',
                         fontWeight: 800,
                         letterSpacing: '-0.04em',
                         lineHeight: 1.05,
                         color: 'var(--text-primary)',
                         marginBottom: 0,
                         fontFamily: 'Inter, sans-serif',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                     }}
                 >
-                    <span style={{ display: 'block' }}>
-                        One Platform
-                        <span className="text-gradient-accent">.</span>
-                    </span>
-                    <span style={{ display: 'block' }}>
-                        Multiple Solutions
-                        <span className="text-gradient-accent">.</span>
-                    </span>
+                    <TypewriterText
+                        text={[
+                            { text: 'One ' },
+                            { text: 'Platform', shimmer: true }
+                        ]}
+                        delay={0.4}
+                    />
+                    <TypewriterText
+                        text={[
+                            { text: 'Multiple', shimmer: true },
+                            { text: ' Solutions' }
+                        ]}
+                        delay={1.8}
+                    />
                 </motion.h1>
 
                 {/* Tagline */}
@@ -309,10 +319,25 @@ const HeroSection = () => {
             </motion.div>
 
             <style>{`
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.4; }
-        }
+          @keyframes textShimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+          }
+          @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+          }
+          @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+          }
+          @keyframes blink {
+            50% { border-color: transparent; }
+          }
+          @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+          }
       `}</style>
         </section>
     )

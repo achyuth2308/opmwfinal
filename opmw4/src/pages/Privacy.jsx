@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import TypewriterText from '@/components/shared/TypewriterText'
 
 const SECTIONS = [
     {
@@ -45,7 +46,7 @@ const Privacy = () => {
             style={{
                 maxWidth: 760,
                 margin: '0 auto',
-                padding: 'clamp(80px, 10vw, 140px) clamp(24px, 5vw, 48px)',
+                padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 48px)',
             }}
         >
             <motion.div
@@ -75,7 +76,7 @@ const Privacy = () => {
                         marginBottom: 8,
                     }}
                 >
-                    Privacy Policy
+                    <TypewriterText text="Privacy Policy" delay={0.2} />
                 </h1>
                 <p
                     style={{

@@ -109,50 +109,88 @@ const About = () => {
                     }}
                 />
                 <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-                    <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: 'clamp(40px, 6vw, 80px)',
-                        alignItems: 'flex-start'
-                    }}>
-                        {/* Content side */}
-                        <div style={{ flex: '1 1 500px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>
+                        {/* Top Row: Heading and Image Side-by-Side */}
+                        <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: 'clamp(40px, 6vw, 80px)',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}>
+                            <div style={{ flex: '1 1 500px', textAlign: 'left' }}>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    style={{ marginBottom: 20 }}
+                                >
+                                    <span className="pill-badge">About OPMW</span>
+                                </motion.div>
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 24 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.55, delay: 0.1 }}
+                                    style={{
+                                        fontSize: 'clamp(36px, 5.5vw, 72px)',
+                                        fontWeight: 800,
+                                        letterSpacing: '-0.04em',
+                                        lineHeight: 1.08,
+                                        color: 'var(--text-primary)',
+                                    }}
+                                >
+                                    One Platform
+                                    <br />
+                                    Multiple dimensions of execution
+                                </motion.h1>
+                            </div>
+
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                                style={{ marginBottom: 20 }}
-                            >
-                                <span className="pill-badge">About OPMW</span>
-                            </motion.div>
-                            <motion.h1
-                                initial={{ opacity: 0, y: 24 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.55, delay: 0.1 }}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
                                 style={{
-                                    fontSize: 'clamp(36px, 5.5vw, 72px)',
-                                    fontWeight: 800,
-                                    letterSpacing: '-0.04em',
-                                    lineHeight: 1.08,
-                                    color: 'var(--text-primary)',
-                                    marginBottom: 28,
+                                    flex: '1 1 420px',
+                                    position: 'relative',
+                                    borderRadius: 32,
+                                    overflow: 'hidden',
+                                    boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+                                    border: '1px solid rgba(255,255,255,0.08)'
                                 }}
                             >
-                                One Platform.
-                                <br />
-                                Multiple dimensions of execution.
-                            </motion.h1>
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    transition={{ duration: 0.7 }}
+                                >
+                                    <img
+                                        src="/OPMW Images/about opmw.png"
+                                        alt="OPMW Overview"
+                                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                                    />
+                                    <div style={{
+                                        position: 'absolute',
+                                        inset: 0,
+                                        background: 'linear-gradient(to top, rgba(9,9,11,0.6) 0%, transparent 60%)',
+                                        pointerEvents: 'none'
+                                    }} />
+                                </motion.div>
+                            </motion.div>
+                        </div>
 
-                            {/* Company overview cards */}
+                        {/* Bottom Section: Stat Boxes followed by Description Text */}
+                        <div style={{ textAlign: 'center' }}>
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
                                 style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'center',
                                     gap: 16,
-                                    marginTop: 8,
+                                    marginBottom: 32,
+                                    width: '100%'
                                 }}
                             >
                                 {[
@@ -168,6 +206,9 @@ const About = () => {
                                             border: '1px solid var(--border)',
                                             borderRadius: 12,
                                             padding: '20px 24px',
+                                            flex: '1 1 200px',
+                                            maxWidth: 220,
+                                            textAlign: 'left'
                                         }}
                                     >
                                         <p
@@ -208,7 +249,8 @@ const About = () => {
                                     fontSize: 'clamp(15px, 1.6vw, 17px)',
                                     color: 'var(--text-secondary)',
                                     lineHeight: 1.8,
-                                    marginTop: 28,
+                                    maxWidth: 800,
+                                    margin: '0 auto'
                                 }}
                             >
                                 OPMW was built to solve a fragmented problem — enterprises juggling separate vendors for
@@ -216,38 +258,6 @@ const About = () => {
                                 under one unified governance model, spanning 5 cities with 300+ multi-skilled professionals.
                             </motion.p>
                         </div>
-
-                        {/* Image side */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                            style={{
-                                flex: '1 1 420px',
-                                position: 'relative',
-                                borderRadius: 32,
-                                overflow: 'hidden',
-                                boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
-                                border: '1px solid rgba(255,255,255,0.08)'
-                            }}
-                        >
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ duration: 0.7 }}
-                            >
-                                <img
-                                    src="/OPMW Images/company overview.png"
-                                    alt="OPMW Overview"
-                                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                                />
-                                <div style={{
-                                    position: 'absolute',
-                                    inset: 0,
-                                    background: 'linear-gradient(to top, rgba(9,9,11,0.6) 0%, transparent 60%)',
-                                    pointerEvents: 'none'
-                                }} />
-                            </motion.div>
-                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -268,7 +278,7 @@ const About = () => {
                                 color: 'var(--text-primary)',
                             }}
                         >
-                            Where we stand. Where we're going.
+                            Where we stand & Where we're going
                         </h2>
                     </div>
 

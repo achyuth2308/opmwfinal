@@ -2,62 +2,23 @@ import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 
 const OPMWLogoStroke = () => (
-    <svg viewBox="0 0 200 56" width="200" height="56" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <filter id="logoGlow">
-                <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="rgba(110,231,250,0.5)" />
-            </filter>
-        </defs>
-        {/* O */}
-        <motion.circle
-            cx="26"
-            cy="28"
-            r="20"
-            fill="none"
-            stroke="#6EE7FA"
-            strokeWidth="2.5"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: 'easeInOut', delay: 0.2 }}
-            style={{ filter: 'url(#logoGlow)' }}
+    <motion.div
+        initial={{ opacity: 0, filter: 'blur(15px)', scale: 0.8 }}
+        animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        style={{ width: 220, height: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+    >
+        <img
+            src="/logo (2).png"
+            alt="OPMW Logo"
+            style={{
+                width: '100%',
+                height: 'auto',
+                objectFit: 'contain',
+                filter: 'brightness(1.1) drop-shadow(0 0 15px rgba(110,231,250,0.3))'
+            }}
         />
-        {/* P */}
-        <motion.path
-            d="M54 8 L54 48 M54 8 L70 8 Q80 8 80 20 Q80 32 70 32 L54 32"
-            fill="none"
-            stroke="#F0F4F8"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: 'easeInOut', delay: 0.3 }}
-        />
-        {/* M */}
-        <motion.path
-            d="M92 48 L92 8 L116 36 L140 8 L140 48"
-            fill="none"
-            stroke="#F0F4F8"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: 'easeInOut', delay: 0.4 }}
-        />
-        {/* W */}
-        <motion.path
-            d="M152 8 L164 48 L176 24 L188 48 L200 8"
-            fill="none"
-            stroke="#F0F4F8"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: 'easeInOut', delay: 0.5 }}
-        />
-    </svg>
+    </motion.div>
 )
 
 const MonitorReveal = ({ isVisible }) => {

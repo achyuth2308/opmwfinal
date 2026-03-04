@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion'
 import { AuthProvider } from '@/context/AuthContext'
 import AppRouter from '@/routes/AppRouter'
 import IntroSequence from '@/intro/IntroSequence'
+import ScrollToTop from '@/components/shared/ScrollToTop'
 
 const App = () => {
   const [introComplete, setIntroComplete] = useState(
@@ -17,6 +18,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <AnimatePresence mode="wait">
           {!introComplete ? (

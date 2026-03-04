@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionWrapper from '@/components/shared/SectionWrapper'
+import TypewriterText from '@/components/shared/TypewriterText'
 import RoleCard from '@/components/careers/RoleCard'
 import ApplyForm from '@/components/careers/ApplyForm'
 import FilterBar from '@/components/projects/FilterBar'
@@ -22,7 +23,7 @@ const Careers = () => {
             {/* Hero */}
             <section
                 style={{
-                    padding: 'clamp(80px, 10vw, 140px) clamp(24px, 5vw, 80px) clamp(48px, 6vw, 80px)',
+                    padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px) clamp(48px, 6vw, 80px)',
                     position: 'relative',
                     overflow: 'hidden',
                 }}
@@ -65,9 +66,6 @@ const Careers = () => {
                             <span className="pill-badge">Careers</span>
                         </motion.div>
                         <motion.h1
-                            initial={{ opacity: 0, y: 24 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.55, delay: 0.1 }}
                             style={{
                                 fontSize: 'clamp(36px, 5.5vw, 72px)',
                                 fontWeight: 800,
@@ -78,8 +76,12 @@ const Careers = () => {
                                 marginBottom: 20,
                             }}
                         >
-                            Join the Execution Layer
-                            <span style={{ color: 'var(--accent)' }}>.</span>
+                            <TypewriterText
+                                text={[
+                                    { text: 'Join the Execution Layer' }
+                                ]}
+                                delay={0.2}
+                            />
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0, y: 16 }}

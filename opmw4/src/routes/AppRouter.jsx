@@ -28,6 +28,13 @@ const Dashboard = lazy(() => import('@/pages/portal/Dashboard'))
 const MyApplications = lazy(() => import('@/pages/portal/MyApplications'))
 const Profile = lazy(() => import('@/pages/portal/Profile'))
 
+// Admin pages (no Navbar/Footer)
+const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'))
+const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'))
+const AdminApplications = lazy(() => import('@/pages/admin/AdminApplications'))
+const AdminCandidates = lazy(() => import('@/pages/admin/AdminCandidates'))
+const AdminContacts = lazy(() => import('@/pages/admin/AdminContacts'))
+
 const PageLoader = () => (
     <div
         style={{
@@ -103,24 +110,7 @@ const NotFound = () => (
 const AppRouter = () => (
     <Suspense fallback={<PageLoader />}>
         <Routes>
-            {/* ─── Public routes (with Navbar + Footer via RootLayout) ─── */}
-            <Route element={<RootLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/careers" element={<Careers />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/services/bpo" element={<BPOServices />} />
-                <Route path="/services/it-web" element={<ITWeb />} />
-                <Route path="/services/it" element={<Navigate to="/services/it-web" replace />} />
-                <Route path="/services/it_web" element={<Navigate to="/services/it-web" replace />} />
-                <Route path="/services/hrms" element={<HRMS />} />
-                <Route path="*" element={<NotFound />} />
-            </Route>
-
-            {/* ─── Auth routes (no Navbar/Footer) ─── */}
+            {/* ─── Auth routes (no Navbar/Footer) — must be before layout catch-all ─── */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -139,6 +129,34 @@ const AppRouter = () => (
                 path="/portal/profile"
                 element={<ProtectedRoute><Profile /></ProtectedRoute>}
             />
+
+            {/* ─── Admin routes (no Navbar/Footer) ─── */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/applications" element={<AdminApplications />} />
+            <Route path="/admin/candidates" element={<AdminCandidates />} />
+            <Route path="/admin/contacts" element={<AdminContacts />} />
+
+            {/* ─── Public routes (with Navbar + Footer via RootLayout) ─── */}
+            <Route element={<RootLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/services/bpo" element={<BPOServices />} />
+                <Route path="/services/it-web" element={<ITWeb />} />
+                <Route path="/services/it" element={<Navigate to="/services/it-web" replace />} />
+                <Route path="/services/it_web" element={<Navigate to="/services/it-web" replace />} />
+                <Route path="/services/hrms" element={<HRMS />} />
+            </Route>
+
+            {/* ─── 404 catch-all (must be LAST, outside any layout group) ─── */}
+            <Route path="*" element={<RootLayout />}>
+                <Route path="*" element={<NotFound />} />
+            </Route>
         </Routes>
     </Suspense>
 )

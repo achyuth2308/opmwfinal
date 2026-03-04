@@ -62,11 +62,11 @@ const ApplyForm = ({ role, onClose }) => {
 
         try {
             const fd = new FormData()
-            fd.append('full_name', form.full_name)
-            fd.append('email', form.email)
-            fd.append('phone', form.phone)
-            fd.append('position', form.position)
-            fd.append('preferred_city', form.preferred_city)
+            fd.append('applicant_name', form.full_name)
+            fd.append('applicant_email', form.email)
+            fd.append('applicant_phone', form.phone)
+            fd.append('role', form.position)
+            fd.append('location', form.preferred_city)
             fd.append('cover_note', form.cover_note)
             if (form.resume) fd.append('resume', form.resume)
 

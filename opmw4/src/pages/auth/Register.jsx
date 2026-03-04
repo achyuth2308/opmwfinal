@@ -52,14 +52,69 @@ const Register = () => {
         setFieldErrors((prev) => ({ ...prev, [name]: '' }))
     }
 
+    const validateElement = (name, value) => {
+        let error = ''
+        switch (name) {
+            case 'name':
+                if (!value.trim()) {
+                    error = 'Name is required'
+                } else if (value.trim().length < 3) {
+                    error = 'Name must be at least 3 characters'
+                } else if (/\d/.test(value)) {
+                    error = 'Numbers are not allowed'
+                } else if (/[^a-zA-Z ]/.test(value)) {
+                    error = 'Special characters are not allowed'
+                } else if (/\s\s+/.test(value)) {
+                    error = 'Multiple consecutive spaces are not allowed'
+                }
+                break
+            case 'email':
+                if (!value.trim()) {
+                    error = 'Email is required'
+                } else if (/\s/.test(value)) {
+                    error = 'Email cannot contain spaces'
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    error = 'Invalid email format'
+                }
+                break
+            case 'phone':
+                if (!value.trim()) {
+                    error = 'Phone number is required'
+                } else if (!/^\d{10}$/.test(value)) {
+                    error = 'Phone number must be exactly 10 digits'
+                }
+                break
+            case 'city':
+                if (!value) error = 'Please select a city'
+                break
+            case 'password':
+                if (value.length < 8) {
+                    error = 'Min. 8 characters'
+                } else if (!/[A-Z]/.test(value)) {
+                    error = 'Must contain at least 1 uppercase letter'
+                } else if (!/[^A-Za-z0-9]/.test(value)) {
+                    error = 'Must contain at least 1 special character'
+                } else if (!/[0-9]/.test(value)) {
+                    error = 'Must contain at least 1 number'
+                } else if (!/[a-z]/.test(value)) {
+                    error = 'Must contain at least 1 lowercase letter'
+                }
+                break
+            case 'confirmPassword':
+                if (value !== form.password) error = 'Passwords do not match'
+                break
+            default:
+                break
+        }
+        return error
+    }
+
     const validate = () => {
         const errs = {}
-        if (!form.name.trim()) errs.name = 'Name is required'
-        if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = 'Valid email required'
-        if (!form.phone.trim()) errs.phone = 'Phone is required'
-        if (!form.city) errs.city = 'Please select a city'
-        if (form.password.length < 8) errs.password = 'Password must be at least 8 characters'
-        if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match'
+        Object.keys(form).forEach(key => {
+            const error = validateElement(key, form[key])
+            if (error) errs[key] = error
+        })
         return errs
     }
 
@@ -182,12 +237,12 @@ const Register = () => {
             >
                 {/* Logo */}
                 <div style={{ marginBottom: 32 }}>
-                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' ,marginLeft:-33}}>
                         <OPMWLogo size="md" showAnimation={false} />
                     </Link>
                 </div>
 
-                <h1 style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 700, color: 'var(--text-primary)', marginBottom: 6, letterSpacing: '-0.02em' }}>
+                <h1 style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4, marginTop: -60, letterSpacing: '-0.02em' }}>
                     Create your account
                 </h1>
                 <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 28 }}>

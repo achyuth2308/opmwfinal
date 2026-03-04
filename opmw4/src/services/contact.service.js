@@ -4,8 +4,7 @@ export const submitContactForm = async (data) => {
     const payload = {
         name: data.name,
         email: data.email,
-        company: data.company,
-        service_interest: data.service_interest,
+        subject: data.service_interest || data.subject || 'General Inquiry',
         message: data.message,
     }
     return apiClient.post('/api/contact', payload)
