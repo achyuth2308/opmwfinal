@@ -4,6 +4,7 @@ import { CheckCircle2, Loader2 } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import useFormSubmit from '@/hooks/useFormSubmit'
 import { requestDemo } from '@/services/demo.service'
+import { useNavigate } from 'react-router-dom'
 
 const EMPLOYEE_OPTIONS = [
     '1–25',
@@ -24,58 +25,79 @@ const initialForm = {
 }
 
 const DemoRequestForm = () => {
+    const navigate = useNavigate()
     const [form, setForm] = useState(initialForm)
+    const [localErrors, setLocalErrors] = useState({})
 
-    const { handleSubmit, isLoading, error, success, fieldErrors } = useFormSubmit(requestDemo, {
-        onSuccess: () => { },
+    const { handleSubmit, isLoading, error, fieldErrors } = useFormSubmit(requestDemo, {
+        onSuccess: () => {
+            // Success! Navigate to login after a brief moment
+            setTimeout(() => {
+                navigate('/login')
+            }, 1500)
+        },
         resetOnSuccess: true,
     })
 
+    const validateField = (name, value) => {
+        let error = ''
+        if (name === 'contact_name') {
+            if (!/^[A-Za-z]+( [A-Za-z]+)*$/.test(value)) {
+                error = 'Name must contain only letters and single spaces'
+            }
+        } else if (name === 'email') {
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                error = 'Please enter a valid work email'
+            }
+        } else if (name === 'phone') {
+            if (!/^\d{10}$/.test(value)) {
+                error = 'Phone must be exactly 10 digits'
+            }
+        } else if (value.trim() === '' && name !== 'message') {
+            error = 'This field is required'
+        }
+        return error
+    }
+
     const handleChange = (e) => {
         const { name, value } = e.target
-        setForm((prev) => ({ ...prev, [name]: value }))
+
+        // Prevent "long spaces" (multiple consecutive spaces)
+        let processedValue = value.replace(/\s\s+/g, ' ')
+
+        // Specific phone logic: digits only, max 10
+        if (name === 'phone') {
+            processedValue = value.replace(/\D/g, '').slice(0, 10)
+        }
+
+        setForm((prev) => ({ ...prev, [name]: processedValue }))
+
+        // Clear local error on change
+        if (localErrors[name]) {
+            setLocalErrors(prev => ({ ...prev, [name]: '' }))
+        }
     }
 
     const onSubmit = (e) => {
         e.preventDefault()
-        handleSubmit(form, () => setForm(initialForm))
+
+        const errors = {}
+        Object.keys(initialForm).forEach(key => {
+            const err = validateField(key, form[key])
+            if (err) errors[key] = err
+        })
+
+        if (Object.keys(errors).length > 0) {
+            setLocalErrors(errors)
+            return
+        }
+
+        handleSubmit(form)
     }
 
-    if (success) {
-        return (
-            <SectionWrapper className="section-gutter">
-                <div
-                    style={{
-                        maxWidth: 600,
-                        margin: '0 auto',
-                        padding: 'clamp(48px, 6vw, 80px) 24px',
-                        textAlign: 'center',
-                    }}
-                >
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 16 }}
-                    >
-                        <CheckCircle2 size={48} style={{ color: 'var(--accent)', margin: '0 auto 20px' }} />
-                        <h3
-                            style={{
-                                fontSize: 24,
-                                fontWeight: 700,
-                                color: 'var(--text-primary)',
-                                marginBottom: 12,
-                            }}
-                        >
-                            Demo request received
-                        </h3>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: 15 }}>
-                            Our team will reach out within 1 business day to schedule your HRMS demo.
-                        </p>
-                    </motion.div>
-                </div>
-            </SectionWrapper>
-        )
-    }
+    const allFieldErrors = { ...fieldErrors, ...localErrors }
+
+    const success = false // We handle success via navigation now
 
     return (
         <SectionWrapper className="section-gutter">
@@ -141,11 +163,11 @@ const DemoRequestForm = () => {
                                     placeholder="Acme Corp"
                                     value={form.company_name}
                                     onChange={handleChange}
-                                    className={`field-input${fieldErrors.company_name ? ' error' : ''}`}
+                                    className={`field-input${allFieldErrors.company_name ? ' error' : ''}`}
                                 />
-                                {fieldErrors.company_name && (
+                                {allFieldErrors.company_name && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
-                                        {fieldErrors.company_name}
+                                        {allFieldErrors.company_name}
                                     </p>
                                 )}
                             </div>
@@ -163,11 +185,11 @@ const DemoRequestForm = () => {
                                     placeholder="Your full name"
                                     value={form.contact_name}
                                     onChange={handleChange}
-                                    className={`field-input${fieldErrors.contact_name ? ' error' : ''}`}
+                                    className={`field-input${allFieldErrors.contact_name ? ' error' : ''}`}
                                 />
-                                {fieldErrors.contact_name && (
+                                {allFieldErrors.contact_name && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
-                                        {fieldErrors.contact_name}
+                                        {allFieldErrors.contact_name}
                                     </p>
                                 )}
                             </div>
@@ -185,11 +207,11 @@ const DemoRequestForm = () => {
                                     placeholder="you@company.com"
                                     value={form.email}
                                     onChange={handleChange}
-                                    className={`field-input${fieldErrors.email ? ' error' : ''}`}
+                                    className={`field-input${allFieldErrors.email ? ' error' : ''}`}
                                 />
-                                {fieldErrors.email && (
+                                {allFieldErrors.email && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
-                                        {fieldErrors.email}
+                                        {allFieldErrors.email}
                                     </p>
                                 )}
                             </div>
@@ -207,11 +229,11 @@ const DemoRequestForm = () => {
                                     placeholder="+91 XXXXX XXXXX"
                                     value={form.phone}
                                     onChange={handleChange}
-                                    className={`field-input${fieldErrors.phone ? ' error' : ''}`}
+                                    className={`field-input${allFieldErrors.phone ? ' error' : ''}`}
                                 />
-                                {fieldErrors.phone && (
+                                {allFieldErrors.phone && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
-                                        {fieldErrors.phone}
+                                        {allFieldErrors.phone}
                                     </p>
                                 )}
                             </div>
@@ -227,7 +249,7 @@ const DemoRequestForm = () => {
                                     required
                                     value={form.employee_count}
                                     onChange={handleChange}
-                                    className={`field-input${fieldErrors.employee_count ? ' error' : ''}`}
+                                    className={`field-input${allFieldErrors.employee_count ? ' error' : ''}`}
                                 >
                                     <option value="">Select employee range</option>
                                     {EMPLOYEE_OPTIONS.map((opt) => (
@@ -236,9 +258,9 @@ const DemoRequestForm = () => {
                                         </option>
                                     ))}
                                 </select>
-                                {fieldErrors.employee_count && (
+                                {allFieldErrors.employee_count && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
-                                        {fieldErrors.employee_count}
+                                        {allFieldErrors.employee_count}
                                     </p>
                                 )}
                             </div>

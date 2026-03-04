@@ -47,7 +47,16 @@ const Register = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setForm((prev) => ({ ...prev, [name]: value }))
+
+        // Prevent multiple consecutive spaces
+        let processedValue = value.replace(/\s\s+/g, ' ')
+
+        // Ensure phone is only digits and max 10
+        if (name === 'phone') {
+            processedValue = value.replace(/\D/g, '').slice(0, 10)
+        }
+
+        setForm((prev) => ({ ...prev, [name]: processedValue }))
         setError('')
         setFieldErrors((prev) => ({ ...prev, [name]: '' }))
     }

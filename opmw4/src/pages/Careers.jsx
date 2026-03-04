@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import TypewriterText from '@/components/shared/TypewriterText'
 import RoleCard from '@/components/careers/RoleCard'
-import ApplyForm from '@/components/careers/ApplyForm'
 import FilterBar from '@/components/projects/FilterBar'
 import { CAREERS, CAREER_CITY_FILTERS, CAREER_DEPT_FILTERS } from '@/constants/careers'
 
 const Careers = () => {
-    const [jobs, setJobs] = useState([])
+    const navigate = useNavigate()
+    const [jobs, setJobs] = useState(CAREERS)
     const [isLoading, setIsLoading] = useState(true)
     const [cityFilter, setCityFilter] = useState('All')
     const [deptFilter, setDeptFilter] = useState('All')
-    const [applyRole, setApplyRole] = useState(null)
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -240,7 +240,7 @@ const Careers = () => {
                                     transition={{ duration: 0.4, delay: i * 0.06 }}
                                     style={{ display: 'flex' }}
                                 >
-                                    <RoleCard role={role} onApply={(r) => setApplyRole(r)} />
+                                    <RoleCard role={role} onApply={() => navigate('/login')} />
                                 </motion.div>
                             ))}
                         </motion.div>
@@ -254,10 +254,6 @@ const Careers = () => {
                 </div>
             </SectionWrapper>
 
-            {/* Apply drawer */}
-            {applyRole && (
-                <ApplyForm role={applyRole} onClose={() => setApplyRole(null)} />
-            )}
         </>
     )
 }
