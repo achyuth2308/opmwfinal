@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import TypewriterText from '@/components/shared/TypewriterText'
@@ -8,11 +8,31 @@ import FilterBar from '@/components/projects/FilterBar'
 import { CAREERS, CAREER_CITY_FILTERS, CAREER_DEPT_FILTERS } from '@/constants/careers'
 
 const Careers = () => {
+    const [jobs, setJobs] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const [cityFilter, setCityFilter] = useState('All')
     const [deptFilter, setDeptFilter] = useState('All')
     const [applyRole, setApplyRole] = useState(null)
 
-    const filtered = CAREERS.filter((role) => {
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                const url = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+                const res = await fetch(`${url}/jobs`)
+                if (res.ok) {
+                    const data = await res.json()
+                    setJobs(data)
+                }
+            } catch (err) {
+                console.error('Failed to fetch jobs:', err)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchJobs()
+    }, [])
+
+    const filtered = jobs.filter((role) => {
         const cityMatch = cityFilter === 'All' || role.cities.includes(cityFilter)
         const deptMatch = deptFilter === 'All' || role.department === deptFilter
         return cityMatch && deptMatch
@@ -191,7 +211,7 @@ const Careers = () => {
                             letterSpacing: '0.06em',
                         }}
                     >
-                        Showing {filtered.length} of {CAREERS.length} positions
+                        Showing {filtered.length} of {jobs.length} positions
                     </p>
 
                     {/* Cards */}
@@ -208,12 +228,17 @@ const Careers = () => {
                                 gap: 20,
                             }}
                         >
-                            {filtered.map((role, i) => (
+                            {isLoading ? (
+                                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
+                                    <p>Loading positions…</p>
+                                </div>
+                            ) : filtered.map((role, i) => (
                                 <motion.div
                                     key={role.id}
                                     initial={{ opacity: 0, y: 16 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.4, delay: i * 0.06 }}
+                                    style={{ display: 'flex' }}
                                 >
                                     <RoleCard role={role} onApply={(r) => setApplyRole(r)} />
                                 </motion.div>

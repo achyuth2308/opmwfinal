@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, X, Menu, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search, X, Menu, ChevronLeft, ChevronRight, FileDown } from 'lucide-react'
 import { AdminSidebar, STATUS_COLORS } from './AdminDashboard'
 import { getAdminApplications, updateApplicationStatus } from '@/services/admin.service'
 
@@ -53,12 +53,21 @@ const AdminApplications = () => {
         if (!newStatus || !selectedApp) return
         setUpdating(true)
         try {
-            await updateApplicationStatus(token, selectedApp.id, newStatus, adminNotes)
+            const result = await updateApplicationStatus(token, selectedApp.id, newStatus, adminNotes)
+
+            // If the status was Rejected, the backend deleted it, so remove it from state
+            if (newStatus === 'Rejected') {
+                setApplications(prev => prev.filter(a => a.id !== selectedApp.id))
+            } else {
+                loadApplications(pagination.current_page)
+            }
+
             setSelectedApp(null)
             setNewStatus('')
             setAdminNotes('')
-            loadApplications(pagination.current_page)
-        } catch { /* ignore */ } finally {
+        } catch (err) {
+            alert(err.message || 'Failed to update status.')
+        } finally {
             setUpdating(false)
         }
     }
@@ -140,16 +149,27 @@ const AdminApplications = () => {
                                                 <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.role}</td>
                                                 <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-muted)' }}>{app.location}</td>
                                                 <td style={{ padding: '14px 20px' }}>
-                                                    <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: c.color, background: c.bg, border: `1px solid ${c.border}`, borderRadius: 4, padding: '2px 8px' }}>{app.status}</span>
+                                                    <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: c.color, background: c.bg, border: `1px solid ${c.border}`, borderRadius: 4, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', fontWeight: 700, boxShadow: `0 2px 8px ${c.bg}` }}>{app.status}</span>
                                                 </td>
                                                 <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(app.created_at).toLocaleDateString('en-IN')}</td>
-                                                <td style={{ padding: '14px 20px' }}>
+                                                <td style={{ padding: '14px 20px', display: 'flex', gap: 8 }}>
                                                     <button
                                                         onClick={() => { setSelectedApp(app); setNewStatus(app.status); setAdminNotes(app.admin_notes || '') }}
                                                         style={{ padding: '5px 12px', borderRadius: 6, background: 'rgba(110,231,250,0.06)', border: '1px solid rgba(110,231,250,0.2)', color: 'var(--accent)', fontSize: 12, cursor: 'pointer', transition: 'all 200ms ease' }}
                                                     >
                                                         Manage
                                                     </button>
+                                                    {app.resume_path && (
+                                                        <a
+                                                            href={`${(import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace('/api', '')}/storage/${app.resume_path}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            style={{ padding: 6, borderRadius: 6, background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                                            title="View Resume"
+                                                        >
+                                                            <FileDown size={14} />
+                                                        </a>
+                                                    )}
                                                 </td>
                                             </tr>
                                         )
@@ -186,14 +206,47 @@ const AdminApplications = () => {
                             <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{selectedApp.role} — {selectedApp.location}</p>
                         </div>
 
-                        <div style={{ marginBottom: 16 }}>
-                            <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Status</label>
-                            <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)} style={{ width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)', fontSize: 14, outline: 'none', boxSizing: 'border-box' }}>
-                                {['Pending', 'Reviewed', 'Shortlisted', 'Rejected', 'Selected'].map((s) => (
-                                    <option key={s} value={s}>{s}</option>
-                                ))}
-                            </select>
+                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Select Next Step</p>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
+                            {['Pending', 'Reviewed', 'Shortlisted', 'Selected', 'Rejected'].map((s) => {
+                                const isCurrent = (newStatus || selectedApp.status) === s;
+                                const flow = {
+                                    'Pending': ['Reviewed', 'Rejected'],
+                                    'Reviewed': ['Shortlisted', 'Rejected'],
+                                    'Shortlisted': ['Selected', 'Rejected'],
+                                    'Rejected': ['Reviewed'],
+                                    'Selected': ['Shortlisted']
+                                };
+                                // Logic for what buttons to show
+                                const currentInDb = selectedApp.status;
+                                const isPossible = flow[currentInDb]?.includes(s) || currentInDb === s;
+                                const c = STATUS_COLORS[s] || STATUS_COLORS.Pending;
+
+                                if (!isPossible) return null;
+
+                                return (
+                                    <button
+                                        key={s}
+                                        onClick={() => setNewStatus(s)}
+                                        style={{
+                                            padding: '8px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', border: '1px solid',
+                                            background: isCurrent ? c.bg : 'rgba(255,255,255,0.03)',
+                                            borderColor: isCurrent ? c.color : 'var(--border)',
+                                            color: isCurrent ? c.color : 'var(--text-muted)',
+                                            transition: 'all 200ms ease',
+                                            fontFamily: 'JetBrains Mono, monospace'
+                                        }}
+                                    >
+                                        {s} {currentInDb === s && '•'}
+                                    </button>
+                                );
+                            })}
                         </div>
+                        {newStatus && newStatus !== selectedApp.status && (
+                            <p style={{ fontSize: 12, color: 'var(--accent)', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500 }}>
+                                Confirm change: <strong>{selectedApp.status}</strong> → <strong>{newStatus}</strong>
+                            </p>
+                        )}
 
                         <div style={{ marginBottom: 20 }}>
                             <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Admin Notes</label>

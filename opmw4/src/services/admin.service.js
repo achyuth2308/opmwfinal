@@ -103,3 +103,50 @@ export const getAdminContacts = async (token) => {
     if (!res.ok) throw { message: 'Failed to load contacts.', status: res.status }
     return res.json()
 }
+/**
+ * Admin Jobs
+ */
+export const getAdminJobs = async (token) => {
+    const res = await fetch(`${API_BASE}/api/admin/jobs`, {
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    })
+    if (!res.ok) throw { message: 'Failed to load jobs.', status: res.status }
+    return res.json()
+}
+
+export const createAdminJob = async (token, jobData) => {
+    const res = await fetch(`${API_BASE}/api/admin/jobs`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+        },
+        body: JSON.stringify(jobData),
+    })
+    if (!res.ok) throw { message: 'Failed to create job.', status: res.status }
+    return res.json()
+}
+
+export const updateAdminJob = async (token, id, jobData) => {
+    const res = await fetch(`${API_BASE}/api/admin/jobs/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+        },
+        body: JSON.stringify(jobData),
+    })
+    if (!res.ok) throw { message: 'Failed to update job.', status: res.status }
+    return res.json()
+}
+
+export const deleteAdminJob = async (token, id) => {
+    const res = await fetch(`${API_BASE}/api/admin/jobs/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
+    })
+    if (!res.ok) throw { message: 'Failed to delete job.', status: res.status }
+    return true
+}
