@@ -5,7 +5,9 @@ const ScrollToTop = () => {
     const { pathname } = useLocation()
 
     useEffect(() => {
-        window.scrollTo(0, 0)
+        // Use 'instant' to jump immediately to top without any scroll animation.
+        // This prevents the "scrolling from bottom to top" effect on page navigation.
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     }, [pathname])
 
     return null

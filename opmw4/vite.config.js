@@ -12,6 +12,13 @@ export default defineConfig({
   server: {
     port: 5173,
     open: false,
+    // Redirect all 404s back to index.html so React Router handles them
+    historyApiFallback: true,
+  },
+  preview: {
+    port: 4173,
+    // Same fix for `vite preview` (production build preview)
+    historyApiFallback: true,
   },
   build: {
     rollupOptions: {
@@ -26,3 +33,4 @@ export default defineConfig({
     },
   },
 })
+

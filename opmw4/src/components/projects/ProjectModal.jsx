@@ -89,7 +89,7 @@ const ProjectModal = ({ project, onClose }) => {
                             background: '#0F1219',
                             border: `1px solid ${colors.border}`,
                             borderRadius: 24,
-                            padding: 'clamp(28px, 5vw, 56px)',
+                            padding: 0,
                             boxShadow: `0 0 100px ${colors.bg}, 0 40px 120px rgba(0,0,0,0.7)`,
                             pointerEvents: 'auto',
                         }}
@@ -102,205 +102,243 @@ const ProjectModal = ({ project, onClose }) => {
                                 position: 'absolute',
                                 top: 20,
                                 right: 20,
-                                background: 'rgba(255,255,255,0.06)',
-                                border: '1px solid var(--border)',
-                                borderRadius: 8,
-                                width: 32,
-                                height: 32,
+                                zIndex: 10,
+                                background: 'rgba(0, 0, 0, 0.5)',
+                                backdropFilter: 'blur(12px)',
+                                WebkitBackdropFilter: 'blur(12px)',
+                                border: '1px solid rgba(255, 255, 255, 0.15)',
+                                borderRadius: '50%',
+                                width: 36,
+                                height: 36,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 cursor: 'pointer',
-                                color: 'var(--text-secondary)',
+                                color: 'white',
                                 transition: 'all 200ms ease',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
-                                e.currentTarget.style.color = 'var(--text-primary)'
+                                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)'
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
+                                e.currentTarget.style.transform = 'scale(1.1)'
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
-                                e.currentTarget.style.color = 'var(--text-secondary)'
+                                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)'
+                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)'
+                                e.currentTarget.style.transform = 'scale(1)'
                             }}
                         >
-                            <X size={15} />
+                            <X size={18} />
                         </button>
 
-                        {/* Header badges row */}
-                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-                            {/* Category badge */}
-                            <span
-                                style={{
-                                    fontSize: 10,
-                                    fontFamily: 'JetBrains Mono, monospace',
-                                    letterSpacing: '0.14em',
-                                    textTransform: 'uppercase',
-                                    color: colors.text,
-                                    background: colors.bg,
-                                    border: `1px solid ${colors.border}`,
-                                    borderRadius: 4,
-                                    padding: '3px 10px',
-                                    display: 'inline-block',
-                                }}
-                            >
-                                {project.category}
-                            </span>
-
-                            {/* Status badge */}
-                            <span
-                                style={{
-                                    fontSize: 10,
-                                    fontFamily: 'JetBrains Mono, monospace',
-                                    letterSpacing: '0.14em',
-                                    textTransform: 'uppercase',
-                                    color: statusColor,
-                                    background: `${statusColor}14`,
-                                    border: `1px solid ${statusColor}40`,
-                                    borderRadius: 4,
-                                    padding: '3px 10px',
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: 5,
-                                }}
-                            >
-                                <span style={{ width: 5, height: 5, borderRadius: '50%', background: statusColor, display: 'inline-block' }} />
-                                {project.status}
-                            </span>
-                        </div>
-
-                        {/* Title */}
-                        <h2
-                            style={{
-                                fontSize: 'clamp(20px, 2.8vw, 28px)',
-                                fontWeight: 700,
-                                letterSpacing: '-0.02em',
-                                color: 'var(--text-primary)',
-                                marginBottom: 20,
-                                paddingRight: 40,
-                                lineHeight: 1.25,
-                            }}
-                        >
-                            {project.title}
-                        </h2>
-
-                        {/* Divider */}
-                        <div style={{ height: 1, background: 'linear-gradient(90deg, var(--border), transparent)', marginBottom: 24 }} />
-
-                        {/* Summary */}
-                        {project.summary && (
-                            <div style={{ marginBottom: 22 }}>
-                                <p
+                        {/* Project Image */}
+                        {project.image && (
+                            <div style={{
+                                width: '100%',
+                                margin: 0,
+                                height: 'clamp(240px, 35vh, 320px)',
+                                position: 'relative',
+                                overflow: 'hidden'
+                            }}>
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
                                     style={{
-                                        fontSize: 11,
-                                        fontFamily: 'JetBrains Mono, monospace',
-                                        letterSpacing: '0.12em',
-                                        textTransform: 'uppercase',
-                                        color: 'var(--text-muted)',
-                                        marginBottom: 10,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 6,
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover'
                                     }}
-                                >
-                                    <FileText size={11} />
-                                    Project Summary
-                                </p>
-                                <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
-                                    {project.summary}
-                                </p>
+                                />
+                                <div style={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    background: 'linear-gradient(to top, #0F1219 0%, transparent 80%)'
+                                }} />
                             </div>
                         )}
 
-                        {/* Scope */}
-                        {project.scope && (
-                            <div style={{ marginBottom: 22 }}>
-                                <p
+                        {/* Content Area */}
+                        <div style={{ padding: 'clamp(28px, 5vw, 56px)', paddingTop: project.image ? 8 : 'clamp(28px, 5vw, 56px)' }}>
+                            {/* Header badges row */}
+                            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
+                                {/* Category badge */}
+                                <span
                                     style={{
-                                        fontSize: 11,
+                                        fontSize: 10,
                                         fontFamily: 'JetBrains Mono, monospace',
-                                        letterSpacing: '0.12em',
+                                        letterSpacing: '0.14em',
                                         textTransform: 'uppercase',
-                                        color: 'var(--text-muted)',
-                                        marginBottom: 10,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 6,
+                                        color: colors.text,
+                                        background: colors.bg,
+                                        border: `1px solid ${colors.border}`,
+                                        borderRadius: 4,
+                                        padding: '4px 12px',
+                                        display: 'inline-block',
+                                        fontWeight: 600
                                     }}
                                 >
-                                    <Layers size={11} />
-                                    Scope of Work
-                                </p>
-                                <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
-                                    {project.scope}
-                                </p>
-                            </div>
-                        )}
+                                    {project.category}
+                                </span>
 
-                        {/* Outcome */}
-                        <div style={{ marginBottom: 22 }}>
-                            <p
+                                {/* Status badge */}
+                                <span
+                                    style={{
+                                        fontSize: 10,
+                                        fontFamily: 'JetBrains Mono, monospace',
+                                        letterSpacing: '0.14em',
+                                        textTransform: 'uppercase',
+                                        color: statusColor,
+                                        background: `${statusColor}14`,
+                                        border: `1px solid ${statusColor}40`,
+                                        borderRadius: 4,
+                                        padding: '4px 12px',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: 6,
+                                        fontWeight: 600
+                                    }}
+                                >
+                                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: statusColor, display: 'inline-block' }} />
+                                    {project.status}
+                                </span>
+                            </div>
+
+                            {/* Title */}
+                            <h2
                                 style={{
-                                    fontSize: 11,
-                                    fontFamily: 'JetBrains Mono, monospace',
-                                    letterSpacing: '0.12em',
-                                    textTransform: 'uppercase',
-                                    color: 'var(--text-muted)',
-                                    marginBottom: 10,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 6,
+                                    fontSize: 'clamp(24px, 3.5vw, 36px)',
+                                    fontWeight: 800,
+                                    letterSpacing: '-0.03em',
+                                    color: 'white',
+                                    marginBottom: 24,
+                                    lineHeight: 1.15,
                                 }}
                             >
-                                <CheckCircle2 size={11} />
-                                Outcome
-                            </p>
-                            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                                <CheckCircle2 size={16} style={{ color: 'var(--accent)', flexShrink: 0, marginTop: 2 }} />
-                                <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                                    {project.outcome}
-                                </p>
-                            </div>
-                        </div>
+                                {project.title}
+                            </h2>
 
-                        {/* Tech stack */}
-                        <div>
-                            <p
-                                style={{
-                                    fontSize: 11,
-                                    fontFamily: 'JetBrains Mono, monospace',
-                                    letterSpacing: '0.12em',
-                                    textTransform: 'uppercase',
-                                    color: 'var(--text-muted)',
-                                    marginBottom: 10,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 6,
-                                }}
-                            >
-                                <Tag size={11} />
-                                Technology Stack
-                            </p>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                                {project.tech.map((t) => (
-                                    <span
-                                        key={t}
+                            {/* Divider */}
+                            <div style={{ height: 1, background: 'linear-gradient(90deg, var(--border), transparent)', marginBottom: 32 }} />
+
+                            {/* Rest of details... */}
+
+                            {/* Summary */}
+                            {project.summary && (
+                                <div style={{ marginBottom: 22 }}>
+                                    <p
                                         style={{
+                                            fontSize: 11,
+                                            fontFamily: 'JetBrains Mono, monospace',
+                                            letterSpacing: '0.12em',
+                                            textTransform: 'uppercase',
+                                            color: 'var(--text-muted)',
+                                            marginBottom: 10,
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 6,
-                                            padding: '5px 12px',
-                                            background: 'rgba(255,255,255,0.04)',
-                                            border: '1px solid var(--border)',
-                                            borderRadius: 6,
-                                            fontSize: 12,
-                                            fontFamily: 'JetBrains Mono, monospace',
-                                            color: 'var(--text-secondary)',
                                         }}
                                     >
-                                        <Tag size={10} />
-                                        {t}
-                                    </span>
-                                ))}
+                                        <FileText size={11} />
+                                        Project Summary
+                                    </p>
+                                    <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
+                                        {project.summary}
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Scope */}
+                            {project.scope && (
+                                <div style={{ marginBottom: 22 }}>
+                                    <p
+                                        style={{
+                                            fontSize: 11,
+                                            fontFamily: 'JetBrains Mono, monospace',
+                                            letterSpacing: '0.12em',
+                                            textTransform: 'uppercase',
+                                            color: 'var(--text-muted)',
+                                            marginBottom: 10,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 6,
+                                        }}
+                                    >
+                                        <Layers size={11} />
+                                        Scope of Work
+                                    </p>
+                                    <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
+                                        {project.scope}
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Outcome */}
+                            <div style={{ marginBottom: 22 }}>
+                                <p
+                                    style={{
+                                        fontSize: 11,
+                                        fontFamily: 'JetBrains Mono, monospace',
+                                        letterSpacing: '0.12em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--text-muted)',
+                                        marginBottom: 10,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 6,
+                                    }}
+                                >
+                                    <CheckCircle2 size={11} />
+                                    Outcome
+                                </p>
+                                <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                                    <CheckCircle2 size={16} style={{ color: 'var(--accent)', flexShrink: 0, marginTop: 2 }} />
+                                    <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+                                        {project.outcome}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Tech stack */}
+                            <div>
+                                <p
+                                    style={{
+                                        fontSize: 11,
+                                        fontFamily: 'JetBrains Mono, monospace',
+                                        letterSpacing: '0.12em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--text-muted)',
+                                        marginBottom: 10,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 6,
+                                    }}
+                                >
+                                    <Tag size={11} />
+                                    Technology Stack
+                                </p>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                                    {project.tech.map((t) => (
+                                        <span
+                                            key={t}
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 6,
+                                                padding: '5px 12px',
+                                                background: 'rgba(255,255,255,0.04)',
+                                                border: '1px solid var(--border)',
+                                                borderRadius: 6,
+                                                fontSize: 12,
+                                                fontFamily: 'JetBrains Mono, monospace',
+                                                color: 'var(--text-secondary)',
+                                            }}
+                                        >
+                                            <Tag size={10} />
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </motion.div>
@@ -320,6 +358,7 @@ ProjectModal.propTypes = {
         tech: PropTypes.arrayOf(PropTypes.string).isRequired,
         outcome: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired,
+        image: PropTypes.string,
     }),
     onClose: PropTypes.func.isRequired,
 }

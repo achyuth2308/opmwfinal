@@ -26,12 +26,11 @@ const HeroSection = () => {
         <section
             ref={sectionRef}
             style={{
-                height: 'calc(100vh - 64px)', // Fixed height matching the screen minus navbar
-                minHeight: '800px', // Fallback for extremely short screens
+                minHeight: 'calc(100vh - 64px)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: 'clamp(60px, 8vw, 120px) clamp(24px, 5vw, 80px)',
+                padding: 'clamp(24px, 6vw, 120px) clamp(16px, 5vw, 80px)',
                 position: 'relative',
                 overflow: 'hidden',
             }}
@@ -124,6 +123,7 @@ const HeroSection = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        textAlign: 'center',
                     }}
                 >
                     <TypewriterText
@@ -135,8 +135,8 @@ const HeroSection = () => {
                     />
                     <TypewriterText
                         text={[
-                            { text: 'Multiple', shimmer: true },
-                            { text: ' Solutions' }
+                            { text: 'Multiple ', shimmer: true },
+                            { text: 'Solutions' }
                         ]}
                         delay={1.8}
                     />

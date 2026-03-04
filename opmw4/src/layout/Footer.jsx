@@ -16,6 +16,7 @@ const Footer = () => {
         >
             <div style={{ maxWidth: 1200, margin: '0 auto' }}>
                 <div
+                    className="footer-grid"
                     style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
@@ -24,11 +25,12 @@ const Footer = () => {
                     }}
                 >
                     {/* Brand column */}
-                    <div style={{ gridColumn: 'span 1' }}>
-                        <Link to="/" style={{ display: 'inline-flex', marginBottom: 16 }}>
+                    <div className="footer-brand-column" style={{ gridColumn: 'span 1' }}>
+                        <Link to="/" className="footer-logo-link" style={{ display: 'inline-flex', marginBottom: 16 }}>
                             <OPMWLogo size="md" showAnimation={false} />
                         </Link>
                         <p
+                            className="footer-description"
                             style={{
                                 color: 'var(--text-secondary)',
                                 fontSize: 14,
@@ -39,7 +41,7 @@ const Footer = () => {
                         >
                             One Place Multi Work — India&apos;s integrated enterprise operations platform delivering BPO, IT, and HRMS under one brand.
                         </p>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        <div className="footer-contact-info" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             <a
                                 href="mailto:info@opmw.in"
                                 style={{
@@ -73,7 +75,7 @@ const Footer = () => {
                     </div>
 
                     {/* Company links */}
-                    <div>
+                    <div className="footer-column">
                         <p
                             style={{
                                 fontSize: 11,
@@ -108,7 +110,7 @@ const Footer = () => {
                     </div>
 
                     {/* Services links */}
-                    <div>
+                    <div className="footer-column">
                         <p
                             style={{
                                 fontSize: 11,
@@ -143,7 +145,7 @@ const Footer = () => {
                     </div>
 
                     {/* Legal */}
-                    <div>
+                    <div className="footer-column">
                         <p
                             style={{
                                 fontSize: 11,
@@ -222,6 +224,7 @@ const Footer = () => {
 
                 {/* Bottom bar */}
                 <div
+                    className="footer-bottom-bar"
                     style={{
                         paddingTop: 32,
                         borderTop: '1px solid var(--border)',

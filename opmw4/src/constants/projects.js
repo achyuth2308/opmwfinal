@@ -8,6 +8,7 @@ export const PROJECTS = [
         tech: ['Predictive Dialer', 'CRM Integration', 'QA Dashboard', 'VoIP'],
         outcome: 'Achieved 92% SLA compliance within 60 days. Campaign sustained at 90 agents across 2 shifts.',
         status: 'Completed',
+        image: '/OPMW Images/International Voice Campaign Deployment.png',
     },
     {
         id: 'amazon-seller',
@@ -18,6 +19,7 @@ export const PROJECTS = [
         tech: ['Amazon Seller Central', 'Excel Automation', 'Internal Ticketing', 'Google Sheets'],
         outcome: 'Reduced catalog error rate by 40%. Case resolution time dropped from 5 days to 1.5 days.',
         status: 'Ongoing',
+        image: '/OPMW Images/Amazon Seller Support Program.png',
     },
     {
         id: 'non-voice',
@@ -28,6 +30,7 @@ export const PROJECTS = [
         tech: ['Internal QA Portal', 'Google Workspace', 'Excel', 'Python Scripts'],
         outcome: '120 executives deployed. 99.1% accuracy rate maintained across 3 months of delivery.',
         status: 'Completed',
+        image: '/OPMW Images/Multi-City Non-Voice Execution.png',
     },
     {
         id: 'hrms-impl',
@@ -38,6 +41,7 @@ export const PROJECTS = [
         tech: ['OPMW HRMS', 'Laravel', 'MySQL', 'Biometric API', 'React'],
         outcome: 'Payroll processing time reduced from 3 days to 4 hours. 100% statutory compliance achieved.',
         status: 'Completed',
+        image: '/OPMW Images/Enterprise HRMS Implementation.png',
     },
     {
         id: 'brick-monitoring',
@@ -48,6 +52,7 @@ export const PROJECTS = [
         tech: ['Laravel', 'React', 'MySQL', 'WebSockets', 'Chart.js', 'REST API'],
         outcome: 'Reduced production reporting lag from 24 hours to real-time. Admin panel adopted across all 8 sites.',
         status: 'Completed',
+        image: '/OPMW Images/Brick-Oriented Monitoring Web App.png',
     },
     {
         id: 'workforce-automation',
@@ -58,6 +63,7 @@ export const PROJECTS = [
         tech: ['Laravel', 'MySQL', 'Cron Jobs', 'OPMW HRMS API', 'Vue.js', 'Redis'],
         outcome: 'Eliminated 40+ hours/month of manual HR operations. Fully live across all 5 OPMW branches.',
         status: 'Ongoing',
+        image: '/OPMW Images/Workforce Automation Platform.png',
     },
 ]
 

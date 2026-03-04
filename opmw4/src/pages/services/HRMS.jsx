@@ -89,8 +89,9 @@ const HRMSDashboardMockup = () => (
             borderRadius: 16,
             overflow: 'hidden',
             width: '100%',
-            maxWidth: 700,
+            maxWidth: 760,
             margin: '0 auto',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.4)',
         }}
     >
         {/* Header bar */}
@@ -112,9 +113,10 @@ const HRMSDashboardMockup = () => (
             </span>
         </div>
 
-        <div style={{ display: 'flex', minHeight: 260 }}>
-            {/* Sidebar */}
+        <div style={{ display: 'flex', minHeight: 300 }}>
+            {/* Sidebar — Hidden on mobile */}
             <div
+                className="hidden-mobile"
                 style={{
                     width: 160,
                     background: 'rgba(255,255,255,0.02)',
@@ -134,7 +136,6 @@ const HRMSDashboardMockup = () => (
                             borderLeft: i === 0 ? '2px solid var(--accent)' : '2px solid transparent',
                             fontFamily: 'Inter, sans-serif',
                             fontWeight: i === 0 ? 600 : 400,
-                            cursor: 'default',
                         }}
                     >
                         {item}
@@ -142,10 +143,14 @@ const HRMSDashboardMockup = () => (
                 ))}
             </div>
 
-            {/* Content */}
-            <div style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                {/* Metric cards */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+            {/* Content Area */}
+            <div style={{ flex: 1, padding: '20px clamp(12px, 3vw, 24px)', display: 'flex', flexDirection: 'column', gap: 20 }}>
+                {/* Responsive Metric cards */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+                    gap: 12
+                }}>
                     {[
                         { label: 'Total Employees', value: '248' },
                         { label: 'On Leave Today', value: '12' },
@@ -157,40 +162,43 @@ const HRMSDashboardMockup = () => (
                                 background: 'rgba(255,255,255,0.03)',
                                 border: '1px solid rgba(255,255,255,0.06)',
                                 borderRadius: 8,
-                                padding: 12,
+                                padding: 14,
                             }}
                         >
-                            <p style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>
+                            <p style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>
                                 {metric.value}
                             </p>
-                            <p style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.06em' }}>
+                            <p style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                                 {metric.label}
                             </p>
                         </div>
                     ))}
                 </div>
 
-                {/* Attendance bar chart (CSS) */}
+                {/* Attendance Chart — Stays visible but shrinks */}
                 <div>
-                    <p style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: 8 }}>
-                        ATTENDANCE THIS WEEK
+                    <p style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: 12 }}>
+                        WEEKLY ATTENDANCE TREND
                     </p>
-                    <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', height: 60 }}>
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', height: 80 }}>
                         {[85, 92, 88, 95, 91].map((pct, i) => (
                             <div
                                 key={i}
                                 style={{
                                     flex: 1,
-                                    height: `${(pct / 100) * 60}px`,
+                                    height: `${(pct / 100) * 80}px`,
                                     background: `rgba(110,231,250,${0.3 + i * 0.1})`,
-                                    borderRadius: '3px 3px 0 0',
+                                    borderRadius: '4px 4px 0 0',
+                                    position: 'relative',
                                 }}
-                            />
+                            >
+                                <div style={{ position: 'absolute', top: -14, left: 0, right: 0, textAlign: 'center', fontSize: 8, color: 'var(--text-muted)' }}>{pct}%</div>
+                            </div>
                         ))}
                     </div>
-                    <div style={{ display: 'flex', gap: 6, marginTop: 4 }}>
+                    <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
                         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((d) => (
-                            <span key={d} style={{ flex: 1, textAlign: 'center', fontSize: 9, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
+                            <span key={d} style={{ flex: 1, textAlign: 'center', fontSize: 10, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
                                 {d}
                             </span>
                         ))}
@@ -198,8 +206,15 @@ const HRMSDashboardMockup = () => (
                 </div>
             </div>
         </div>
+
+        <style>{`
+            @media (max-width: 640px) {
+                .hidden-mobile { display: none !important; }
+            }
+        `}</style>
     </div>
 )
+
 
 const HRMS = () => {
     return (

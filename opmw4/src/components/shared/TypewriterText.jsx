@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
  * @param {string} cursorColor - Color of the typing cursor
  * @param {boolean} showCursor - Whether to show the cursor during typing
  */
-const TypewriterText = ({ text, delay = 0, cursorColor = 'var(--accent)', showCursor = true }) => {
+const TypewriterText = ({ text, delay = 0, cursorColor = 'var(--accent)', showCursor = true, nowrap = false }) => {
     // Normalize text into segments
     const segments = typeof text === 'string' ? [{ text }] : text
     const fullText = segments.map(s => s.text).join('')
@@ -46,8 +46,8 @@ const TypewriterText = ({ text, delay = 0, cursorColor = 'var(--accent)', showCu
             alignItems: 'center',
             minHeight: '1.2em',
             position: 'relative',
-            whiteSpace: 'pre-wrap',
-            flexWrap: 'wrap',
+            whiteSpace: nowrap ? 'nowrap' : 'pre-wrap',
+            flexWrap: nowrap ? 'nowrap' : 'wrap',
             justifyContent: 'inherit'
         }}>
             {segments.map((seg, idx) => {

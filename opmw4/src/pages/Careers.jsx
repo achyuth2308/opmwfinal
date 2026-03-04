@@ -72,8 +72,9 @@ const Careers = () => {
                                 letterSpacing: '-0.04em',
                                 lineHeight: 1.08,
                                 color: 'var(--text-primary)',
-                                maxWidth: 640,
+                                maxWidth: 720,
                                 marginBottom: 20,
+                                overflowWrap: 'break-word',
                             }}
                         >
                             <TypewriterText

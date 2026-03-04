@@ -36,7 +36,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Do NOT use scroll-behavior: smooth here — it causes React Router
+     page navigations to animate the scroll position ("scroll from bottom").
+     Smooth scrolling for anchor links can be triggered per-element via JS. */
+  scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -802,5 +805,281 @@ select.field-input option {
 
   .scene-bg__node {
     animation: none;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — GLOBAL LAYOUT UTILITIES
+   ============================================================ */
+
+/* Prevent any element from causing horizontal overflow */
+* {
+  max-width: 100%;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   TABLET  (768px – 1023px)
+   ============================================================ */
+@media (max-width: 1023px) {
+
+  /* ── Hero sections — tighten up on tablet ─────────────── */
+  .text-hero {
+    font-size: clamp(36px, 6vw, 64px);
+  }
+
+  /* ── Process connector hides on tablet (vertical layout) ─ */
+  .process-connector {
+    display: none;
+  }
+
+  /* ── Filter bar allows wrapping ───────────────────────── */
+  .filter-tab {
+    padding: 6px 14px;
+  }
+}
+
+/* ============================================================
+   MOBILE  (≤ 767px)
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* ── Typography scale ─────────────────────────────────── */
+  .text-hero {
+    font-size: clamp(32px, 9vw, 52px);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .text-section {
+    font-size: clamp(24px, 7vw, 36px);
+  }
+
+  .text-stat {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  /* ── Body text ─────────────────────────────────────────── */
+  body {
+    font-size: 14px;
+  }
+
+  /* ── Section gutters ────────────────────────────────────── */
+  .section-gutter {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Hero side-by-side layouts already use flexWrap:wrap — they stack naturally on narrow screens */
+
+  /* ── Glass cards / grid cards ────────────────────────────── */
+  .glass-card {
+    border-radius: 10px;
+  }
+
+  /* ── Auth card ────────────────────────────────────────── */
+  .auth-card {
+    padding: 24px 18px;
+    border-radius: 14px;
+    max-width: 100%;
+  }
+
+  /* ── Pill badge ────────────────────────────────────────── */
+  .pill-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  /* ── Intro overlay — keep items readable on small screens ─ */
+  .intro-overlay {
+    padding: 0 16px;
+  }
+
+  /* ── Hide horizontal process connectors ─────────────────── */
+  .process-connector {
+    display: none;
+  }
+
+  /* ── Portal table — make scrollable on small screens ──────── */
+  .portal-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .portal-table {
+    min-width: 560px;
+  }
+
+  /* ── Filter bar — allow wrapping ────────────────────────── */
+  .filter-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .filter-tab {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  /* ── Status badges — ensure readable wrapping ───────────── */
+  .status-badge {
+    white-space: nowrap;
+    font-size: 10px;
+  }
+
+  /* ── Pricing card ────────────────────────────────────────── */
+  .pricing-card {
+    padding: 24px 18px;
+  }
+
+  /* ── Icon wrapper ────────────────────────────────────────── */
+  .icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* ── Footer grid — single column & centered ───────────────── */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    text-align: center;
+  }
+
+  .footer-brand-column,
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-logo-link {
+    justify-content: center;
+  }
+
+  .footer-description {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .footer-contact-info {
+    align-items: center !important;
+  }
+
+  .footer-bottom-bar {
+    justify-content: center !important;
+    text-align: center;
+  }
+
+  /* ── Section divider — center on mobile ─────────────────── */
+  .section-divider {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── Toast ────────────────────────────────────────────────── */
+  [data-radix-toast-viewport] {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    max-width: 100%;
+  }
+
+  /* ── Map placeholder ─────────────────────────────────────── */
+  .map-placeholder {
+    min-height: 180px;
+  }
+
+  /* ── Monitor mockup scales down ──────────────────────────── */
+  .monitor-mockup {
+    border-radius: 8px;
+  }
+
+  /* ── Timeline ─────────────────────────────────────────────── */
+  .timeline-item {
+    padding-left: 24px;
+  }
+
+  /* ── About page stat boxes — 2 cols on mobile ────────────── */
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ============================================================
+   SMALL MOBILE  (≤ 479px)
+   ============================================================ */
+@media (max-width: 479px) {
+
+  .text-hero {
+    font-size: clamp(28px, 10vw, 42px);
+  }
+
+  .text-section {
+    font-size: clamp(22px, 8vw, 32px);
+  }
+
+  /* ── Navbar logo — slightly smaller on very small screens ── */
+  .auth-card {
+    padding: 20px 14px;
+  }
+
+  /* ── Buttons full-width ──────────────────────────────────── */
+  button[class*="btn"],
+  a[class*="btn"] {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   LARGE DESKTOP  (≥ 1400px)
+   ============================================================ */
+@media (min-width: 1400px) {
+
+  body {
+    font-size: 16px;
+  }
+
+  .text-hero {
+    font-size: 100px;
+  }
+
+  .max-w-content {
+    max-width: 1360px;
+  }
+}
+
+/* ============================================================
+   HOVER — only apply on devices that support it (not touch)
+   ============================================================ */
+@media (hover: none) {
+  .glass-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-primary:hover,
+  .btn-ghost:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   SAFE AREA INSETS  (iPhone notch / Dynamic Island)
+   ============================================================ */
+@supports (padding: max(0px)) {
+  .section-gutter {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+
+  footer {
+    padding-bottom: max(32px, env(safe-area-inset-bottom));
   }
 }

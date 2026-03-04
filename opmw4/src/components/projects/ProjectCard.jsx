@@ -13,143 +13,112 @@ const ProjectCard = ({ project, onClick }) => {
 
     return (
         <motion.div
-            whileHover={{
-                y: -4,
-                borderColor: colors.border,
-                boxShadow: `0 16px 56px ${colors.bg.replace('0.08', '0.18')}`,
-                transition: { duration: 0.28 },
-            }}
+            whileHover="hover"
             onClick={() => onClick && onClick(project)}
             style={{
                 background: 'var(--surface-2)',
                 border: '1px solid var(--border)',
-                borderRadius: 14,
-                padding: 'clamp(22px, 2.5vw, 32px)',
+                borderRadius: 20,
+                padding: '0',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 16,
                 cursor: 'pointer',
                 position: 'relative',
                 overflow: 'hidden',
                 height: '100%',
                 boxSizing: 'border-box',
+                transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
+            }}
+            variants={{
+                hover: {
+                    y: -5,
+                    borderColor: 'rgba(110,231,250,0.3)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                }
             }}
             role="button"
             tabIndex={0}
             aria-label={`View project: ${project.title}`}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick && onClick(project) }}
         >
-            {/* Corner glow */}
-            <div
-                aria-hidden="true"
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                    width: 100,
-                    height: 100,
-                    background: `radial-gradient(circle at top right, ${colors.bg} 0%, transparent 70%)`,
-                    pointerEvents: 'none',
-                }}
-            />
+            {/* Project Image Container */}
+            <div style={{ position: 'relative', height: 240, width: '100%', overflow: 'hidden' }}>
+                <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    variants={{
+                        hover: { scale: 1.1 }
+                    }}
+                    transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block',
+                    }}
+                />
 
-            {/* Header row — category badge + arrow */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span
-                    style={{
-                        fontSize: 10,
-                        fontFamily: 'JetBrains Mono, monospace',
-                        letterSpacing: '0.14em',
-                        textTransform: 'uppercase',
-                        color: colors.text,
-                        background: colors.bg,
-                        border: `1px solid ${colors.border}`,
-                        borderRadius: 4,
-                        padding: '3px 10px',
-                    }}
-                >
-                    {project.category}
-                </span>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        fontSize: 11,
-                        fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
-                    }}
-                >
-                    <span>{project.year}</span>
-                    <ArrowUpRight size={14} style={{ color: 'var(--text-muted)' }} />
+                {/* Visual Overlays */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(to top, rgba(9,9,11,0.95) 0%, rgba(9,9,11,0.2) 50%, transparent 100%)',
+                    zIndex: 1,
+                }} />
+
+                {/* Category Badge - Positioned delicately on image */}
+                <div style={{
+                    position: 'absolute',
+                    top: 20,
+                    left: 20,
+                    zIndex: 2
+                }}>
+                    <span
+                        style={{
+                            fontSize: 10,
+                            fontFamily: 'JetBrains Mono, monospace',
+                            letterSpacing: '0.12em',
+                            textTransform: 'uppercase',
+                            color: colors.text,
+                            background: 'rgba(0, 0, 0, 0.5)',
+                            backdropFilter: 'blur(8px)',
+                            WebkitBackdropFilter: 'blur(8px)',
+                            border: `1px solid rgba(255, 255, 255, 0.1)`,
+                            borderRadius: 6,
+                            padding: '5px 12px',
+                            fontWeight: 600,
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                        }}
+                    >
+                        {project.category}
+                    </span>
                 </div>
             </div>
 
-            {/* Title */}
-            <h3
-                style={{
-                    fontSize: 17,
-                    fontWeight: 600,
-                    color: 'var(--text-primary)',
-                    letterSpacing: '-0.01em',
-                    lineHeight: 1.3,
-                }}
-            >
-                {project.title}
-            </h3>
-
-            {/* Outcome */}
-            <p
-                style={{
-                    fontSize: 13,
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.7,
-                    flex: 1,
-                }}
-            >
-                {project.outcome}
-            </p>
-
-            {/* Tech tags */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 'auto' }}>
-                {project.tech.map((t) => (
-                    <span key={t} className="tag-chip">
-                        {t}
-                    </span>
-                ))}
-            </div>
-
-            {/* Status */}
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    paddingTop: 12,
-                    borderTop: '1px solid var(--border)',
-                }}
-            >
-                <span
-                    style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: '50%',
-                        background: project.status === 'Active' ? '#4ade80' : 'var(--text-muted)',
-                        boxShadow: project.status === 'Active' ? '0 0 6px rgba(74,222,128,0.6)' : 'none',
-                        display: 'inline-block',
-                        flexShrink: 0,
-                    }}
-                />
-                <span
-                    style={{
-                        fontSize: 11,
-                        fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
-                        letterSpacing: '0.08em',
-                    }}
-                >
-                    {project.status}
-                </span>
+            {/* Content Area - Clean and Balanced */}
+            <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 14, flex: 1, position: 'relative' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
+                    <h3
+                        style={{
+                            fontSize: 19,
+                            fontWeight: 700,
+                            color: 'white',
+                            letterSpacing: '-0.02em',
+                            lineHeight: 1.3,
+                            flex: 1,
+                            margin: 0,
+                            transition: 'color 0.3s ease'
+                        }}
+                    >
+                        {project.title}
+                    </h3>
+                    <motion.div
+                        variants={{ hover: { x: 4, y: -4, color: 'var(--accent)' } }}
+                        style={{ color: 'var(--text-muted)', transition: 'color 0.3s ease' }}
+                    >
+                        <ArrowUpRight size={20} />
+                    </motion.div>
+                </div>
             </div>
         </motion.div>
     )
@@ -164,6 +133,7 @@ ProjectCard.propTypes = {
         outcome: PropTypes.string.isRequired,
         year: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired,
+        image: PropTypes.string,
     }).isRequired,
     onClick: PropTypes.func,
 }
