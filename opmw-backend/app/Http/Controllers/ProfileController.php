@@ -70,10 +70,10 @@ class ProfileController extends Controller
 
         // Delete old resume
         if ($user->resume_path) {
-            Storage::disk('local')->delete($user->resume_path);
+            Storage::disk('public')->delete($user->resume_path);
         }
 
-        $path = $request->file('resume')->store('resumes', 'local');
+        $path = $request->file('resume')->store('resumes', 'public');
         $user->update(['resume_path' => $path]);
 
         return response()->json(['path' => $path]);

@@ -57,7 +57,7 @@ const Login = () => {
                 return
             }
             login(data.user, data.token)
-            navigate(from, { replace: true })
+            navigate('/portal', { replace: true })
         } catch {
             setError('Network error. Please check your connection.')
         } finally {

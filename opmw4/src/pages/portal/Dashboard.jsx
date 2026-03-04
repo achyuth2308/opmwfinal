@@ -46,14 +46,18 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
     const sidebarContent = (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             {/* Logo */}
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', padding: '24px 20px', borderBottom: '1px solid var(--border)' }}>
-                <img src="/logo (2).png" alt="OPMW Logo" style={{ height: 26, width: 'auto', objectFit: 'contain' }} />
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', padding: '24px 20px', borderBottom: '1px solid var(--border)' }}>
+                <div style={{ width: 32, height: 32, borderRadius: 7, background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)' }}>CP</div>
+                <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Candidate Portal</span>
             </Link>
 
             {/* User info */}
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)', marginBottom: 8 }}>
-                    {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'space-between', marginBottom: 8 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)' }}>
+                        {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                    </div>
+                    <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.25)', borderRadius: 4, padding: '2px 6px' }}>Candidate</span>
                 </div>
                 <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>{user?.name || 'Candidate'}</p>
                 <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
@@ -156,9 +160,9 @@ const Dashboard = () => {
                     {/* Welcome banner */}
                     <div style={{ marginBottom: 32 }}>
                         <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: 6 }}>
-                            Hello, {user?.name?.split(' ')[0] || 'there'} 👋
+                            Candidate Dashboard
                         </h1>
-                        <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Here's a summary of your OPMW applications.</p>
+                        <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Welcome back, {user?.name?.split(' ')[0] || 'there'}! Here's a summary of your OPMW applications.</p>
                     </div>
 
                     {/* Stat cards */}

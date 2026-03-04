@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { LayoutDashboard, FileText, Users, Mail, LogOut, Menu, X, Shield } from 'lucide-react'
+import { LayoutDashboard, FileText, Users, Mail, LogOut, Menu, X, Shield, Briefcase } from 'lucide-react'
 import { getAdminDashboard, adminLogout } from '@/services/admin.service'
 
 const STATUS_COLORS = {
@@ -15,6 +15,7 @@ const NAV_ITEMS = [
     { path: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/admin/applications', label: 'Applications', icon: FileText },
     { path: '/admin/candidates', label: 'Candidates', icon: Users },
+    { path: '/admin/jobs', label: 'Jobs', icon: Briefcase },
     { path: '/admin/contacts', label: 'Contacts', icon: Mail },
 ]
 
@@ -166,23 +167,6 @@ const AdminDashboard = () => {
                                 ))}
                             </div>
 
-                            {/* Status breakdown */}
-                            {data.status_breakdown && Object.keys(data.status_breakdown).length > 0 && (
-                                <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, padding: '24px', marginBottom: 36 }}>
-                                    <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 16, letterSpacing: '-0.01em' }}>Application Status Breakdown</h2>
-                                    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                                        {Object.entries(data.status_breakdown).map(([status, count]) => {
-                                            const c = STATUS_COLORS[status] || STATUS_COLORS.Pending
-                                            return (
-                                                <div key={status} style={{ padding: '10px 16px', borderRadius: 8, background: c.bg, border: `1px solid ${c.border}`, display: 'flex', alignItems: 'center', gap: 8 }}>
-                                                    <span style={{ fontSize: 20, fontWeight: 700, color: c.color, fontFamily: 'JetBrains Mono,monospace' }}>{count}</span>
-                                                    <span style={{ fontSize: 12, color: c.color, fontFamily: 'JetBrains Mono,monospace', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{status}</span>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            )}
 
                             {/* Recent applications */}
                             <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>

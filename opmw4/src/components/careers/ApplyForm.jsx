@@ -1,27 +1,37 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { X, Upload, CheckCircle2, Loader2 } from 'lucide-react'
+import { X, Upload, CheckCircle2, Loader2, LogIn } from 'lucide-react'
 import { PREFERRED_CITIES } from '@/constants/careers'
 import { submitApplication } from '@/services/careers.service'
-
-const initialForm = {
-    full_name: '',
-    email: '',
-    phone: '',
-    position: '',
-    preferred_city: '',
-    cover_note: '',
-    resume: null,
-}
+import { useAuth } from '@/context/AuthContext'
 
 const ApplyForm = ({ role, onClose }) => {
-    const [form, setForm] = useState({ ...initialForm, position: role ? role.title : '' })
+    const { user, token } = useAuth()
+    const navigate = useNavigate()
+
+    const [form, setForm] = useState({
+        full_name: user?.name || '',
+        email: user?.email || '',
+        phone: '',
+        position: role ? role.title : '',
+        preferred_city: '',
+        cover_note: '',
+        resume: null,
+    })
     const [isLoading, setIsLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(null)
     const [fieldErrors, setFieldErrors] = useState({})
     const [fileName, setFileName] = useState('')
+
+    // Sync user name/email if auth changes
+    useEffect(() => {
+        if (user) {
+            setForm((prev) => ({ ...prev, full_name: user.name || prev.full_name, email: user.email || prev.email }))
+        }
+    }, [user])
 
     const handleEsc = useCallback((e) => {
         if (e.key === 'Escape') onClose()
@@ -48,16 +58,55 @@ const ApplyForm = ({ role, onClose }) => {
 
     const handleFile = (e) => {
         const file = e.target.files[0]
-        if (file) {
-            setForm((prev) => ({ ...prev, resume: file }))
-            setFileName(file.name)
+        if (!file) return
+
+        if (!file.name.toLowerCase().endsWith('.pdf')) {
+            setFieldErrors((prev) => ({ ...prev, resume: 'Only PDF files are allowed.' }))
+            return
         }
+        if (file.size > 5 * 1024 * 1024) {
+            setFieldErrors((prev) => ({ ...prev, resume: 'File must be under 5MB.' }))
+            return
+        }
+        setFieldErrors((prev) => ({ ...prev, resume: undefined }))
+        setForm((prev) => ({ ...prev, resume: file }))
+        setFileName(file.name)
+    }
+
+    // Client-side validation
+    const validate = () => {
+        const errors = {}
+        // phone validated separately below
+
+        if (!form.full_name.trim() || form.full_name.trim().length < 2) {
+            errors.full_name = 'Full name must be at least 2 characters.'
+        }
+        if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+            errors.email = 'Please enter a valid email address.'
+        }
+        if (!form.phone.trim() || !/^[0-9]{10}$/.test(form.phone.trim())) {
+            errors.phone = 'Phone number must be exactly 10 digits.'
+        }
+        if (!form.preferred_city) {
+            errors.preferred_city = 'Please select a preferred city.'
+        }
+        if (form.cover_note && form.cover_note.length > 2000) {
+            errors.cover_note = `Cover note must be under 2000 characters (currently ${form.cover_note.length}).`
+        }
+        return errors
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setIsLoading(true)
         setError(null)
+
+        const errors = validate()
+        if (Object.keys(errors).length > 0) {
+            setFieldErrors(errors)
+            return
+        }
+
+        setIsLoading(true)
         setFieldErrors({})
 
         try {
@@ -73,7 +122,9 @@ const ApplyForm = ({ role, onClose }) => {
             await submitApplication(fd)
             setSuccess(true)
         } catch (err) {
-            if (err.type === 'validation' && err.fieldErrors) {
+            if (err.response?.status === 409) {
+                setError('You have already applied for this position.')
+            } else if (err.type === 'validation' && err.fieldErrors) {
                 setFieldErrors(err.fieldErrors)
                 setError(err.message || 'Please fix the errors below.')
             } else {
@@ -83,6 +134,52 @@ const ApplyForm = ({ role, onClose }) => {
             setIsLoading(false)
         }
     }
+
+    // Auth guard — not logged in
+    if (!token) {
+        return (
+            <AnimatePresence>
+                <>
+                    <motion.div
+                        key="apply-backdrop"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={onClose}
+                        style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(6px)', zIndex: 9000 }}
+                        aria-hidden="true"
+                    />
+                    <motion.div
+                        key="apply-panel"
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        style={{ position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 9001, width: 'min(480px, 100vw)', background: '#0F1219', borderLeft: '1px solid var(--border)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 48, gap: 20 }}
+                    >
+                        <button onClick={onClose} style={{ position: 'absolute', top: 24, right: 24, background: 'rgba(255,255,255,0.06)', border: '1px solid var(--border)', borderRadius: 8, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-secondary)' }}>
+                            <X size={16} />
+                        </button>
+                        <LogIn size={40} style={{ color: 'var(--accent)' }} />
+                        <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', textAlign: 'center' }}>Sign in to Apply</h2>
+                        <p style={{ fontSize: 14, color: 'var(--text-secondary)', textAlign: 'center', lineHeight: 1.7 }}>
+                            You need to be signed in to apply for a position at OPMW.
+                        </p>
+                        <button
+                            onClick={() => { onClose(); navigate('/login') }}
+                            style={{ padding: '12px 28px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: 'var(--accent)', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 200ms ease' }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.18)' }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.1)' }}
+                        >
+                            Go to Login
+                        </button>
+                    </motion.div>
+                </>
+            </AnimatePresence>
+        )
+    }
+
+    const cityOptions = (role && role.cities && role.cities.length > 0) ? role.cities : PREFERRED_CITIES
 
     return (
         <AnimatePresence>
@@ -94,14 +191,7 @@ const ApplyForm = ({ role, onClose }) => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    style={{
-                        position: 'fixed',
-                        inset: 0,
-                        background: 'rgba(0,0,0,0.65)',
-                        backdropFilter: 'blur(6px)',
-                        WebkitBackdropFilter: 'blur(6px)',
-                        zIndex: 9000,
-                    }}
+                    style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', zIndex: 9000 }}
                     aria-hidden="true"
                 />
 
@@ -115,57 +205,17 @@ const ApplyForm = ({ role, onClose }) => {
                     role="dialog"
                     aria-modal="true"
                     aria-label="Apply for position"
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        right: 0,
-                        bottom: 0,
-                        zIndex: 9001,
-                        width: 'min(560px, 100vw)',
-                        background: '#0F1219',
-                        borderLeft: '1px solid var(--border)',
-                        overflowY: 'auto',
-                        padding: 'clamp(28px, 4vw, 48px)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 20,
-                    }}
+                    style={{ position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 9001, width: 'min(560px, 100vw)', background: '#0F1219', borderLeft: '1px solid var(--border)', overflowY: 'auto', padding: 'clamp(28px, 4vw, 48px)', display: 'flex', flexDirection: 'column', gap: 20 }}
                 >
-                    {/* Close */}
+                    {/* Header */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <div>
-                            <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 4 }}>
-                                Application
-                            </p>
-                            <h2
-                                style={{
-                                    fontSize: 20,
-                                    fontWeight: 700,
-                                    color: 'var(--text-primary)',
-                                    letterSpacing: '-0.02em',
-                                }}
-                            >
+                            <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 4 }}>Application</p>
+                            <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                                 {role ? role.title : 'Apply Now'}
                             </h2>
                         </div>
-                        <button
-                            onClick={onClose}
-                            aria-label="Close application form"
-                            style={{
-                                background: 'rgba(255,255,255,0.06)',
-                                border: '1px solid var(--border)',
-                                borderRadius: 8,
-                                width: 36,
-                                height: 36,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                color: 'var(--text-secondary)',
-                                transition: 'all 200ms ease',
-                                flexShrink: 0,
-                            }}
-                        >
+                        <button onClick={onClose} aria-label="Close application form" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid var(--border)', borderRadius: 8, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-secondary)', transition: 'all 200ms ease', flexShrink: 0 }}>
                             <X size={16} />
                         </button>
                     </div>
@@ -173,22 +223,14 @@ const ApplyForm = ({ role, onClose }) => {
                     <div style={{ height: 1, background: 'var(--border)' }} />
 
                     {success ? (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            style={{ textAlign: 'center', padding: '48px 0' }}
-                        >
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: 'center', padding: '48px 0' }}>
                             <CheckCircle2 size={48} style={{ color: 'var(--accent)', margin: '0 auto 20px' }} />
-                            <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>
-                                Application submitted!
-                            </h3>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>
-                                We review every application carefully and will reach out within 5 business days.
-                            </p>
+                            <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>Application submitted!</h3>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>We review every application carefully and will reach out within 5 business days.</p>
                         </motion.div>
                     ) : (
                         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                            {/* Full name */}
+                            {/* Full name (pre-filled, read-only) */}
                             <div>
                                 <label htmlFor="apply-name" className="field-label">Full Name *</label>
                                 <input
@@ -196,15 +238,15 @@ const ApplyForm = ({ role, onClose }) => {
                                     name="full_name"
                                     type="text"
                                     required
-                                    placeholder="Your full name"
                                     value={form.full_name}
-                                    onChange={handleChange}
-                                    className={`field-input${fieldErrors.full_name ? ' error' : ''}`}
+                                    readOnly
+                                    className="field-input"
+                                    style={{ opacity: 0.7, cursor: 'not-allowed' }}
                                 />
                                 {fieldErrors.full_name && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.full_name}</p>}
                             </div>
 
-                            {/* Email */}
+                            {/* Email (pre-filled, read-only) */}
                             <div>
                                 <label htmlFor="apply-email" className="field-label">Email *</label>
                                 <input
@@ -212,10 +254,10 @@ const ApplyForm = ({ role, onClose }) => {
                                     name="email"
                                     type="email"
                                     required
-                                    placeholder="you@email.com"
                                     value={form.email}
-                                    onChange={handleChange}
-                                    className={`field-input${fieldErrors.email ? ' error' : ''}`}
+                                    readOnly
+                                    className="field-input"
+                                    style={{ opacity: 0.7, cursor: 'not-allowed' }}
                                 />
                                 {fieldErrors.email && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.email}</p>}
                             </div>
@@ -228,26 +270,23 @@ const ApplyForm = ({ role, onClose }) => {
                                     name="phone"
                                     type="tel"
                                     required
-                                    placeholder="+91 XXXXX XXXXX"
+                                    placeholder="10-digit mobile number"
                                     value={form.phone}
-                                    onChange={handleChange}
+                                    maxLength={10}
+                                    onChange={(e) => {
+                                        const val = e.target.value.replace(/\D/g, '').slice(0, 10)
+                                        setForm((prev) => ({ ...prev, phone: val }))
+                                        setFieldErrors((prev) => ({ ...prev, phone: undefined }))
+                                    }}
                                     className={`field-input${fieldErrors.phone ? ' error' : ''}`}
                                 />
                                 {fieldErrors.phone && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.phone}</p>}
                             </div>
 
-                            {/* Position (pre-filled, readonly) */}
+                            {/* Position (pre-filled, read-only) */}
                             <div>
                                 <label htmlFor="apply-position" className="field-label">Position</label>
-                                <input
-                                    id="apply-position"
-                                    name="position"
-                                    type="text"
-                                    value={form.position}
-                                    readOnly
-                                    className="field-input"
-                                    style={{ opacity: 0.6, cursor: 'not-allowed' }}
-                                />
+                                <input id="apply-position" name="position" type="text" value={form.position} readOnly className="field-input" style={{ opacity: 0.6, cursor: 'not-allowed' }} />
                             </div>
 
                             {/* Preferred city */}
@@ -262,7 +301,7 @@ const ApplyForm = ({ role, onClose }) => {
                                     className={`field-input${fieldErrors.preferred_city ? ' error' : ''}`}
                                 >
                                     <option value="">Select preferred city</option>
-                                    {PREFERRED_CITIES.map((city) => (
+                                    {cityOptions.map((city) => (
                                         <option key={city} value={city}>{city}</option>
                                     ))}
                                 </select>
@@ -271,40 +310,26 @@ const ApplyForm = ({ role, onClose }) => {
 
                             {/* Resume upload */}
                             <div>
-                                <label className="field-label" htmlFor="apply-resume">Resume *</label>
+                                <label className="field-label" htmlFor="apply-resume">Resume (PDF, max 5MB)</label>
                                 <label
                                     htmlFor="apply-resume"
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 10,
-                                        padding: '12px 16px',
-                                        border: '1px dashed rgba(110,231,250,0.2)',
-                                        borderRadius: 8,
-                                        cursor: 'pointer',
-                                        fontSize: 13,
-                                        color: fileName ? 'var(--text-primary)' : 'var(--text-muted)',
-                                        background: 'rgba(110,231,250,0.03)',
-                                        transition: 'border-color 200ms ease',
-                                    }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', border: `1px dashed ${fieldErrors.resume ? 'rgba(248,113,113,0.4)' : 'rgba(110,231,250,0.2)'}`, borderRadius: 8, cursor: 'pointer', fontSize: 13, color: fileName ? 'var(--text-primary)' : 'var(--text-muted)', background: 'rgba(110,231,250,0.03)', transition: 'border-color 200ms ease' }}
                                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.4)' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.2)' }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = fieldErrors.resume ? 'rgba(248,113,113,0.4)' : 'rgba(110,231,250,0.2)' }}
                                 >
                                     <Upload size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-                                    {fileName || 'Upload PDF or DOC (max 5MB)'}
+                                    {fileName || 'Upload PDF (max 5MB)'}
                                 </label>
-                                <input
-                                    id="apply-resume"
-                                    type="file"
-                                    accept=".pdf,.doc,.docx"
-                                    onChange={handleFile}
-                                    style={{ position: 'absolute', width: 1, height: 1, opacity: 0, overflow: 'hidden' }}
-                                />
+                                <input id="apply-resume" type="file" accept=".pdf" onChange={handleFile} style={{ position: 'absolute', width: 1, height: 1, opacity: 0, overflow: 'hidden' }} />
+                                {fieldErrors.resume && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.resume}</p>}
                             </div>
 
                             {/* Cover note */}
                             <div>
-                                <label htmlFor="apply-cover" className="field-label">Cover Note</label>
+                                <label htmlFor="apply-cover" className="field-label">
+                                    Cover Note
+                                    <span style={{ color: 'var(--text-muted)', fontWeight: 400, marginLeft: 8 }}>({form.cover_note.length}/2000)</span>
+                                </label>
                                 <textarea
                                     id="apply-cover"
                                     name="cover_note"
@@ -312,23 +337,15 @@ const ApplyForm = ({ role, onClose }) => {
                                     placeholder="Tell us why you're a great fit for this role..."
                                     value={form.cover_note}
                                     onChange={handleChange}
-                                    className="field-input"
+                                    className={`field-input${fieldErrors.cover_note ? ' error' : ''}`}
                                     style={{ resize: 'vertical', minHeight: 100 }}
                                 />
+                                {fieldErrors.cover_note && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.cover_note}</p>}
                             </div>
 
-                            {/* Error */}
+                            {/* Global error */}
                             {error && (
-                                <div
-                                    style={{
-                                        padding: '12px 16px',
-                                        background: 'rgba(248,113,113,0.08)',
-                                        border: '1px solid rgba(248,113,113,0.25)',
-                                        borderRadius: 8,
-                                        fontSize: 13,
-                                        color: 'rgba(248,113,113,0.9)',
-                                    }}
-                                >
+                                <div style={{ padding: '12px 16px', background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: 8, fontSize: 13, color: 'rgba(248,113,113,0.9)' }}>
                                     {error}
                                 </div>
                             )}
@@ -337,23 +354,7 @@ const ApplyForm = ({ role, onClose }) => {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                style={{
-                                    padding: '14px 24px',
-                                    borderRadius: 8,
-                                    background: 'rgba(110,231,250,0.1)',
-                                    border: '1px solid rgba(110,231,250,0.3)',
-                                    color: 'var(--accent)',
-                                    fontSize: 15,
-                                    fontWeight: 600,
-                                    fontFamily: 'Inter, sans-serif',
-                                    cursor: isLoading ? 'not-allowed' : 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: 8,
-                                    transition: 'all 200ms ease',
-                                    opacity: isLoading ? 0.7 : 1,
-                                }}
+                                style={{ padding: '14px 24px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: 'var(--accent)', fontSize: 15, fontWeight: 600, fontFamily: 'Inter, sans-serif', cursor: isLoading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'all 200ms ease', opacity: isLoading ? 0.7 : 1 }}
                                 onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.18)' }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.1)' }}
                             >
@@ -376,7 +377,7 @@ const ApplyForm = ({ role, onClose }) => {
 
 ApplyForm.propTypes = {
     role: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         title: PropTypes.string.isRequired,
         department: PropTypes.string.isRequired,
         cities: PropTypes.arrayOf(PropTypes.string).isRequired,

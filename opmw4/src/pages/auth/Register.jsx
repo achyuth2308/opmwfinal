@@ -237,7 +237,7 @@ const Register = () => {
             >
                 {/* Logo */}
                 <div style={{ marginBottom: 32 }}>
-                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' ,marginLeft:-33}}>
+                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', marginLeft: -33 }}>
                         <OPMWLogo size="md" showAnimation={false} />
                     </Link>
                 </div>
@@ -268,14 +268,19 @@ const Register = () => {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                         <div>
                             <label htmlFor="reg-phone" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Phone *</label>
-                            <input id="reg-phone" name="phone" type="tel" required value={form.phone} onChange={handleChange} placeholder="+91 00000 00000" style={{ ...fieldStyle, borderColor: fieldErrors.phone ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
+                            <input id="reg-phone" name="phone" type="tel" required value={form.phone} onChange={(e) => {
+                                const val = e.target.value.replace(/\D/g, '').slice(0, 10)
+                                setForm((prev) => ({ ...prev, phone: val }))
+                                setError('')
+                                setFieldErrors((prev) => ({ ...prev, phone: '' }))
+                            }} placeholder="10-digit mobile number" style={{ ...fieldStyle, borderColor: fieldErrors.phone ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} maxLength={10} />
                             {fieldErrors.phone && <p style={{ fontSize: 11, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.phone}</p>}
                         </div>
                         <div>
                             <label htmlFor="reg-city" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>City *</label>
-                            <select id="reg-city" name="city" required value={form.city} onChange={handleChange} style={{ ...fieldStyle, borderColor: fieldErrors.city ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)}>
-                                <option value="">Select city</option>
-                                {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
+                            <select id="reg-city" name="city" required value={form.city} onChange={handleChange} style={{ ...fieldStyle, borderColor: fieldErrors.city ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)', colorScheme: 'dark' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)}>
+                                <option value="" style={{ background: '#1a1a2e', color: '#e2e8f0' }}>Select city</option>
+                                {CITIES.map((c) => <option key={c} value={c} style={{ background: '#1a1a2e', color: '#e2e8f0' }}>{c}</option>)}
                             </select>
                             {fieldErrors.city && <p style={{ fontSize: 11, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.city}</p>}
                         </div>

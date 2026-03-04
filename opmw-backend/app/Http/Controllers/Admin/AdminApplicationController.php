@@ -43,6 +43,29 @@ class AdminApplicationController extends Controller
             'admin_notes' => ['nullable', 'string', 'max:2000'],
         ]);
 
+        $currentStatus = $application->status;
+        $requestedStatus = $validated['status'];
+
+        $statusFlow = [
+            'Pending' => ['Reviewed', 'Rejected'],
+            'Reviewed' => ['Shortlisted', 'Rejected'],
+            'Shortlisted' => ['Selected', 'Rejected'],
+            'Rejected' => ['Reviewed'], // Allow reconsidering a rejected application
+            'Selected' => ['Shortlisted'], // Allow demoting if needed
+        ];
+
+        if ($currentStatus !== $requestedStatus && !in_array($requestedStatus, $statusFlow[$currentStatus] ?? [])) {
+            return response()->json([
+                'message' => "Invalid status transition. Cannot jump from {$currentStatus} to {$requestedStatus}.",
+                'errors' => ['status' => ["Cannot move from {$currentStatus} directly to {$requestedStatus}. Please follow the flow: Pending -> Reviewed -> Shortlisted -> Selected."]]
+            ], 422);
+        }
+
+        if ($requestedStatus === 'Rejected') {
+            $application->delete();
+            return response()->json(['message' => 'Application has been rejected and deleted.', 'id' => $application->id]);
+        }
+
         $application->update($validated);
 
         // Notify candidate by email

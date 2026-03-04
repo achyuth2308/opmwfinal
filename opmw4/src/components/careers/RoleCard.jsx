@@ -12,6 +12,8 @@ const deptColors = {
 const RoleCard = ({ role, onApply }) => {
     const colors = deptColors[role.department] || deptColors.BPO
 
+    const citiesLabel = role.citiesLabel || (Array.isArray(role.cities) ? role.cities.join(', ') : 'Various Cities')
+
     return (
         <motion.div
             whileHover={{
@@ -30,6 +32,7 @@ const RoleCard = ({ role, onApply }) => {
                 gap: 14,
                 position: 'relative',
                 overflow: 'hidden',
+                height: '100%',
             }}
         >
             {/* Header */}
@@ -81,6 +84,10 @@ const RoleCard = ({ role, onApply }) => {
                     color: 'var(--text-secondary)',
                     lineHeight: 1.7,
                     flex: 1,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 4,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden'
                 }}
             >
                 {role.description}
@@ -99,7 +106,7 @@ const RoleCard = ({ role, onApply }) => {
                     }}
                 >
                     <MapPin size={11} />
-                    {role.citiesLabel}
+                    {citiesLabel}
                 </span>
                 <span
                     style={{
@@ -155,12 +162,12 @@ const RoleCard = ({ role, onApply }) => {
 
 RoleCard.propTypes = {
     role: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         title: PropTypes.string.isRequired,
         department: PropTypes.string.isRequired,
         type: PropTypes.string.isRequired,
         cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-        citiesLabel: PropTypes.string.isRequired,
+        citiesLabel: PropTypes.string,
         experience: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
     }).isRequired,
