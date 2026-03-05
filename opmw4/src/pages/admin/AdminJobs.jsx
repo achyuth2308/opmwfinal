@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Plus, Trash2, X, MapPin, Briefcase, Menu } from 'lucide-react'
 import { AdminSidebar } from './AdminDashboard'
 import { getAdminJobs, createAdminJob, deleteAdminJob } from '@/services/admin.service'
+import { SkeletonCareerGrid } from '@/components/shared/Skeleton'
 
 const AdminJobs = () => {
     const navigate = useNavigate()
@@ -121,7 +122,7 @@ const AdminJobs = () => {
                     </div>
 
                     {isLoading ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading jobs…</div>
+                        <SkeletonCareerGrid count={4} />
                     ) : jobs.length === 0 ? (
                         <div style={{ padding: '80px 24px', textAlign: 'center', background: 'var(--surface-2)', borderRadius: 16, border: '1px solid var(--border)' }}>
                             <Briefcase size={40} style={{ color: 'var(--text-muted)', marginBottom: 16, opacity: 0.5 }} />

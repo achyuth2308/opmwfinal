@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, Users, Mail, LogOut, Menu, X, Shield, Briefcase } from 'lucide-react'
 import { getAdminDashboard, adminLogout } from '@/services/admin.service'
+import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const STATUS_COLORS = {
     Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
@@ -147,7 +148,7 @@ const AdminDashboard = () => {
                     </div>
 
                     {isLoading ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading dashboard…</div>
+                        <SkeletonDashboard statCount={4} rowCount={6} cols={4} />
                     ) : error ? (
                         <div style={{ padding: '20px', background: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: 12, color: 'rgba(248,113,113,0.9)', fontSize: 14 }}>{error}</div>
                     ) : data && (

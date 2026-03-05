@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Search, X, Menu, ChevronLeft, ChevronRight, FileDown } from 'lucide-react'
 import { AdminSidebar, STATUS_COLORS } from './AdminDashboard'
 import { getAdminApplications, updateApplicationStatus } from '@/services/admin.service'
+import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const STATUSES = ['All', 'Pending', 'Reviewed', 'Shortlisted', 'Rejected', 'Selected']
 
@@ -122,71 +123,73 @@ const AdminApplications = () => {
                         </div>
                     </div>
 
-                    {/* Table */}
-                    {isLoading ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading…</div>
-                    ) : (
-                        <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                <thead>
-                                    <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                                        {['Applicant', 'Role', 'Location', 'Status', 'Date', 'Actions'].map((h) => (
-                                            <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {applications.length === 0 ? (
-                                        <tr><td colSpan={6} style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No applications found.</td></tr>
-                                    ) : applications.map((app) => {
-                                        const c = STATUS_COLORS[app.status] || STATUS_COLORS.Pending
-                                        return (
-                                            <tr key={app.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                                                <td style={{ padding: '14px 20px' }}>
-                                                    <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.applicant_name}</p>
-                                                    <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{app.applicant_email}</p>
-                                                </td>
-                                                <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.role}</td>
-                                                <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-muted)' }}>{app.location}</td>
-                                                <td style={{ padding: '14px 20px' }}>
-                                                    <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: c.color, background: c.bg, border: `1px solid ${c.border}`, borderRadius: 4, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', fontWeight: 700, boxShadow: `0 2px 8px ${c.bg}` }}>{app.status}</span>
-                                                </td>
-                                                <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(app.created_at).toLocaleDateString('en-IN')}</td>
-                                                <td style={{ padding: '14px 20px', display: 'flex', gap: 8 }}>
-                                                    <button
-                                                        onClick={() => { setSelectedApp(app); setNewStatus(app.status); setAdminNotes(app.admin_notes || '') }}
-                                                        style={{ padding: '5px 12px', borderRadius: 6, background: 'rgba(110,231,250,0.06)', border: '1px solid rgba(110,231,250,0.2)', color: 'var(--accent)', fontSize: 12, cursor: 'pointer', transition: 'all 200ms ease' }}
-                                                    >
-                                                        Manage
-                                                    </button>
-                                                    {app.resume_path && (
-                                                        <a
-                                                            href={`${(import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace('/api', '')}/storage/${app.resume_path}`}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            style={{ padding: 6, borderRadius: 6, background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                                            title="View Resume"
+                    {/* Table Area */}
+                    <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, overflowX: 'auto' }}>
+                        {isLoading ? (
+                            <SkeletonDashboard statCount={0} rowCount={8} cols={6} />
+                        ) : (
+                            <>
+                                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                    <thead>
+                                        <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                                            {['Applicant', 'Role', 'Location', 'Status', 'Date', 'Actions'].map((h) => (
+                                                <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {applications.length === 0 ? (
+                                            <tr><td colSpan={6} style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No applications found.</td></tr>
+                                        ) : applications.map((app) => {
+                                            const c = STATUS_COLORS[app.status] || STATUS_COLORS.Pending
+                                            return (
+                                                <tr key={app.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                                                    <td style={{ padding: '14px 20px' }}>
+                                                        <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.applicant_name}</p>
+                                                        <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{app.applicant_email}</p>
+                                                    </td>
+                                                    <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.role}</td>
+                                                    <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-muted)' }}>{app.location}</td>
+                                                    <td style={{ padding: '14px 20px' }}>
+                                                        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: c.color, background: c.bg, border: `1px solid ${c.border}`, borderRadius: 4, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', fontWeight: 700, boxShadow: `0 2px 8px ${c.bg}` }}>{app.status}</span>
+                                                    </td>
+                                                    <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(app.created_at).toLocaleDateString('en-IN')}</td>
+                                                    <td style={{ padding: '14px 20px', display: 'flex', gap: 8 }}>
+                                                        <button
+                                                            onClick={() => { setSelectedApp(app); setNewStatus(app.status); setAdminNotes(app.admin_notes || '') }}
+                                                            style={{ padding: '5px 12px', borderRadius: 6, background: 'rgba(110,231,250,0.06)', border: '1px solid rgba(110,231,250,0.2)', color: 'var(--accent)', fontSize: 12, cursor: 'pointer', transition: 'all 200ms ease' }}
                                                         >
-                                                            <FileDown size={14} />
-                                                        </a>
-                                                    )}
-                                                </td>
-                                            </tr>
-                                        )
-                                    })}
-                                </tbody>
-                            </table>
+                                                            Manage
+                                                        </button>
+                                                        {app.resume_path && (
+                                                            <a
+                                                                href={`${(import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace('/api', '')}/storage/${app.resume_path}`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                style={{ padding: 6, borderRadius: 6, background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                                                title="View Resume"
+                                                            >
+                                                                <FileDown size={14} />
+                                                            </a>
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
 
-                            {/* Pagination */}
-                            {pagination.last_page > 1 && (
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
-                                    <button onClick={() => loadApplications(pagination.current_page - 1)} disabled={pagination.current_page <= 1} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page <= 1 ? 'not-allowed' : 'pointer', opacity: pagination.current_page <= 1 ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronLeft size={14} /></button>
-                                    <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>Page {pagination.current_page} of {pagination.last_page}</span>
-                                    <button onClick={() => loadApplications(pagination.current_page + 1)} disabled={pagination.current_page >= pagination.last_page} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page >= pagination.last_page ? 'not-allowed' : 'pointer', opacity: pagination.current_page >= pagination.last_page ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronRight size={14} /></button>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                                {/* Pagination */}
+                                {pagination.last_page > 1 && (
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
+                                        <button onClick={() => loadApplications(pagination.current_page - 1)} disabled={pagination.current_page <= 1} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page <= 1 ? 'not-allowed' : 'pointer', opacity: pagination.current_page <= 1 ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronLeft size={14} /></button>
+                                        <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>Page {pagination.current_page} of {pagination.last_page}</span>
+                                        <button onClick={() => loadApplications(pagination.current_page + 1)} disabled={pagination.current_page >= pagination.last_page} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page >= pagination.last_page ? 'not-allowed' : 'pointer', opacity: pagination.current_page >= pagination.last_page ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronRight size={14} /></button>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
                 </div>
             </main>
 

@@ -5,6 +5,7 @@ import TypewriterText from '@/components/shared/TypewriterText'
 import RoleCard from '@/components/careers/RoleCard'
 import FilterBar from '@/components/projects/FilterBar'
 import ApplyForm from '@/components/careers/ApplyForm'
+import { SkeletonCareerGrid } from '@/components/shared/Skeleton'
 import { CAREERS, CAREER_CITY_FILTERS, CAREER_DEPT_FILTERS } from '@/constants/careers'
 
 const Careers = () => {
@@ -229,9 +230,7 @@ const Careers = () => {
                             }}
                         >
                             {isLoading ? (
-                                <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
-                                    <p>Loading positions…</p>
-                                </div>
+                                <SkeletonCareerGrid count={6} />
                             ) : filtered.map((role, i) => (
                                 <motion.div
                                     key={role.id}

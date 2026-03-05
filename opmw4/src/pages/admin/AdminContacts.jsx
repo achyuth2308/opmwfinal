@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { X, Menu, Mail, Clock } from 'lucide-react'
 import { AdminSidebar } from './AdminDashboard'
 import { getAdminContacts } from '@/services/admin.service'
+import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const AdminContacts = () => {
     const navigate = useNavigate()
@@ -49,7 +50,7 @@ const AdminContacts = () => {
                     <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24 }}>Messages received from the website contact form.</p>
 
                     {isLoading ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading…</div>
+                        <SkeletonDashboard statCount={0} rowCount={6} cols={3} />
                     ) : contacts.length === 0 ? (
                         <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No contact submissions yet.</div>
                     ) : (
