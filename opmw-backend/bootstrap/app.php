@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         // Sanctum stateful domains
-        $middleware->statefulApi();
+        // $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
