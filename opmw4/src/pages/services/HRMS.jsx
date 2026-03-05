@@ -1,3 +1,5 @@
+import { useState, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import {
     CreditCard,
     Clock,
@@ -217,6 +219,21 @@ const HRMSDashboardMockup = () => (
 
 
 const HRMS = () => {
+    const { hash } = useLocation()
+
+    useEffect(() => {
+        if (hash) {
+            const id = hash.replace('#', '')
+            const element = document.getElementById(id)
+            if (element) {
+                // Small delay to ensure content is fully rendered
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }, 100)
+            }
+        }
+    }, [hash])
+
     return (
         <>
             <ServiceHero
@@ -294,6 +311,11 @@ const HRMS = () => {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: i * 0.1 }}
                                 className={`pricing-card${tier.popular ? ' popular' : ''}`}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    height: '100%',
+                                }}
                             >
                                 {tier.popular && (
                                     <div
@@ -364,6 +386,7 @@ const HRMS = () => {
                                     href="#demo"
                                     style={{
                                         display: 'block',
+                                        marginTop: 'auto',
                                         textAlign: 'center',
                                         padding: '12px 20px',
                                         borderRadius: 8,

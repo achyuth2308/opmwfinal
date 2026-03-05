@@ -97,8 +97,6 @@ const DemoRequestForm = () => {
 
     const allFieldErrors = { ...fieldErrors, ...localErrors }
 
-    const success = false // We handle success via navigation now
-
     return (
         <SectionWrapper className="section-gutter">
             <div
@@ -132,24 +130,67 @@ const DemoRequestForm = () => {
                 </div>
 
                 {/* Form card */}
-                <div
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
                     style={{
                         maxWidth: 680,
                         margin: '0 auto',
                         background: 'var(--surface-2)',
                         border: '1px solid var(--border)',
                         borderRadius: 16,
-                        padding: 'clamp(28px, 4vw, 48px)',
+                        padding: 'clamp(20px, 4vw, 48px)',
                     }}
                 >
+                    <style>{`
+                        .demo-form-grid {
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 20px;
+                        }
+                        
+                        .demo-form-span-2 {
+                            grid-column: span 2;
+                        }
+
+                        .demo-field-input {
+                            width: 100%;
+                            background: rgba(255, 255, 255, 0.045);
+                            border: 1px solid var(--border);
+                            border-radius: 8px;
+                            padding: 12px 14px;
+                            color: var(--text-primary);
+                            font-size: 14px;
+                            font-family: 'Inter', sans-serif;
+                            transition: all 200ms ease;
+                            outline: none;
+                        }
+
+                        .demo-field-input:focus {
+                            border-color: var(--accent);
+                            background: rgba(255, 255, 255, 0.07);
+                            box-shadow: 0 0 0 3px rgba(110, 231, 250, 0.08);
+                        }
+
+                        @media (max-width: 600px) {
+                            .demo-form-grid {
+                                grid-template-columns: 1fr;
+                                gap: 16px;
+                            }
+                            .demo-form-span-2 {
+                                grid-column: span 1;
+                            }
+                            .demo-field-input {
+                                padding: 10px 12px;
+                                font-size: 13px;
+                            }
+                        }
+                    `}</style>
+
                     <form onSubmit={onSubmit} noValidate>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                                gap: 20,
-                            }}
-                        >
+                        <div className="demo-form-grid">
                             {/* Company Name */}
                             <div>
                                 <label htmlFor="demo-company" className="field-label">
@@ -163,7 +204,7 @@ const DemoRequestForm = () => {
                                     placeholder="Acme Corp"
                                     value={form.company_name}
                                     onChange={handleChange}
-                                    className={`field-input${allFieldErrors.company_name ? ' error' : ''}`}
+                                    className={`demo-field-input${allFieldErrors.company_name ? ' error' : ''}`}
                                 />
                                 {allFieldErrors.company_name && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
@@ -185,7 +226,7 @@ const DemoRequestForm = () => {
                                     placeholder="Your full name"
                                     value={form.contact_name}
                                     onChange={handleChange}
-                                    className={`field-input${allFieldErrors.contact_name ? ' error' : ''}`}
+                                    className={`demo-field-input${allFieldErrors.contact_name ? ' error' : ''}`}
                                 />
                                 {allFieldErrors.contact_name && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
@@ -207,7 +248,7 @@ const DemoRequestForm = () => {
                                     placeholder="you@company.com"
                                     value={form.email}
                                     onChange={handleChange}
-                                    className={`field-input${allFieldErrors.email ? ' error' : ''}`}
+                                    className={`demo-field-input${allFieldErrors.email ? ' error' : ''}`}
                                 />
                                 {allFieldErrors.email && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
@@ -229,7 +270,7 @@ const DemoRequestForm = () => {
                                     placeholder="+91 XXXXX XXXXX"
                                     value={form.phone}
                                     onChange={handleChange}
-                                    className={`field-input${allFieldErrors.phone ? ' error' : ''}`}
+                                    className={`demo-field-input${allFieldErrors.phone ? ' error' : ''}`}
                                 />
                                 {allFieldErrors.phone && (
                                     <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>
@@ -239,7 +280,7 @@ const DemoRequestForm = () => {
                             </div>
 
                             {/* Employee Count */}
-                            <div style={{ gridColumn: 'span 2' }}>
+                            <div className="demo-form-span-2">
                                 <label htmlFor="demo-employees" className="field-label">
                                     Employee Count *
                                 </label>
@@ -249,7 +290,7 @@ const DemoRequestForm = () => {
                                     required
                                     value={form.employee_count}
                                     onChange={handleChange}
-                                    className={`field-input${allFieldErrors.employee_count ? ' error' : ''}`}
+                                    className={`demo-field-input${allFieldErrors.employee_count ? ' error' : ''}`}
                                 >
                                     <option value="">Select employee range</option>
                                     {EMPLOYEE_OPTIONS.map((opt) => (
@@ -266,7 +307,7 @@ const DemoRequestForm = () => {
                             </div>
 
                             {/* Message */}
-                            <div style={{ gridColumn: 'span 2' }}>
+                            <div className="demo-form-span-2">
                                 <label htmlFor="demo-message" className="field-label">
                                     What would you like to see?
                                 </label>
@@ -277,7 +318,7 @@ const DemoRequestForm = () => {
                                     placeholder="Tell us about your current HR processes and what you'd like to automate..."
                                     value={form.message}
                                     onChange={handleChange}
-                                    className="field-input"
+                                    className="demo-field-input"
                                     style={{ resize: 'vertical', minHeight: 100 }}
                                 />
                             </div>
@@ -343,7 +384,7 @@ const DemoRequestForm = () => {
                             )}
                         </button>
                     </form>
-                </div>
+                </motion.div>
             </div>
             <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </SectionWrapper>
