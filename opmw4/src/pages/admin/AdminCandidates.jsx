@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Search, X, Menu, ChevronLeft, ChevronRight, User } from 'lucide-react'
 import { AdminSidebar } from './AdminDashboard'
 import { getAdminCandidates } from '@/services/admin.service'
+import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const AdminCandidates = () => {
     const navigate = useNavigate()
@@ -73,7 +74,7 @@ const AdminCandidates = () => {
 
                     {/* Table */}
                     {isLoading ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading…</div>
+                        <SkeletonDashboard statCount={0} rowCount={8} cols={5} />
                     ) : (
                         <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>

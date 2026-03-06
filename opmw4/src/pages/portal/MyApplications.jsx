@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
+import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
 
@@ -147,7 +148,7 @@ const MyApplications = () => {
                         </div>
 
                         {isLoading ? (
-                            <div style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading…</div>
+                            <SkeletonDashboard statCount={0} rowCount={6} cols={5} />
                         ) : applications.length === 0 ? (
                             <div style={{ padding: '48px 24px', textAlign: 'center' }}>
                                 <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>

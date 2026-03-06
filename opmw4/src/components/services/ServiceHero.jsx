@@ -103,12 +103,21 @@ const ServiceHero = ({ label, headline, subtext, ctaLabel, ctaHref, trustItems, 
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}
                             >
-                                <Link to={ctaHref} style={{ textDecoration: 'none' }}>
-                                    <AnimatedButton variant="primary" size="lg">
-                                        {ctaLabel}
-                                        <ArrowRight size={16} />
-                                    </AnimatedButton>
-                                </Link>
+                                {ctaHref.startsWith('#') ? (
+                                    <a href={ctaHref} style={{ textDecoration: 'none' }}>
+                                        <AnimatedButton variant="primary" size="lg">
+                                            {ctaLabel}
+                                            <ArrowRight size={16} />
+                                        </AnimatedButton>
+                                    </a>
+                                ) : (
+                                    <Link to={ctaHref} style={{ textDecoration: 'none' }}>
+                                        <AnimatedButton variant="primary" size="lg">
+                                            {ctaLabel}
+                                            <ArrowRight size={16} />
+                                        </AnimatedButton>
+                                    </Link>
+                                )}
                             </motion.div>
                         )}
 

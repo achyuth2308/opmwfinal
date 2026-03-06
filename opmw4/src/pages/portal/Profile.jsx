@@ -114,6 +114,14 @@ const Profile = () => {
 
     const headers = { Authorization: `Bearer ${token}`, Accept: 'application/json' }
 
+    useEffect(() => {
+        if (user) {
+            setProfileForm({ name: user.name || '', phone: user.phone || '', city: user.city || '' })
+            setPhotoPreview(user.profile_photo ? `${API_BASE.replace('/api', '')}/storage/${user.profile_photo}` : null)
+            setResumeName(user.resume_path ? user.resume_path.split('/').pop() : null)
+        }
+    }, [user])
+
     const handleProfileChange = (e) => {
         const { name, value } = e.target
         setProfileForm((prev) => ({ ...prev, [name]: value }))
@@ -191,6 +199,8 @@ const Profile = () => {
             setTimeout(() => setPwSuccess(false), 3000)
         } catch { setPwError('Network error.') } finally { setPwSaving(false) }
     }
+
+    if (!user && !token) return null // Should be handled by AuthRoute/AppRouter anyway
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--surface-1)' }}>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
+import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
 
@@ -53,11 +54,10 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
 
             {/* User info */}
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifySelf: 'space-between', marginBottom: 8 }}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: 8 }}>
                     <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)' }}>
                         {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                     </div>
-                    <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.05em', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.25)', borderRadius: 4, padding: '2px 6px' }}>Candidate</span>
                 </div>
                 <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>{user?.name || 'Candidate'}</p>
                 <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
@@ -165,58 +165,62 @@ const Dashboard = () => {
                         <p style={{ fontSize: 14, color: 'var(--text-secondary)' }}>Welcome back, {user?.name?.split(' ')[0] || 'there'}! Here's a summary of your OPMW applications.</p>
                     </div>
 
-                    {/* Stat cards */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16, marginBottom: 36 }}>
-                        {[
-                            { label: 'Total Applications', value: stats.total, color: '#6EE7FA' },
-                            { label: 'Pending Review', value: stats.pending, color: '#FBB040' },
-                            { label: 'Latest Status', value: stats.latest, color: STATUS_COLORS[stats.latest]?.color || 'var(--text-muted)', isText: true },
-                        ].map((card) => (
-                            <div key={card.label} style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, padding: '20px 24px' }}>
-                                <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{card.label}</p>
-                                <p style={{ fontSize: card.isText ? 18 : 32, fontWeight: 700, color: card.color, fontFamily: card.isText ? 'inherit' : 'JetBrains Mono,monospace', letterSpacing: card.isText ? '-0.01em' : '-0.02em' }}>{card.value}</p>
+                    {isLoading ? (
+                        <SkeletonDashboard statCount={3} rowCount={5} cols={4} />
+                    ) : (
+                        <>
+                            {/* Stat cards */}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16, marginBottom: 36 }}>
+                                {[
+                                    { label: 'Total Applications', value: stats.total, color: '#6EE7FA' },
+                                    { label: 'Pending Review', value: stats.pending, color: '#FBB040' },
+                                    { label: 'Latest Status', value: stats.latest, color: STATUS_COLORS[stats.latest]?.color || 'var(--text-muted)', isText: true },
+                                ].map((card) => (
+                                    <div key={card.label} style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, padding: '20px 24px' }}>
+                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{card.label}</p>
+                                        <p style={{ fontSize: card.isText ? 18 : 32, fontWeight: 700, color: card.color, fontFamily: card.isText ? 'inherit' : 'JetBrains Mono,monospace', letterSpacing: card.isText ? '-0.01em' : '-0.02em' }}>{card.value}</p>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
 
-                    {/* Recent applications */}
-                    <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>
-                        <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>Recent Applications</h2>
-                            <Link to="/portal/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all →</Link>
-                        </div>
+                            {/* Recent applications */}
+                            <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>
+                                <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>Recent Applications</h2>
+                                    <Link to="/portal/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all →</Link>
+                                </div>
 
-                        {isLoading ? (
-                            <div style={{ padding: '40px 24px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>Loading…</div>
-                        ) : applications.length === 0 ? (
-                            <div style={{ padding: '40px 24px', textAlign: 'center' }}>
-                                <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
-                                <Link to="/careers" style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none' }}>Browse open roles →</Link>
+                                {applications.length === 0 ? (
+                                    <div style={{ padding: '40px 24px', textAlign: 'center' }}>
+                                        <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
+                                        <Link to="/careers" style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none' }}>Browse open roles →</Link>
+                                    </div>
+                                ) : (
+                                    <div style={{ overflowX: 'auto' }}>
+                                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                                            <thead>
+                                                <tr style={{ borderBottom: '1px solid var(--border)' }}>
+                                                    {['Role', 'Location', 'Date', 'Status'].map((h) => (
+                                                        <th key={h} style={{ padding: '12px 24px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>{h}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {applications.slice(0, 5).map((app, i) => (
+                                                    <tr key={app.id || i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                                                        <td style={{ padding: '14px 24px', fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.role}</td>
+                                                        <td style={{ padding: '14px 24px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.location}</td>
+                                                        <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
+                                                        <td style={{ padding: '14px 24px' }}><StatusBadge status={app.status} /></td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
                             </div>
-                        ) : (
-                            <div style={{ overflowX: 'auto' }}>
-                                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                                    <thead>
-                                        <tr style={{ borderBottom: '1px solid var(--border)' }}>
-                                            {['Role', 'Location', 'Date', 'Status'].map((h) => (
-                                                <th key={h} style={{ padding: '12px 24px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>{h}</th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {applications.slice(0, 5).map((app, i) => (
-                                            <tr key={app.id || i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                                                <td style={{ padding: '14px 24px', fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.role}</td>
-                                                <td style={{ padding: '14px 24px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.location}</td>
-                                                <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
-                                                <td style={{ padding: '14px 24px' }}><StatusBadge status={app.status} /></td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
-                    </div>
+                        </>
+                    )}
                 </div>
             </main>
             <style>{`@media(max-width:768px) { .portal-mobile-topbar { display: flex !important; } }`}</style>
