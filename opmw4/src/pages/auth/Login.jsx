@@ -24,7 +24,7 @@ const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const { login } = useAuth()
-    const from = location.state?.from?.pathname || '/portal'
+    const from = location.state?.from?.pathname || '/'
 
     const [form, setForm] = useState({ email: '', password: '', remember: false })
     const [showPassword, setShowPassword] = useState(false)
@@ -57,7 +57,7 @@ const Login = () => {
                 return
             }
             login(data.user, data.token)
-            navigate('/portal', { replace: true })
+            navigate(from, { replace: true })
         } catch {
             setError('Network error. Please check your connection.')
         } finally {

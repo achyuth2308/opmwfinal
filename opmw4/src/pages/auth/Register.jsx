@@ -153,8 +153,10 @@ const Register = () => {
                 }
                 return
             }
-            login(data.user, data.token)
-            navigate('/portal', { replace: true })
+            // navigate('/portal', { replace: true })
+            navigate('/login', {
+                state: { message: 'Registration successful! Please log in to your account.' }
+            })
         } catch {
             setError('Network error. Please check your connection.')
         } finally {

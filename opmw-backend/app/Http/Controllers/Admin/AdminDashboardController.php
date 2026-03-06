@@ -12,11 +12,18 @@ class AdminDashboardController extends Controller
 {
     public function index(): JsonResponse
     {
+        $counts = \DB::table('users')
+            ->selectRaw('(SELECT COUNT(*) FROM users) as total_users')
+            ->selectRaw('(SELECT COUNT(*) FROM applications) as total_applications')
+            ->selectRaw("(SELECT COUNT(*) FROM applications WHERE status = 'Pending') as pending_applications")
+            ->selectRaw("(SELECT COUNT(*) FROM contacts WHERE is_read = 0) as unread_contacts")
+            ->first();
+
         return response()->json([
-            'total_users' => User::count(),
-            'total_applications' => Application::count(),
-            'pending_applications' => Application::where('status', 'Pending')->count(),
-            'unread_contacts' => Contact::where('is_read', false)->count(),
+            'total_users' => (int) $counts->total_users,
+            'total_applications' => (int) $counts->total_applications,
+            'pending_applications' => (int) $counts->pending_applications,
+            'unread_contacts' => (int) $counts->unread_contacts,
             'recent_applications' => Application::with('user')
                 ->latest()
                 ->take(10)

@@ -124,7 +124,7 @@ const IntroSequence = ({ onComplete }) => {
             <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 0.5 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
                 onClick={handleSkip}
                 className="skip-btn"
                 onMouseEnter={(e) => {
