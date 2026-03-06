@@ -10,13 +10,8 @@ const generateRequestId = () => {
 
 const getBaseURL = () => {
     let url = import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com'
-    // Normalize: remove trailing slashes
-    url = url.replace(/\/+$/, '')
-    // Ensure it ends with /api
-    if (!url.endsWith('/api')) {
-        url = `${url}/api`
-    }
-    return `${url}/`
+    // Normalize: remove all trailing slashes and then add exactly one
+    return url.replace(/\/+$/, '') + '/'
 }
 
 const apiClient = axios.create({
