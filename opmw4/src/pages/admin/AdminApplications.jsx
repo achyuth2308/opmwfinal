@@ -163,7 +163,7 @@ const AdminApplications = () => {
                                                         </button>
                                                         {app.resume_path && (
                                                             <a
-                                                                href={`${(import.meta.env.VITE_API_URL || 'http://localhost:8000/api').replace('/api', '')}/storage/${app.resume_path}`}
+                                                                href={`${(import.meta.env.VITE_API_URL || 'http://opmwfinal-1.onrender.com/api').replace('/api', '')}/storage/${app.resume_path}`}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"
                                                                 style={{ padding: 6, borderRadius: 6, background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -272,4 +272,5 @@ const AdminApplications = () => {
 }
 
 export default AdminApplications
+
 
