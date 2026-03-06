@@ -94,6 +94,7 @@ const HeroSection = () => {
                 {/* Pill badge */}
                 <motion.div variants={stagger.item} style={{ marginBottom: 28 }}>
                     <span className="pill-badge">
+                        One Platform
                         <span
                             style={{
                                 width: 5,
@@ -105,8 +106,21 @@ const HeroSection = () => {
                                 animation: 'pulse 2s ease-in-out infinite',
                             }}
                         />
-                        Enterprise Operations Platform
+                        Multiple Solutions
+                        <span
+                            style={{
+                                width: 5,
+                                height: 5,
+                                borderRadius: '50%',
+                                background: 'var(--accent)',
+                                display: 'inline-block',
+                                boxShadow: '0 0 6px rgba(110,231,250,0.8)',
+                                animation: 'pulse 2s ease-in-out infinite',
+                            }}
+                        />
+                        Scalable Execution
                     </span>
+
                 </motion.div>
 
                 {/* H1 with Typewriter Animation and Custom Colors */}
@@ -129,14 +143,14 @@ const HeroSection = () => {
                     <TypewriterText
                         text={[
                             { text: 'One ' },
-                            { text: 'Platform', shimmer: true }
+                            { text: 'Place', shimmer: true }
                         ]}
                         delay={0.4}
                     />
                     <TypewriterText
                         text={[
-                            { text: 'Multiple ', shimmer: true },
-                            { text: 'Solutions' }
+                            { text: 'Multi ', shimmer: true },
+                            { text: 'Work' }
                         ]}
                         delay={1.8}
                     />
