@@ -17,35 +17,29 @@ const ServiceHero = ({ label, headline, subtext, ctaLabel, ctaHref, trustItems, 
             }}
             aria-label={`${label} hero`}
         >
-            {/* Gradient orbs */}
-            <div
-                aria-hidden="true"
-                style={{
+            {/* Gradient orbs & Grid */}
+            <div className="page-hero__bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+                <div className="aurora-blob" style={{
+                    width: 500, height: 500,
+                    top: '-15%', left: '50%',
+                    background: 'radial-gradient(ellipse at 50% 0%, rgba(110,231,250,0.12) 0%, transparent 65%)',
+                    animation: 'aurora-1 15s ease-in-out infinite',
+                }} />
+                <div className="aurora-blob" style={{
+                    width: 400, height: 400,
+                    bottom: '-10%', left: '-5%',
+                    background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)',
+                    animation: 'aurora-2 20s ease-in-out infinite',
+                }} />
+                <div style={{
                     position: 'absolute',
-                    top: '-10%',
-                    left: '60%',
-                    width: 600,
-                    height: 600,
-                    background:
-                        'radial-gradient(circle, rgba(110,231,250,0.08) 0%, transparent 70%)',
-                    filter: 'blur(50px)',
-                    pointerEvents: 'none',
-                }}
-            />
-            <div
-                aria-hidden="true"
-                style={{
-                    position: 'absolute',
-                    bottom: '0%',
-                    left: '-5%',
-                    width: 400,
-                    height: 400,
-                    background:
-                        'radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)',
-                    filter: 'blur(80px)',
-                    pointerEvents: 'none',
-                }}
-            />
+                    inset: 0,
+                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)',
+                    backgroundSize: '44px 44px',
+                    maskImage: 'radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%)',
+                    WebkitMaskImage: 'radial-gradient(ellipse at 50% 0%, black 0%, transparent 70%)',
+                }} />
+            </div>
 
             <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1, width: '100%' }}>
                 <div style={{
@@ -79,7 +73,8 @@ const ServiceHero = ({ label, headline, subtext, ctaLabel, ctaHref, trustItems, 
                                 marginBottom: 24,
                             }}
                         >
-                            {headline}
+                            <span className="text-shimmer">{headline.split('.')[0]}.</span>
+                            {headline.split('.').slice(1).join('.')}
                         </motion.h1>
 
                         <motion.p

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
+import { useMagnetic } from '@/hooks/useMagnetic'
 
 const AnimatedButton = ({
     children,
@@ -12,6 +13,8 @@ const AnimatedButton = ({
     className,
     animatedBorder,
 }) => {
+    const magneticRef = useMagnetic(0.3)
+
     const sizeClasses = {
         sm: 'px-4 py-2 text-sm',
         md: 'px-6 py-3 text-sm',
@@ -41,34 +44,12 @@ const AnimatedButton = ({
     const MotionTag = href ? motion.a : motion.button
 
     const motionProps = {
-        whileHover: disabled ? {} : { y: -2 },
-        whileTap: disabled ? {} : { scale: 0.98, y: 0 },
-        transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] },
+        whileHover: disabled ? {} : { scale: 1.02 },
+        whileTap: disabled ? {} : { scale: 0.95 },
+        transition: { type: 'spring', stiffness: 400, damping: 20 },
     }
 
-    if (animatedBorder) {
-        return (
-            <div style={{ position: 'relative', display: 'inline-flex', borderRadius: '10px', padding: '1px' }}>
-                <div
-                    className="animated-border"
-                    style={{ position: 'absolute', inset: 0, borderRadius: '10px', zIndex: 0 }}
-                />
-                <MotionTag
-                    {...motionProps}
-                    className={combinedClassName}
-                    style={{ ...baseStyle, position: 'relative', zIndex: 1, borderRadius: '9px', border: 'none' }}
-                    onClick={onClick}
-                    href={href}
-                    type={type}
-                    disabled={disabled}
-                >
-                    {children}
-                </MotionTag>
-            </div>
-        )
-    }
-
-    return (
+    const buttonContent = (
         <MotionTag
             {...motionProps}
             className={combinedClassName}
@@ -79,7 +60,52 @@ const AnimatedButton = ({
             disabled={disabled}
         >
             {children}
+            {/* The Pulse: Breathing effect for primary buttons */}
+            {variant === 'primary' && !disabled && (
+                <div
+                    className="pulse-ring"
+                    style={{
+                        position: 'absolute',
+                        inset: 0,
+                        borderRadius: 'inherit',
+                        border: '2px solid var(--accent)',
+                        opacity: 0,
+                        pointerEvents: 'none',
+                        animation: 'breathing-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    }}
+                />
+            )}
         </MotionTag>
+    )
+
+    return (
+        <div
+            ref={magneticRef}
+            style={{ display: 'inline-flex', padding: 10 }}
+        >
+            {animatedBorder ? (
+                <div style={{ position: 'relative', display: 'inline-flex', borderRadius: '10px', padding: '1px' }}>
+                    <div
+                        className="animated-border"
+                        style={{ position: 'absolute', inset: 0, borderRadius: '10px', zIndex: 0 }}
+                    />
+                    <motion.div
+                        {...motionProps}
+                        style={{ ...baseStyle, position: 'relative', zIndex: 1, borderRadius: '9px', border: 'none' }}
+                    >
+                        {buttonContent}
+                    </motion.div>
+                </div>
+            ) : buttonContent}
+            {/* Breathing pulse animation */}
+            <style>{`
+                @keyframes breathing-pulse {
+                    0% { transform: scale(1); opacity: 0; }
+                    50% { transform: scale(1.05); opacity: 0.4; }
+                    100% { transform: scale(1.1); opacity: 0; }
+                }
+            `}</style>
+        </div>
     )
 }
 

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import { Mail, MapPin } from 'lucide-react'
+import { Mail, Phone, Clock, ChevronRight } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
-import TypewriterText from '@/components/shared/TypewriterText'
+import PageHero from '@/components/shared/PageHero'
 import BranchCard from '@/components/contact/BranchCard'
 import ContactForm from '@/components/contact/ContactForm'
 import { LOCATIONS } from '@/constants/locations'
@@ -9,114 +9,77 @@ import { LOCATIONS } from '@/constants/locations'
 const Contact = () => {
     return (
         <>
-            {/* Hero */}
-            <section
-                style={{
-                    padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 80px) clamp(40px, 5vw, 60px)',
-                    textAlign: 'center',
-                    position: 'relative',
-                }}
+            {/* Premium Hero */}
+            <PageHero
+                badge="Contact"
+                title="Let's talk"
+                titleAccent="operations"
+                subtitle="Whether you're exploring BPO, IT, or HRMS — our team responds within 1 business day."
             >
-                <div
-                    aria-hidden="true"
-                    style={{
-                        position: 'absolute',
-                        top: '30%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: 600,
-                        height: 400,
-                        background: 'radial-gradient(ellipse, rgba(110,231,250,0.05) 0%, transparent 70%)',
-                        pointerEvents: 'none',
-                    }}
-                />
-                <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                        style={{ marginBottom: 20 }}
-                    >
-                        <span className="pill-badge">Contact</span>
-                    </motion.div>
-                    <motion.h1
-                        style={{
-                            fontSize: 'clamp(36px, 5.5vw, 72px)',
-                            fontWeight: 800,
-                            letterSpacing: '-0.04em',
-                            color: 'var(--text-primary)',
-                            marginBottom: 16,
-                        }}
-                    >
-                        <TypewriterText
-                            text={[
-                                { text: "Let's talk operations" }
-                            ]}
-                            delay={0.2}
-                        />
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.18 }}
-                        style={{ color: 'var(--text-secondary)', fontSize: 16, maxWidth: 480, margin: '0 auto 20px' }}
-                    >
-                        Whether you're exploring BPO, IT, or HRMS — our team responds within 1 business day.
-                    </motion.p>
+                {/* Animated CTA links */}
+                <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
                     <motion.a
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4, delay: 0.28 }}
                         href="mailto:info@opmw.in"
+                        whileHover={{ scale: 1.04 }}
                         style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 8,
-                            fontSize: 15,
-                            fontFamily: 'JetBrains Mono, monospace',
+                            display: 'inline-flex', alignItems: 'center', gap: 8,
+                            padding: '10px 20px', borderRadius: 9999,
+                            background: 'rgba(110,231,250,0.08)',
+                            border: '1px solid rgba(110,231,250,0.25)',
                             color: 'var(--accent)',
-                            textDecoration: 'none',
+                            fontSize: 14, fontFamily: 'JetBrains Mono, monospace',
+                            textDecoration: 'none', letterSpacing: '0.04em',
                         }}
                     >
-                        <Mail size={15} />
-                        info@opmw.in
+                        <Mail size={14} /> info@opmw.in
                     </motion.a>
+                    <motion.div
+                        whileHover={{ scale: 1.04 }}
+                        style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 8,
+                            padding: '10px 20px', borderRadius: 9999,
+                            background: 'rgba(255,255,255,0.04)',
+                            border: '1px solid var(--border)',
+                            color: 'var(--text-secondary)',
+                            fontSize: 14, fontFamily: 'JetBrains Mono, monospace',
+                            letterSpacing: '0.04em',
+                        }}
+                    >
+                        <Clock size={14} /> Mon–Sat · 9AM–7PM IST
+                    </motion.div>
                 </div>
-            </section>
+            </PageHero>
+
 
             {/* Branch cards */}
             <SectionWrapper className="section-gutter">
-                <div
-                    style={{
-                        maxWidth: 1200,
-                        margin: '0 auto',
-                        padding: '0 clamp(24px, 5vw, 80px) clamp(48px, 6vw, 72px)',
-                    }}
-                >
-                    <div style={{ marginBottom: 32 }}>
-                        <div className="section-divider" style={{ marginBottom: 16 }} />
-                        <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 10 }}>Our Offices</p>
-                        <h2
-                            style={{
-                                fontSize: 'clamp(24px, 3vw, 36px)',
-                                fontWeight: 700,
-                                letterSpacing: '-0.02em',
-                                color: 'var(--text-primary)',
-                            }}
-                        >
-                            Five cities. Always reachable.
-                        </h2>
-                    </div>
-
-                    <div
-                        style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                            gap: 16,
-                        }}
+                <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(24px, 5vw, 80px) clamp(48px, 6vw, 72px)', position: 'relative' }}>
+                    <div className="section-spotlight" />
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        style={{ marginBottom: 32 }}
                     >
-                        {LOCATIONS.map((location) => (
-                            <BranchCard key={location.id} location={location} />
+                        <div className="section-divider" style={{ marginBottom: 14 }} />
+                        <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 10 }}>Our Offices</p>
+                        <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
+                            Five cities. <span className="text-shimmer">Always reachable.</span>
+                        </h2>
+                    </motion.div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
+                        {LOCATIONS.map((location, i) => (
+                            <motion.div
+                                key={location.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.07 }}
+                            >
+                                <BranchCard location={location} />
+                            </motion.div>
                         ))}
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import HeroSection from '@/components/home/HeroSection'
+import TrustedBySection from '@/components/home/TrustedBySection'
 import CorporatePositioning from '@/components/home/CorporatePositioning'
 import AboutOPMW from '@/components/home/AboutOPMW'
 import DivisionsGrid from '@/components/home/DivisionsGrid'
@@ -11,6 +12,7 @@ const Home = () => {
     return (
         <>
             <HeroSection />
+            <TrustedBySection />
             <CorporatePositioning />
             <AboutOPMW />
             <DivisionsGrid />

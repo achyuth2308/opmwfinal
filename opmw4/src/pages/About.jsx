@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Linkedin, Target, TrendingUp, Award, Globe, Users, Zap, BarChart2 } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
+import PageHero from '@/components/shared/PageHero'
 
 const LEADERSHIP = [
     { name: 'Founder & CEO', role: 'Strategic Vision & Operations', initials: 'FC' },
@@ -87,198 +88,220 @@ const sectionGutter = {
 const About = () => {
     return (
         <>
-            {/* ─── Company Overview ─── */}
-            <section
-                style={{
-                    padding: 'clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px) clamp(48px, 6vw, 72px)',
-                    position: 'relative',
-                    overflow: 'hidden',
-                }}
+            {/* Premium Page Hero */}
+            <PageHero
+                badge="About OPMW"
+                title="One Platform"
+                titleAccent="Multiple Dimensions"
+                subtitle="OPMW was built to solve a fragmented problem — enterprises juggling separate vendors for BPO, IT, and HR. We built the unified execution layer."
             >
-                <div
-                    aria-hidden="true"
-                    style={{
-                        position: 'absolute',
-                        top: '-10%',
-                        right: '-5%',
-                        width: 500,
-                        height: 500,
-                        background: 'radial-gradient(circle, rgba(110,231,250,0.05) 0%, transparent 70%)',
-                        filter: 'blur(60px)',
-                        pointerEvents: 'none',
-                    }}
-                />
-                <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>
-                        {/* Top Row: Heading and Image Side-by-Side */}
-                        <div style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: 'clamp(40px, 6vw, 80px)',
-                            alignItems: 'center',
-                            justifyContent: 'space-between'
-                        }}>
-                            <div style={{ flex: '1 1 500px', textAlign: 'left' }}>
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                    style={{ marginBottom: 20 }}
-                                >
-                                    <span className="pill-badge">About OPMW</span>
-                                </motion.div>
-                                <motion.h1
-                                    initial={{ opacity: 0, y: 24 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.55, delay: 0.1 }}
-                                    style={{
-                                        fontSize: 'clamp(36px, 5.5vw, 72px)',
-                                        fontWeight: 800,
-                                        letterSpacing: '-0.04em',
-                                        lineHeight: 1.08,
-                                        color: 'var(--text-primary)',
-                                    }}
-                                >
-                                    One Platform
-                                    <br />
-                                    Multiple dimensions of execution
-                                </motion.h1>
-                            </div>
+                {/* Stat pills in hero */}
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 8 }}>
+                    {[
+                        { label: 'Founded', value: '2021', detail: 'Chennai' },
+                        { label: 'Workforce', value: '300+', detail: 'Professionals' },
+                        { label: 'Cities', value: '5', detail: 'Active' },
+                        { label: 'Sectors', value: '3', detail: 'BPO · IT · HRMS' },
+                    ].map((stat, i) => (
+                        <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 + i * 0.08, duration: 0.4 }}
+                            style={{
+                                background: 'rgba(255,255,255,0.04)',
+                                border: '1px solid var(--border)',
+                                borderRadius: 12,
+                                padding: '14px 20px',
+                                minWidth: 110,
+                                textAlign: 'left',
+                                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
+                            }}
+                        >
+                            <p style={{ fontSize: 9, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 4 }}>{stat.label}</p>
+                            <p style={{ fontSize: 22, fontWeight: 800, color: 'var(--accent)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '-0.02em', lineHeight: 1, marginBottom: 2 }}>{stat.value}</p>
+                            <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{stat.detail}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </PageHero>
 
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
-                                style={{
-                                    flex: '1 1 420px',
-                                    position: 'relative',
-                                    borderRadius: 32,
-                                    overflow: 'hidden',
-                                    boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
-                                    border: '1px solid rgba(255,255,255,0.08)'
-                                }}
-                            >
-                                <motion.div
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 0.7 }}
-                                >
-                                    <img
-                                        src="/OPMW Images/about opmw.png"
-                                        alt="OPMW Overview"
-                                        style={{ width: '100%', height: 'auto', display: 'block' }}
-                                    />
-                                    <div style={{
-                                        position: 'absolute',
-                                        inset: 0,
-                                        background: 'linear-gradient(to top, rgba(9,9,11,0.6) 0%, transparent 60%)',
-                                        pointerEvents: 'none'
-                                    }} />
-                                </motion.div>
-                            </motion.div>
-                        </div>
-
-                        {/* Bottom Section: Stat Boxes followed by Description Text */}
-                        <div style={{ textAlign: 'center' }}>
+            <div
+                aria-hidden="true"
+                style={{
+                    position: 'absolute',
+                    top: '-10%',
+                    right: '-5%',
+                    width: 500,
+                    height: 500,
+                    background: 'radial-gradient(circle, rgba(110,231,250,0.05) 0%, transparent 70%)',
+                    filter: 'blur(60px)',
+                    pointerEvents: 'none',
+                }}
+            />
+            <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 60 }}>
+                    {/* Top Row: Heading and Image Side-by-Side */}
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: 'clamp(40px, 6vw, 80px)',
+                        alignItems: 'center',
+                        justifyContent: 'space-between'
+                    }}>
+                        <div style={{ flex: '1 1 500px', textAlign: 'left' }}>
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
+                                transition={{ duration: 0.4 }}
+                                style={{ marginBottom: 20 }}
+                            >
+                                <span className="pill-badge">About OPMW</span>
+                            </motion.div>
+                            <motion.h1
+                                initial={{ opacity: 0, y: 24 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.55, delay: 0.1 }}
                                 style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    flexWrap: 'wrap',
-                                    justifyContent: 'center',
-                                    gap: 16,
-                                    marginBottom: 32,
-                                    width: '100%'
+                                    fontSize: 'clamp(36px, 5.5vw, 72px)',
+                                    fontWeight: 800,
+                                    letterSpacing: '-0.04em',
+                                    lineHeight: 1.08,
+                                    color: 'var(--text-primary)',
                                 }}
                             >
-                                {[
-                                    { label: 'Founded', value: '2021', detail: 'Chennai, India' },
-                                    { label: 'Workforce', value: '300+', detail: 'Professionals' },
-                                    { label: 'Cities', value: '5', detail: 'Active locations' },
-                                    { label: 'Sectors', value: '3', detail: 'BPO · IT · HRMS' },
-                                ].map((stat) => (
-                                    <div
-                                        key={stat.label}
+                                One Platform
+                                <br />
+                                Multiple dimensions of execution
+                            </motion.h1>
+                        </div>
+
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                            style={{
+                                flex: '1 1 420px',
+                                position: 'relative',
+                                borderRadius: 32,
+                                overflow: 'hidden',
+                                boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+                                border: '1px solid rgba(255,255,255,0.08)'
+                            }}
+                        >
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.7 }}
+                            >
+                                <img
+                                    src="/OPMW Images/about opmw.png"
+                                    alt="OPMW Overview"
+                                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                                />
+                                <div style={{
+                                    position: 'absolute',
+                                    inset: 0,
+                                    background: 'linear-gradient(to top, rgba(9,9,11,0.6) 0%, transparent 60%)',
+                                    pointerEvents: 'none'
+                                }} />
+                            </motion.div>
+                        </motion.div>
+                    </div>
+
+                    {/* Bottom Section: Stat Boxes followed by Description Text */}
+                    <div style={{ textAlign: 'center' }}>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                gap: 16,
+                                marginBottom: 32,
+                                width: '100%'
+                            }}
+                        >
+                            {[
+                                { label: 'Founded', value: '2021', detail: 'Chennai, India' },
+                                { label: 'Workforce', value: '300+', detail: 'Professionals' },
+                                { label: 'Cities', value: '5', detail: 'Active locations' },
+                                { label: 'Sectors', value: '3', detail: 'BPO · IT · HRMS' },
+                            ].map((stat) => (
+                                <div
+                                    key={stat.label}
+                                    style={{
+                                        background: 'var(--surface-2)',
+                                        border: '1px solid var(--border)',
+                                        borderRadius: 12,
+                                        padding: '20px 24px',
+                                        flex: '1 1 200px',
+                                        maxWidth: 220,
+                                        textAlign: 'left'
+                                    }}
+                                >
+                                    <p
                                         style={{
-                                            background: 'var(--surface-2)',
-                                            border: '1px solid var(--border)',
-                                            borderRadius: 12,
-                                            padding: '20px 24px',
-                                            flex: '1 1 200px',
-                                            maxWidth: 220,
-                                            textAlign: 'left'
+                                            fontSize: 10,
+                                            fontFamily: 'JetBrains Mono, monospace',
+                                            letterSpacing: '0.12em',
+                                            textTransform: 'uppercase',
+                                            color: 'var(--text-muted)',
+                                            marginBottom: 6,
                                         }}
                                     >
-                                        <p
-                                            style={{
-                                                fontSize: 10,
-                                                fontFamily: 'JetBrains Mono, monospace',
-                                                letterSpacing: '0.12em',
-                                                textTransform: 'uppercase',
-                                                color: 'var(--text-muted)',
-                                                marginBottom: 6,
-                                            }}
-                                        >
-                                            {stat.label}
-                                        </p>
-                                        <p
-                                            style={{
-                                                fontSize: 28,
-                                                fontWeight: 800,
-                                                color: 'var(--accent)',
-                                                fontFamily: 'JetBrains Mono, monospace',
-                                                letterSpacing: '-0.02em',
-                                                lineHeight: 1,
-                                                marginBottom: 4,
-                                            }}
-                                        >
-                                            {stat.value}
-                                        </p>
-                                        <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{stat.detail}</p>
-                                    </div>
-                                ))}
-                            </motion.div>
+                                        {stat.label}
+                                    </p>
+                                    <p
+                                        style={{
+                                            fontSize: 28,
+                                            fontWeight: 800,
+                                            color: 'var(--accent)',
+                                            fontFamily: 'JetBrains Mono, monospace',
+                                            letterSpacing: '-0.02em',
+                                            lineHeight: 1,
+                                            marginBottom: 4,
+                                        }}
+                                    >
+                                        {stat.value}
+                                    </p>
+                                    <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{stat.detail}</p>
+                                </div>
+                            ))}
+                        </motion.div>
 
-                            <motion.p
-                                initial={{ opacity: 0, y: 16 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
-                                style={{
-                                    fontSize: 'clamp(15px, 1.6vw, 17px)',
-                                    color: 'var(--text-secondary)',
-                                    lineHeight: 1.8,
-                                    maxWidth: 800,
-                                    margin: '0 auto'
-                                }}
-                            >
-                                OPMW was built to solve a fragmented problem — enterprises juggling separate vendors for
-                                BPO, IT, and HR. We built a single integrated execution platform that handles all three
-                                under one unified governance model, spanning 5 cities with 300+ multi-skilled professionals.
-                            </motion.p>
-                        </div>
+                        <motion.p
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            style={{
+                                fontSize: 'clamp(15px, 1.6vw, 17px)',
+                                color: 'var(--text-secondary)',
+                                lineHeight: 1.8,
+                                maxWidth: 800,
+                                margin: '0 auto'
+                            }}
+                        >
+                            OPMW was built to solve a fragmented problem — enterprises juggling separate vendors for
+                            BPO, IT, and HR. We built a single integrated execution platform that handles all three
+                            under one unified governance model, spanning 5 cities with 300+ multi-skilled professionals.
+                        </motion.p>
                     </div>
                 </div>
-            </section>
+            </div>
+
 
             {/* ─── Vision & Mission ─── */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
-                    <div style={{ textAlign: 'center', marginBottom: 48 }}>
+                    <div style={{ textAlign: 'center', marginBottom: 48, position: 'relative' }}>
+                        <div className="section-spotlight" />
                         <div className="section-divider" style={{ margin: '0 auto 16px' }} />
-                        <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 12 }}>
-                            Vision & Mission
-                        </p>
-                        <h2
-                            style={{
-                                fontSize: 'clamp(28px, 3.5vw, 44px)',
-                                fontWeight: 700,
-                                letterSpacing: '-0.03em',
-                                color: 'var(--text-primary)',
-                            }}
-                        >
-                            Where we stand & Where we're going
+                        <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 12 }}>Vision &amp; Mission</p>
+                        <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text-primary)' }}>
+                            Where we <span className="text-shimmer">stand</span> &amp; Where we&apos;re going
                         </h2>
                     </div>
 

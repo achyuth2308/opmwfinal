@@ -1,26 +1,37 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import gsap from 'gsap'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import AnimatedButton from '@/components/shared/AnimatedButton'
-import TypewriterText from '@/components/shared/TypewriterText'
+import SplitText from '@/components/shared/SplitText'
+import ParticleCanvas from '@/components/shared/ParticleCanvas'
 import { HERO_STATS } from '@/constants/stats'
 
 const stagger = {
     container: {
         hidden: {},
         show: {
-            transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+            transition: { staggerChildren: 0.12, delayChildren: 0.3 },
         },
     },
     item: {
         hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } },
     },
 }
 
 const HeroSection = () => {
     const sectionRef = useRef(null)
+    const videoRef = useRef(null)
+
+    useEffect(() => {
+        // Entrance scale-in for video
+        gsap.fromTo(videoRef.current,
+            { scale: 1.2, opacity: 0 },
+            { scale: 1, opacity: 0.15, duration: 2, ease: 'power2.out' }
+        )
+    }, [])
 
     return (
         <section
@@ -36,8 +47,12 @@ const HeroSection = () => {
             }}
             aria-label="Hero section"
         >
+            {/* Particle canvas */}
+            <ParticleCanvas />
+
             {/* Background Video */}
             <video
+                ref={videoRef}
                 autoPlay
                 loop
                 muted
@@ -49,7 +64,6 @@ const HeroSection = () => {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    opacity: 0.15,
                     pointerEvents: 'none',
                     zIndex: 0,
                     mixBlendMode: 'screen',
@@ -92,7 +106,7 @@ const HeroSection = () => {
                 }}
             >
                 {/* Pill badge */}
-                <motion.div variants={stagger.item} style={{ marginBottom: 28 }}>
+                <motion.div variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }} transition={{ delay: 0.2 }} style={{ marginBottom: 28 }}>
                     <span className="pill-badge">
                         <span
                             style={{
@@ -109,9 +123,8 @@ const HeroSection = () => {
                     </span>
                 </motion.div>
 
-                {/* H1 with Typewriter Animation and Custom Colors */}
-                <motion.h1
-                    variants={stagger.item}
+                {/* H1 with SplitText Animation */}
+                <h1
                     style={{
                         fontSize: 'clamp(44px, 7vw, 92px)',
                         fontWeight: 800,
@@ -126,25 +139,54 @@ const HeroSection = () => {
                         textAlign: 'center',
                     }}
                 >
-                    <TypewriterText
-                        text={[
-                            { text: 'One ' },
-                            { text: 'Platform', shimmer: true }
-                        ]}
-                        delay={0.4}
-                    />
-                    <TypewriterText
-                        text={[
-                            { text: 'Multiple ', shimmer: true },
-                            { text: 'Solutions' }
-                        ]}
-                        delay={1.8}
-                    />
-                </motion.h1>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0 }}>
+                        <SplitText
+                            text="OPMW"
+                            type="typewriter"
+                            delay={0.5}
+                            className="text-shimmer"
+                        />
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            marginTop: 12,
+                            lineHeight: 1.1
+                        }}>
+                            <SplitText
+                                text="One Place"
+                                type="typewriter"
+                                delay={1.2}
+                                className="text-shimmer"
+                                style={{
+                                    fontSize: '0.28em',
+                                    letterSpacing: '0.15em',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    opacity: 0.95
+                                }}
+                            />
+                            <SplitText
+                                text="Multi Work"
+                                type="typewriter"
+                                delay={2.0}
+                                className="text-shimmer"
+                                style={{
+                                    fontSize: '0.28em',
+                                    letterSpacing: '0.15em',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    opacity: 0.95
+                                }}
+                            />
+                        </div>
+                    </div>
+                </h1>
 
                 {/* Tagline */}
                 <motion.p
-                    variants={stagger.item}
+                    variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
+                    transition={{ delay: 1 }}
                     style={{
                         marginTop: 24,
                         fontSize: 11,

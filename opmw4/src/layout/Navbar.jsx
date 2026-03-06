@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, LogOut, LayoutDashboard, LogIn } from 'lucide-react'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import AnimatedButton from '@/components/shared/AnimatedButton'
+import MagneticNavLink from '@/components/shared/MagneticNavLink'
 import { NAV_LINKS } from '@/constants/navigation'
 import { useAuth } from '@/context/AuthContext'
 
@@ -28,6 +29,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20)
+        handleScroll()
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
@@ -45,35 +47,37 @@ const Navbar = () => {
     return (
         <>
             <motion.header
-                initial={{ y: -80, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                initial={{ y: -80, x: '-50%', opacity: 0 }}
+                animate={{ y: isScrolled ? 16 : 0, x: '-50%', opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                     position: 'fixed',
                     top: 0,
-                    left: 0,
-                    right: 0,
+                    left: '50%',
                     zIndex: 1000,
-                    height: 64,
+                    height: isScrolled ? 68 : 84,
                     display: 'flex',
                     alignItems: 'center',
-                    paddingLeft: 'max(24px, env(safe-area-inset-left))',
-                    paddingRight: 'max(24px, env(safe-area-inset-right))',
+                    paddingLeft: 'clamp(20px, 5vw, 40px)',
+                    paddingRight: 'clamp(20px, 5vw, 40px)',
+                    width: isScrolled ? 'calc(100% - 32px)' : '100%',
+                    maxWidth: isScrolled ? 1200 : 1400,
+                    borderRadius: isScrolled ? 20 : 0,
                     background: isScrolled
-                        ? 'rgba(15,15,18,0.92)'
-                        : 'rgba(15,15,18,0.6)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    borderBottom: isScrolled
-                        ? '1px solid rgba(255,255,255,0.055)'
+                        ? 'rgba(10,10,12,0.7)'
+                        : 'rgba(10,10,12,0.3)',
+                    backdropFilter: isScrolled ? 'blur(24px) saturate(1.8)' : 'blur(12px)',
+                    WebkitBackdropFilter: isScrolled ? 'blur(24px) saturate(1.8)' : 'blur(12px)',
+                    border: isScrolled
+                        ? '1px solid rgba(255,255,255,0.08)'
                         : '1px solid transparent',
-                    transition: 'background 300ms ease, border-color 300ms ease',
+                    borderBottom: !isScrolled ? '1px solid rgba(255,255,255,0.03)' : '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: isScrolled ? '0 20px 48px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05)' : 'none',
+                    transition: 'all 600ms cubic-bezier(0.22, 1, 0.36, 1)',
                 }}
             >
                 <div
                     style={{
-                        maxWidth: 1400, // Slightly wider for centered layout
-                        margin: '0 auto',
                         width: '100%',
                         display: 'flex',
                         alignItems: 'center',
@@ -194,28 +198,14 @@ const Navbar = () => {
                             }
 
                             return (
-                                <NavLink
+                                <MagneticNavLink
                                     key={link.href}
                                     to={link.href}
                                     end={link.href === '/'}
-                                    style={({ isActive }) => ({
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        padding: '8px 16px',
-                                        borderRadius: 6,
-                                        textDecoration: 'none',
-                                        fontSize: 14,
-                                        fontWeight: 500,
-                                        fontFamily: 'Inter, sans-serif',
-                                        color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
-                                        background: isActive ? 'rgba(255,255,255,0.04)' : 'transparent',
-                                        transition: 'all 200ms ease',
-                                    })}
-                                    onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-primary)' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.color = e.currentTarget.ariaCurrent ? 'var(--text-primary)' : 'var(--text-secondary)' }}
+                                    className="nav-item-magnetic"
                                 >
                                     {link.label}
-                                </NavLink>
+                                </MagneticNavLink>
                             )
                         })}
                     </nav>

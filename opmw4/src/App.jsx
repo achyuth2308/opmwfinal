@@ -5,6 +5,9 @@ import { AuthProvider } from '@/context/AuthContext'
 import AppRouter from '@/routes/AppRouter'
 import IntroSequence from '@/intro/IntroSequence'
 import ScrollToTop from '@/components/shared/ScrollToTop'
+import CustomCursor from '@/components/shared/CustomCursor'
+import ScrollProgress from '@/components/shared/ScrollProgress'
+import MeshGradientBg from '@/components/shared/MeshGradientBg'
 
 const App = () => {
   const [introComplete, setIntroComplete] = useState(
@@ -18,7 +21,9 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollProgress />
       <ScrollToTop />
+      <MeshGradientBg />
       <AuthProvider>
         <AnimatePresence mode="wait">
           {!introComplete ? (

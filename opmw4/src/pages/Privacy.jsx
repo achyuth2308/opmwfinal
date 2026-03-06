@@ -42,86 +42,104 @@ const SECTIONS = [
 
 const Privacy = () => {
     return (
-        <div
-            style={{
-                maxWidth: 760,
-                margin: '0 auto',
-                padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 48px)',
-            }}
-        >
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Premium Background */}
+            <div className="page-hero__bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+                <div className="aurora-blob" style={{
+                    width: 500, height: 500, top: '-10%', left: '50%',
+                    background: 'radial-gradient(ellipse at 50% 0%, rgba(110,231,250,0.06) 0%, transparent 65%)',
+                    animation: 'aurora-1 20s ease-in-out infinite',
+                }} />
+                <div style={{
+                    position: 'absolute', inset: 0,
+                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
+                    backgroundSize: '44px 44px',
+                }} />
+            </div>
+
+            <div
+                style={{
+                    maxWidth: 760,
+                    margin: '0 auto',
+                    padding: 'clamp(60px, 8vw, 100px) clamp(24px, 5vw, 48px)',
+                    position: 'relative',
+                    zIndex: 1,
+                }}
             >
-                <span
-                    style={{
-                        fontSize: 10,
-                        fontFamily: 'JetBrains Mono, monospace',
-                        letterSpacing: '0.14em',
-                        textTransform: 'uppercase',
-                        color: 'var(--accent)',
-                        display: 'block',
-                        marginBottom: 16,
-                    }}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
                 >
-                    Legal
-                </span>
-                <h1
-                    style={{
-                        fontSize: 'clamp(32px, 4vw, 48px)',
-                        fontWeight: 800,
-                        letterSpacing: '-0.03em',
-                        color: 'var(--text-primary)',
-                        marginBottom: 8,
-                    }}
-                >
-                    <TypewriterText text="Privacy Policy" delay={0.2} />
-                </h1>
-                <p
-                    style={{
-                        fontSize: 13,
-                        fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
-                        marginBottom: 48,
-                    }}
-                >
-                    Effective Date: 1 January 2025 · Last Updated: 1 January 2025
-                </p>
+                    <span
+                        style={{
+                            fontSize: 10,
+                            fontFamily: 'JetBrains Mono, monospace',
+                            letterSpacing: '0.14em',
+                            textTransform: 'uppercase',
+                            color: 'var(--accent)',
+                            display: 'block',
+                            marginBottom: 16,
+                        }}
+                    >
+                        Legal
+                    </span>
+                    <h1
+                        style={{
+                            fontSize: 'clamp(32px, 4vw, 48px)',
+                            fontWeight: 800,
+                            letterSpacing: '-0.03em',
+                            color: 'var(--text-primary)',
+                            marginBottom: 8,
+                        }}
+                    >
+                        <TypewriterText text="Privacy Policy" delay={0.2} />
+                    </h1>
+                    <p
+                        style={{
+                            fontSize: 13,
+                            fontFamily: 'JetBrains Mono, monospace',
+                            color: 'var(--text-muted)',
+                            marginBottom: 48,
+                        }}
+                    >
+                        Effective Date: 1 January 2025 · Last Updated: 1 January 2025
+                    </p>
 
-                <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 40 }}>
-                    OPMW ("One Place Multi Work", "we", "our", or "us") is committed to protecting your privacy.
-                    This Privacy Policy explains how we collect, use, store, and share your information when you
-                    visit our website or use our services.
-                </p>
+                    <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 40 }}>
+                        OPMW ("One Place Multi Work", "we", "our", or "us") is committed to protecting your privacy.
+                        This Privacy Policy explains how we collect, use, store, and share your information when you
+                        visit our website or use our services.
+                    </p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-                    {SECTIONS.map((section, i) => (
-                        <motion.div
-                            key={section.title}
-                            initial={{ opacity: 0, y: 12 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: i * 0.04 }}
-                        >
-                            <h2
-                                style={{
-                                    fontSize: 18,
-                                    fontWeight: 700,
-                                    color: 'var(--text-primary)',
-                                    letterSpacing: '-0.01em',
-                                    marginBottom: 12,
-                                }}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+                        {SECTIONS.map((section, i) => (
+                            <motion.div
+                                key={section.title}
+                                initial={{ opacity: 0, y: 12 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.04 }}
                             >
-                                {i + 1}. {section.title}
-                            </h2>
-                            <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-                                {section.body}
-                            </p>
-                        </motion.div>
-                    ))}
-                </div>
-            </motion.div>
+                                <h2
+                                    style={{
+                                        fontSize: 18,
+                                        fontWeight: 700,
+                                        color: 'var(--text-primary)',
+                                        letterSpacing: '-0.01em',
+                                        marginBottom: 12,
+                                    }}
+                                >
+                                    {i + 1}. {section.title}
+                                </h2>
+                                <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+                                    {section.body}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
+            </div>
         </div>
     )
 }
