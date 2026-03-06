@@ -89,7 +89,7 @@ const AdminApplications = () => {
                                 <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                                 <input
                                     type="text"
-                                    placeholder="Search name, email, roleâ€¦"
+                                    placeholder="Search name, email, role..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     style={{ width: '100%', padding: '10px 12px 10px 34px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
@@ -200,7 +200,7 @@ const AdminApplications = () => {
                         <div style={{ marginBottom: 16 }}>
                             <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{selectedApp.applicant_name}</p>
                             <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>{selectedApp.applicant_email}</p>
-                            <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{selectedApp.role} â€” {selectedApp.location}</p>
+                            <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{selectedApp.role} — {selectedApp.location}</p>
                         </div>
 
                         <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Select Next Step</p>
@@ -234,26 +234,26 @@ const AdminApplications = () => {
                                             fontFamily: 'JetBrains Mono, monospace'
                                         }}
                                     >
-                                        {s} {currentInDb === s && 'â€¢'}
+                                        {s} {currentInDb === s && '•'}
                                     </button>
                                 );
                             })}
                         </div>
                         {newStatus && newStatus !== selectedApp.status && (
                             <p style={{ fontSize: 12, color: 'var(--accent)', marginBottom: 20, display: 'flex', alignItems: 'center', gap: 6, fontWeight: 500 }}>
-                                Confirm change: <strong>{selectedApp.status}</strong> â†’ <strong>{newStatus}</strong>
+                                Confirm change: <strong>{selectedApp.status}</strong> → <strong>{newStatus}</strong>
                             </p>
                         )}
 
                         <div style={{ marginBottom: 20 }}>
                             <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Admin Notes</label>
-                            <textarea value={adminNotes} onChange={(e) => setAdminNotes(e.target.value)} rows={3} placeholder="Optional internal notesâ€¦" style={{ width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)', fontSize: 13, outline: 'none', resize: 'vertical', minHeight: 80, boxSizing: 'border-box' }} />
+                            <textarea value={adminNotes} onChange={(e) => setAdminNotes(e.target.value)} rows={3} placeholder="Optional internal notes..." style={{ width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)', fontSize: 13, outline: 'none', resize: 'vertical', minHeight: 80, boxSizing: 'border-box' }} />
                         </div>
 
                         <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
                             <button onClick={() => setSelectedApp(null)} style={{ padding: '10px 20px', borderRadius: 8, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', fontSize: 14, cursor: 'pointer' }}>Cancel</button>
                             <button onClick={handleStatusUpdate} disabled={updating} style={{ padding: '10px 20px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: 'var(--accent)', fontSize: 14, fontWeight: 600, cursor: updating ? 'not-allowed' : 'pointer', opacity: updating ? 0.7 : 1 }}>
-                                {updating ? 'Updatingâ€¦' : 'Update Status'}
+                                {updating ? 'Updating...' : 'Update Status'}
                             </button>
                         </div>
                     </div>

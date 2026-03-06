@@ -4,7 +4,7 @@ import TypewriterText from '@/components/shared/TypewriterText'
 const SECTIONS = [
     {
         title: 'Information We Collect',
-        body: 'We collect information you provide directly to us â€” such as name, email address, phone number, company information, and any other information submitted through our contact forms or service inquiry portals. We also collect usage data through server logs and analytics tools.',
+        body: 'We collect information you provide directly to us — such as name, email address, phone number, company information, and any other information submitted through our contact forms or service inquiry portals. We also collect usage data through server logs and analytics tools.',
     },
     {
         title: 'How We Use Your Information',
@@ -36,7 +36,7 @@ const SECTIONS = [
     },
     {
         title: 'Contact Us',
-        body: 'For any privacy-related questions, please contact our Data Protection Officer at info@opmw.in or write to us at OPMW, Tidel Park, Taramani, Chennai â€“ 600113.',
+        body: 'For any privacy-related questions, please contact our Data Protection Officer at info@opmw.in or write to us at OPMW, Tidel Park, Taramani, Chennai – 600113.',
     },
 ]
 

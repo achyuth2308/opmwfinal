@@ -10,7 +10,7 @@ const generateRequestId = () => {
 
 const getBaseURL = () => {
     let url = import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com'
-    // Normalize: remove all trailing slashes and then add exactly one
+    // Normalize: ensure exactly one trailing slash
     return url.replace(/\/+$/, '') + '/'
 }
 
@@ -25,6 +25,19 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
     (config) => {
+        // --- Defensive URL Normalization ---
+        // 1. Remove leading slash from the relative URL if present
+        if (config.url.startsWith('/')) {
+            config.url = config.url.substring(1)
+        }
+
+        // 2. Prevent "api/api" doubling
+        // If baseURL ends with "/api/" and config.url starts with "api/", strip it from config.url
+        if (config.baseURL.toLowerCase().endsWith('/api/') && config.url.toLowerCase().startsWith('api/')) {
+            config.url = config.url.substring(4)
+        }
+        // ------------------------------------
+
         // Support both candidate and admin tokens
         const token = localStorage.getItem('opmw-token')
         const adminToken = localStorage.getItem('opmw-admin-token')

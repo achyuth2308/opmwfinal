@@ -361,7 +361,7 @@ const ApplyForm = ({ role, onClose }) => {
                                 {isLoading ? (
                                     <>
                                         <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                                        Submittingâ€¦
+                                        Submitting...
                                     </>
                                 ) : (
                                     'Submit Application'

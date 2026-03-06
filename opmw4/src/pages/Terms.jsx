@@ -16,7 +16,7 @@ const SECTIONS = [
     },
     {
         title: 'Intellectual Property',
-        body: 'All content, software, and proprietary systems provided by OPMW â€” including the OPMW HRMS platform â€” remain the intellectual property of OPMW. Client data remains the property of the respective client.',
+        body: 'All content, software, and proprietary systems provided by OPMW — including the OPMW HRMS platform — remain the intellectual property of OPMW. Client data remains the property of the respective client.',
     },
     {
         title: 'Confidentiality',
@@ -48,7 +48,7 @@ const SECTIONS = [
     },
     {
         title: 'Contact',
-        body: 'For questions regarding these Terms, contact us at info@opmw.in or OPMW, Tidel Park, Taramani, Chennai â€“ 600113.',
+        body: 'For questions regarding these Terms, contact us at info@opmw.in or OPMW, Tidel Park, Taramani, Chennai – 600113.',
     },
 ]
 

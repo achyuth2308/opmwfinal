@@ -295,7 +295,7 @@ const Profile = () => {
                                     style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 24px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: profileSuccess ? '#4ade80' : 'var(--accent)', fontSize: 14, fontWeight: 600, cursor: profileSaving ? 'not-allowed' : 'pointer', transition: 'all 200ms ease', opacity: profileSaving ? 0.7 : 1, alignSelf: 'flex-start' }}
                                     onMouseEnter={(e) => { if (!profileSaving) e.currentTarget.style.background = 'rgba(110,231,250,0.18)' }}
                                     onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.1)' }}>
-                                    {profileSaving ? <><Loader2 size={15} className="spin" /> Savingâ€¦</> : profileSuccess ? <><CheckCircle2 size={15} /> Saved!</> : <><Save size={15} /> Save Changes</>}
+                                    {profileSaving ? <><Loader2 size={15} className="spin" /> Saving...</> : profileSuccess ? <><CheckCircle2 size={15} /> Saved!</> : <><Save size={15} /> Save Changes</>}
                                 </button>
                             </form>
                         </div>
@@ -314,7 +314,7 @@ const Profile = () => {
                                     return (
                                         <div key={field}>
                                             <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>{labels[field]}</label>
-                                            <input name={field} type="password" value={pwForm[field]} onChange={handlePwChange} placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                                            <input name={field} type="password" value={pwForm[field]} onChange={handlePwChange} placeholder="••••••••"
                                                 style={{ ...fieldStyle, maxWidth: 360 }}
                                                 onFocus={(e) => { e.target.style.borderColor = 'rgba(110,231,250,0.4)' }}
                                                 onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.10)' }} />
@@ -326,7 +326,7 @@ const Profile = () => {
                                     style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '11px 24px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: pwSuccess ? '#4ade80' : 'var(--accent)', fontSize: 14, fontWeight: 600, cursor: pwSaving ? 'not-allowed' : 'pointer', transition: 'all 200ms ease', opacity: pwSaving ? 0.7 : 1, alignSelf: 'flex-start' }}
                                     onMouseEnter={(e) => { if (!pwSaving) e.currentTarget.style.background = 'rgba(110,231,250,0.18)' }}
                                     onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.1)' }}>
-                                    {pwSaving ? <><Loader2 size={15} className="spin" /> Savingâ€¦</> : pwSuccess ? <><CheckCircle2 size={15} /> Updated!</> : <><Lock size={15} /> Change Password</>}
+                                    {pwSaving ? <><Loader2 size={15} className="spin" /> Saving...</> : pwSuccess ? <><CheckCircle2 size={15} /> Updated!</> : <><Lock size={15} /> Change Password</>}
                                 </button>
                             </form>
                         </div>

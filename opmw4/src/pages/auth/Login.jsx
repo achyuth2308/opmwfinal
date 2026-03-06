@@ -1,4 +1,9 @@
-﻿import apiClient from '@/services/api'
+﻿import { useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '@/context/AuthContext'
+import { Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
+import OPMWLogo from '@/components/shared/OPMWLogo'
+import apiClient from '@/services/api'
 
 const fieldStyle = {
     width: '100%',
@@ -276,7 +281,7 @@ const Login = () => {
                         onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.background = 'rgba(110,231,250,0.2)' } }}
                         onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                     >
-                        {isLoading ? <><Loader2 size={16} className="spin" /> Signing inâ€¦</> : 'Sign In'}
+                        {isLoading ? <><Loader2 size={16} className="spin" /> Signing in...</> : 'Sign In'}
                     </button>
                 </form>
 

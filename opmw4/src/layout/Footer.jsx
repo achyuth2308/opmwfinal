@@ -39,7 +39,7 @@ const Footer = () => {
                                 marginBottom: 24,
                             }}
                         >
-                            One Place Multi Work â€” India&apos;s integrated enterprise operations platform delivering BPO, IT, and HRMS under one brand.
+                            One Place Multi Work — India's integrated enterprise operations platform delivering BPO, IT, and HRMS under one brand.
                         </p>
                         <div className="footer-contact-info" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             <a
@@ -242,7 +242,7 @@ const Footer = () => {
                             fontFamily: 'JetBrains Mono, monospace',
                         }}
                     >
-                        Â© {year} OPMW â€” One Place Multi Work. All rights reserved.
+                        © {year} OPMW — One Place Multi Work. All rights reserved.
                     </p>
                     <p
                         style={{

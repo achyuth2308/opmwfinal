@@ -61,7 +61,7 @@ const Contact = () => {
                         transition={{ duration: 0.5, delay: 0.18 }}
                         style={{ color: 'var(--text-secondary)', fontSize: 16, maxWidth: 480, margin: '0 auto 20px' }}
                     >
-                        Whether you're exploring BPO, IT, or HRMS â€” our team responds within 1 business day.
+                        Whether you're exploring BPO, IT, or HRMS — our team responds within 1 business day.
                     </motion.p>
                     <motion.a
                         initial={{ opacity: 0 }}
@@ -144,7 +144,7 @@ const Contact = () => {
 
                         {/* Map + info */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                            {/* Google Maps embed â€” OPMW HQ, Tidel Park Chennai */}
+                            {/* Google Maps embed — OPMW HQ, Tidel Park Chennai */}
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.0!2d80.2456!3d12.9999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sTidel+Park+Chennai!5e0!3m2!1sen!2sin!4v1"
                                 width="100%"
@@ -182,7 +182,7 @@ const Contact = () => {
                                     { label: 'Email', value: 'info@opmw.in', href: 'mailto:info@opmw.in' },
                                     { label: 'Response Time', value: '1 business day' },
                                     { label: 'HQ Location', value: 'Tidel Park, Chennai' },
-                                    { label: 'Operating Hours', value: 'Monâ€“Sat, 9AMâ€“7PM IST' },
+                                    { label: 'Operating Hours', value: 'Mon–Sat, 9AM–7PM IST' },
                                 ].map((item) => (
                                     <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
                                         <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.06em' }}>

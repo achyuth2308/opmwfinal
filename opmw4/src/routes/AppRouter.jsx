@@ -111,13 +111,13 @@ const NotFound = () => (
 const AppRouter = () => (
     <Suspense fallback={<PageLoader />}>
         <Routes>
-            {/* â”€â”€â”€ Auth routes (no Navbar/Footer) â€” must be before layout catch-all â”€â”€â”€ */}
+            {/* ——— Auth routes (no Navbar/Footer) — must be before layout catch-all ——— */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
 
-            {/* â”€â”€â”€ Portal routes (protected, no Navbar/Footer) â”€â”€â”€ */}
+            {/* ——— Portal routes (protected, no Navbar/Footer) ——— */}
             <Route
                 path="/portal"
                 element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
@@ -131,7 +131,7 @@ const AppRouter = () => (
                 element={<ProtectedRoute><Profile /></ProtectedRoute>}
             />
 
-            {/* â”€â”€â”€ Admin routes (no Navbar/Footer) â”€â”€â”€ */}
+            {/* ——— Admin routes (no Navbar/Footer) ——— */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
@@ -139,7 +139,7 @@ const AppRouter = () => (
             <Route path="/admin/contacts" element={<AdminContacts />} />
             <Route path="/admin/jobs" element={<AdminJobs />} />
 
-            {/* â”€â”€â”€ Public routes (with Navbar + Footer via RootLayout) â”€â”€â”€ */}
+            {/* ——— Public routes (with Navbar + Footer via RootLayout) ——— */}
             <Route element={<RootLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

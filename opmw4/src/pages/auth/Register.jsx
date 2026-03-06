@@ -1,4 +1,9 @@
-﻿import apiClient from '@/services/api'
+﻿import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '@/context/AuthContext'
+import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
+import OPMWLogo from '@/components/shared/OPMWLogo'
+import apiClient from '@/services/api'
 
 const CITIES = ['Chennai', 'Hyderabad', 'Bangalore', 'Noida', 'Indore']
 
@@ -336,7 +341,7 @@ const Register = () => {
                         onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.2)' }}
                         onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                     >
-                        {isLoading ? <><Loader2 size={16} className="spin" /> Creating accountâ€¦</> : 'Create Account'}
+                        {isLoading ? <><Loader2 size={16} className="spin" /> Creating account...</> : 'Create Account'}
                     </button>
                 </form>
 

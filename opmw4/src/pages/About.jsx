@@ -65,7 +65,7 @@ const REVENUE_MODELS = [
     {
         icon: Globe,
         title: 'SaaS Subscription',
-        description: 'Annual or monthly subscription for OPMW HRMS modules â€” payroll, attendance, compliance.',
+        description: 'Annual or monthly subscription for OPMW HRMS modules — payroll, attendance, compliance.',
         badge: 'HRMS',
         badgeColor: '#4ade80',
     },
@@ -385,7 +385,7 @@ const About = () => {
                             </h3>
                             <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
                                 To provide scalable, compliance-first operations across BPO, IT, and HRMS
-                                verticals â€” enabling businesses to grow without the friction of internal
+                                verticals enabling businesses to grow without the friction of internal
                                 infrastructure bottlenecks.
                             </p>
                         </motion.div>
