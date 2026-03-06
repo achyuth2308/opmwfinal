@@ -1,4 +1,4 @@
-import { Headphones, Monitor, LayoutDashboard } from 'lucide-react'
+﻿import { Headphones, Monitor, LayoutDashboard } from 'lucide-react'
 
 export const DIVISIONS = [
     {
@@ -32,6 +32,7 @@ export const DIVISIONS = [
         tags: ['SaaS', 'Cloud', 'Enterprise'],
         href: '/services/hrms',
         accentColor: 'rgba(110,231,250,0.12)',
-        image: '/OPMW Images/HRMS–ProprietaryProduct.png',
+        image: '/OPMW Images/HRMSâ€“ProprietaryProduct.png',
     },
 ]
+

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { Building2, MapPin, Layers } from 'lucide-react'
 
 const HIGHLIGHTS = [
@@ -12,12 +12,12 @@ const HIGHLIGHTS = [
         icon: MapPin,
         label: 'HQ',
         value: 'Tidel Park',
-        detail: 'Chennai – 600113',
+        detail: 'Chennai â€“ 600113',
     },
     {
         icon: Layers,
         label: 'Sectors',
-        value: 'BPO · IT · HRMS',
+        value: 'BPO Â· IT Â· HRMS',
         detail: 'Integrated delivery',
     },
 ]
@@ -40,7 +40,7 @@ const AboutOPMW = () => {
                     alignItems: 'center',
                 }}
             >
-                {/* Left — text */}
+                {/* Left â€” text */}
                 <motion.div
                     initial={{ opacity: 0, x: -24 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -71,7 +71,7 @@ const AboutOPMW = () => {
                             marginBottom: 16,
                         }}
                     >
-                        OPMW (One Platform Multiple Work) was founded to solve a fragmented problem — enterprises
+                        OPMW (One Platform Multiple Work) was founded to solve a fragmented problem â€” enterprises
                         juggling separate vendors for BPO, IT, and HR. We built a single delivery engine that
                         handles all three.
                     </p>
@@ -88,7 +88,7 @@ const AboutOPMW = () => {
                     </p>
                 </motion.div>
 
-                {/* Right — stat highlights */}
+                {/* Right â€” stat highlights */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     {HIGHLIGHTS.map((item, i) => {
                         const Icon = item.icon
@@ -159,3 +159,4 @@ const AboutOPMW = () => {
 }
 
 export default AboutOPMW
+

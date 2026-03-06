@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
@@ -291,7 +291,7 @@ const Login = () => {
                         onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.background = 'rgba(110,231,250,0.2)' } }}
                         onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                     >
-                        {isLoading ? <><Loader2 size={16} className="spin" /> Signing in…</> : 'Sign In'}
+                        {isLoading ? <><Loader2 size={16} className="spin" /> Signing inâ€¦</> : 'Sign In'}
                     </button>
                 </form>
 
@@ -309,3 +309,4 @@ const Login = () => {
 }
 
 export default Login
+

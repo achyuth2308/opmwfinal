@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
@@ -114,7 +114,7 @@ const CTASection = () => {
                             }}
                         >
                             Join enterprises across 5 cities powered by OPMW's integrated platform
-                            — BPO, IT, and HRMS in one execution engine.
+                            â€” BPO, IT, and HRMS in one execution engine.
                         </motion.p>
 
                         <motion.div
@@ -192,3 +192,4 @@ const CTASection = () => {
 }
 
 export default CTASection
+

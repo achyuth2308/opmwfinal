@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
     CreditCard,
@@ -41,7 +41,7 @@ const HRMS_FEATURES = [
         icon: LayoutDashboard,
         title: 'Multi-Location Dashboard',
         description:
-            'Unified HR dashboard across all branches — role-based access with location-specific data visibility.',
+            'Unified HR dashboard across all branches â€” role-based access with location-specific data visibility.',
     },
     {
         id: 'compliance',
@@ -55,7 +55,7 @@ const HRMS_FEATURES = [
         icon: Lock,
         title: 'Multi-Branch Access Control',
         description:
-            'Granular permissions engine — control what each HR manager, Finance lead, and Department Head can view or edit.',
+            'Granular permissions engine â€” control what each HR manager, Finance lead, and Department Head can view or edit.',
     },
 ]
 
@@ -111,12 +111,12 @@ const HRMSDashboardMockup = () => (
                 OPMW HRMS
             </span>
             <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
-                Dashboard · Q1 2025
+                Dashboard Â· Q1 2025
             </span>
         </div>
 
         <div style={{ display: 'flex', minHeight: 300 }}>
-            {/* Sidebar — Hidden on mobile */}
+            {/* Sidebar â€” Hidden on mobile */}
             <div
                 className="hidden-mobile"
                 style={{
@@ -156,7 +156,7 @@ const HRMSDashboardMockup = () => (
                     {[
                         { label: 'Total Employees', value: '248' },
                         { label: 'On Leave Today', value: '12' },
-                        { label: 'Payroll Due', value: '₹ 28.4L' },
+                        { label: 'Payroll Due', value: 'â‚¹ 28.4L' },
                     ].map((metric) => (
                         <div
                             key={metric.label}
@@ -177,7 +177,7 @@ const HRMSDashboardMockup = () => (
                     ))}
                 </div>
 
-                {/* Attendance Chart — Stays visible but shrinks */}
+                {/* Attendance Chart â€” Stays visible but shrinks */}
                 <div>
                     <p style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: 12 }}>
                         WEEKLY ATTENDANCE TREND
@@ -239,11 +239,11 @@ const HRMS = () => {
             <ServiceHero
                 label="OPMW HRMS"
                 headline="Your Workforce. One Dashboard."
-                subtext="A proprietary cloud HRMS built from real operational experience across 200+ employees. Payroll, attendance, multi-branch access, and compliance — under one platform."
+                subtext="A proprietary cloud HRMS built from real operational experience across 200+ employees. Payroll, attendance, multi-branch access, and compliance â€” under one platform."
                 ctaLabel="Request a Free Demo"
                 ctaHref="#demo"
                 trustItems={['200+ Employees Managed', 'Multi-Branch Ready', 'Payroll Automation', 'Compliance Built-In']}
-                image="/OPMW Images/HRMS–ProprietaryProduct.png"
+                image="/OPMW Images/HRMSâ€“ProprietaryProduct.png"
             />
 
             {/* Dashboard mockup */}
@@ -418,3 +418,4 @@ const HRMS = () => {
 }
 
 export default HRMS
+

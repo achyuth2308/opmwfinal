@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 
 const useScrollReveal = (ref, options = {}) => {
     const [isVisible, setIsVisible] = useState(false)
@@ -31,3 +31,4 @@ const useScrollReveal = (ref, options = {}) => {
 }
 
 export default useScrollReveal
+

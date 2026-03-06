@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+﻿import { Link } from 'react-router-dom'
 import { Mail, MapPin, Phone, ExternalLink } from 'lucide-react'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import { FOOTER_LINKS } from '@/constants/navigation'
@@ -39,7 +39,7 @@ const Footer = () => {
                                 marginBottom: 24,
                             }}
                         >
-                            One Place Multi Work — India&apos;s integrated enterprise operations platform delivering BPO, IT, and HRMS under one brand.
+                            One Place Multi Work â€” India&apos;s integrated enterprise operations platform delivering BPO, IT, and HRMS under one brand.
                         </p>
                         <div className="footer-contact-info" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                             <a
@@ -69,7 +69,7 @@ const Footer = () => {
                                 }}
                             >
                                 <MapPin size={13} />
-                                Chennai · Hyderabad · Bangalore · Noida · Indore
+                                Chennai Â· Hyderabad Â· Bangalore Â· Noida Â· Indore
                             </span>
                         </div>
                     </div>
@@ -242,7 +242,7 @@ const Footer = () => {
                             fontFamily: 'JetBrains Mono, monospace',
                         }}
                     >
-                        © {year} OPMW — One Place Multi Work. All rights reserved.
+                        Â© {year} OPMW â€” One Place Multi Work. All rights reserved.
                     </p>
                     <p
                         style={{
@@ -252,7 +252,7 @@ const Footer = () => {
                             letterSpacing: '0.08em',
                         }}
                     >
-                        Chennai · Hyderabad · Bangalore · Noida · Indore
+                        Chennai Â· Hyderabad Â· Bangalore Â· Noida Â· Indore
                     </p>
                 </div>
             </div>
@@ -261,3 +261,4 @@ const Footer = () => {
 }
 
 export default Footer
+

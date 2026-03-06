@@ -1,4 +1,4 @@
-import apiClient from './api'
+﻿import apiClient from './api'
 
 export const submitContactForm = async (data) => {
     const payload = {
@@ -9,3 +9,4 @@ export const submitContactForm = async (data) => {
     }
     return apiClient.post('contact', payload)
 }
+

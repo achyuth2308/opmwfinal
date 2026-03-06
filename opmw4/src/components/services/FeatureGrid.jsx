@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 
@@ -155,3 +155,4 @@ FeatureGrid.defaultProps = {
 }
 
 export default FeatureGrid
+

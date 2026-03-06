@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CheckCircle2, Loader2 } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
@@ -7,11 +7,11 @@ import { requestDemo } from '@/services/demo.service'
 import { useNavigate } from 'react-router-dom'
 
 const EMPLOYEE_OPTIONS = [
-    '1–25',
-    '26–50',
-    '51–100',
-    '101–300',
-    '301–1000',
+    '1â€“25',
+    '26â€“50',
+    '51â€“100',
+    '101â€“300',
+    '301â€“1000',
     '1000+',
 ]
 
@@ -377,7 +377,7 @@ const DemoRequestForm = () => {
                             {isLoading ? (
                                 <>
                                     <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                                    Sending request…
+                                    Sending requestâ€¦
                                 </>
                             ) : (
                                 'Request Demo'
@@ -392,3 +392,4 @@ const DemoRequestForm = () => {
 }
 
 export default DemoRequestForm
+

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -135,7 +135,7 @@ const ApplyForm = ({ role, onClose }) => {
         }
     }
 
-    // Auth guard — not logged in
+    // Auth guard â€” not logged in
     if (!token) {
         return (
             <AnimatePresence>
@@ -361,7 +361,7 @@ const ApplyForm = ({ role, onClose }) => {
                                 {isLoading ? (
                                     <>
                                         <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                                        Submitting…
+                                        Submittingâ€¦
                                     </>
                                 ) : (
                                     'Submit Application'
@@ -390,3 +390,4 @@ ApplyForm.defaultProps = {
 }
 
 export default ApplyForm
+

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 /**
@@ -101,3 +101,4 @@ const TypewriterText = ({ text, delay = 0, cursorColor = 'var(--accent)', showCu
 }
 
 export default TypewriterText
+

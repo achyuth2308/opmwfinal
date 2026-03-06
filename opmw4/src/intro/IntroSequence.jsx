@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PropTypes from 'prop-types'
 
@@ -147,3 +147,4 @@ IntroSequence.propTypes = {
 }
 
 export default IntroSequence
+

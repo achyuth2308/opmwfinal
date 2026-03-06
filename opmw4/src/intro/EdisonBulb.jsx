@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+﻿import PropTypes from 'prop-types'
 
 const EdisonBulb = ({ isLit, flickerIntensity, filamentBrightness }) => {
     const glassOpacity = isLit ? 0.85 : 0.45
@@ -160,3 +160,4 @@ EdisonBulb.propTypes = {
 }
 
 export default EdisonBulb
+

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+﻿import { useEffect, useState, useRef } from 'react'
 
 const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
 
@@ -38,3 +38,4 @@ const useCounterAnimation = (target, duration = 2000, isActive = false) => {
 }
 
 export default useCounterAnimation
+

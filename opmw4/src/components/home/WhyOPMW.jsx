@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { WHY_OPMW } from '@/constants/whyOpmw'
 
@@ -158,3 +158,4 @@ const WhyOPMW = () => {
 }
 
 export default WhyOPMW
+

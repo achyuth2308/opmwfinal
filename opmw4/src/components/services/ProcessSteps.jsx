@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { ArrowRight } from 'lucide-react'
@@ -32,7 +32,7 @@ const ProcessSteps = ({ sectionLabel, headline, steps }) => {
                     </h2>
                 </div>
 
-                {/* Steps — horizontal flow on desktop, vertical on mobile */}
+                {/* Steps â€” horizontal flow on desktop, vertical on mobile */}
                 <div
                     style={{
                         display: 'flex',
@@ -154,3 +154,4 @@ ProcessSteps.propTypes = {
 }
 
 export default ProcessSteps
+

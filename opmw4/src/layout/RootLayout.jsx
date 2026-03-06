@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+﻿import { Outlet } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
@@ -51,3 +51,4 @@ const RootLayout = () => {
 }
 
 export default RootLayout
+

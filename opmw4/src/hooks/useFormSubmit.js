@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+﻿import { useState, useCallback } from 'react'
 
 const useFormSubmit = (submitFn, { onSuccess, onError, resetOnSuccess = true } = {}) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -43,3 +43,4 @@ const useFormSubmit = (submitFn, { onSuccess, onError, resetOnSuccess = true } =
 }
 
 export default useFormSubmit
+

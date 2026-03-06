@@ -1,9 +1,9 @@
-export const LOCATIONS = [
+﻿export const LOCATIONS = [
     {
         id: 'chennai',
         city: 'Chennai',
         type: 'Headquarters',
-        address: 'Tidel Park, Taramani, Chennai – 600113',
+        address: 'Tidel Park, Taramani, Chennai â€“ 600113',
         phone: '+91 44 0000 0000',
         email: 'chennai@opmw.in',
         isHeadquarters: true,
@@ -12,7 +12,7 @@ export const LOCATIONS = [
         id: 'hyderabad',
         city: 'Hyderabad',
         type: 'Regional Office',
-        address: 'Hitech City, Madhapur, Hyderabad – 500081',
+        address: 'Hitech City, Madhapur, Hyderabad â€“ 500081',
         phone: '+91 40 0000 0000',
         email: 'hyderabad@opmw.in',
         isHeadquarters: false,
@@ -21,7 +21,7 @@ export const LOCATIONS = [
         id: 'bangalore',
         city: 'Bangalore',
         type: 'Regional Office',
-        address: 'Whitefield, Bangalore – 560066',
+        address: 'Whitefield, Bangalore â€“ 560066',
         phone: '+91 80 0000 0000',
         email: 'bangalore@opmw.in',
         isHeadquarters: false,
@@ -30,7 +30,7 @@ export const LOCATIONS = [
         id: 'noida',
         city: 'Noida',
         type: 'Regional Office',
-        address: 'Sector 62, Noida – 201309',
+        address: 'Sector 62, Noida â€“ 201309',
         phone: '+91 120 000 0000',
         email: 'noida@opmw.in',
         isHeadquarters: false,
@@ -39,9 +39,10 @@ export const LOCATIONS = [
         id: 'indore',
         city: 'Indore',
         type: 'Regional Office',
-        address: 'Vijay Nagar, Indore – 452010',
+        address: 'Vijay Nagar, Indore â€“ 452010',
         phone: '+91 731 000 0000',
         email: 'indore@opmw.in',
         isHeadquarters: false,
     },
 ]
+

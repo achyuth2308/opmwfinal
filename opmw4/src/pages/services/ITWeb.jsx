@@ -1,4 +1,4 @@
-import {
+﻿import {
     Globe,
     Code2,
     Layers,
@@ -17,7 +17,7 @@ const IT_FEATURES = [
         icon: MonitorSmartphone,
         title: 'Custom Web Application Development',
         description:
-            'Full-stack enterprise web apps built with Laravel, React, and .NET Core — responsive, scalable, and production-hardened.',
+            'Full-stack enterprise web apps built with Laravel, React, and .NET Core â€” responsive, scalable, and production-hardened.',
     },
     {
         id: 'brick',
@@ -45,7 +45,7 @@ const IT_FEATURES = [
         icon: Code2,
         title: 'MNC Collaborative Technology Projects',
         description:
-            'Engineering partnerships with large enterprises — white-label development, capacity augmentation, and project delivery.',
+            'Engineering partnerships with large enterprises â€” white-label development, capacity augmentation, and project delivery.',
     },
 ]
 
@@ -64,17 +64,17 @@ const ITWeb = () => {
             <ServiceHero
                 label="IT & Web Application Division"
                 headline="Systems that actually work."
-                subtext="Not every business needs complex software. Our IT division develops web-based applications tailored to your specific workflow — delivering practical, scalable, and long-term solutions."
+                subtext="Not every business needs complex software. Our IT division develops web-based applications tailored to your specific workflow â€” delivering practical, scalable, and long-term solutions."
                 ctaLabel="Talk to Our Engineering Team"
                 ctaHref="/contact"
-                trustItems={['40 IT Developers', 'Laravel · React · .NET', 'MNC Collaborations']}
+                trustItems={['40 IT Developers', 'Laravel Â· React Â· .NET', 'MNC Collaborations']}
                 image="/OPMW Images/IT&WebApplicationDivision.png"
             />
 
             <FeatureGrid
                 sectionLabel="Our Services"
                 headline="From prototypes to production systems"
-                subtext="We build software that runs real businesses — reliable, maintainable, and designed to grow with you."
+                subtext="We build software that runs real businesses â€” reliable, maintainable, and designed to grow with you."
                 features={IT_FEATURES}
             />
 
@@ -84,3 +84,4 @@ const ITWeb = () => {
 }
 
 export default ITWeb
+

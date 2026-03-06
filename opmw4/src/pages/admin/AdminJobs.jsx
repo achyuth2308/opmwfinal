@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Plus, Trash2, X, MapPin, Briefcase, Menu } from 'lucide-react'
 import { AdminSidebar } from './AdminDashboard'
@@ -18,7 +18,7 @@ const AdminJobs = () => {
         title: '',
         department: 'BPO',
         type: 'Full-time',
-        experience: '0–2 years',
+        experience: '0â€“2 years',
         cities: [],
         description: ''
     })
@@ -75,7 +75,7 @@ const AdminJobs = () => {
         try {
             await createAdminJob(token, { ...formData, cities: currentCities })
             setShowAddForm(false)
-            setFormData({ title: '', department: 'BPO', type: 'Full-time', experience: '0–2 years', cities: [], description: '' })
+            setFormData({ title: '', department: 'BPO', type: 'Full-time', experience: '0â€“2 years', cities: [], description: '' })
             setCityInput('')
             loadJobs()
         } catch (err) {
@@ -137,7 +137,7 @@ const AdminJobs = () => {
                                         <div>
                                             <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(110,231,250,0.08)', padding: '2px 8px', borderRadius: 4, marginBottom: 8, display: 'inline-block' }}>{job.department}</span>
                                             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>{job.title}</h3>
-                                            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{job.type} • {job.experience}</p>
+                                            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{job.type} â€¢ {job.experience}</p>
                                         </div>
                                         <button onClick={() => handleDelete(job.id)} style={{ padding: 8, borderRadius: 8, background: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', cursor: 'pointer' }} title="Delete Job">
                                             <Trash2 size={16} />
@@ -185,7 +185,7 @@ const AdminJobs = () => {
                                 </div>
                                 <div>
                                     <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Experience</label>
-                                    <input required type="text" value={formData.experience} onChange={e => setFormData({ ...formData, experience: e.target.value })} placeholder="e.g. 0–2 years" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }} />
+                                    <input required type="text" value={formData.experience} onChange={e => setFormData({ ...formData, experience: e.target.value })} placeholder="e.g. 0â€“2 years" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }} />
                                 </div>
                             </div>
 
@@ -211,13 +211,13 @@ const AdminJobs = () => {
 
                             <div>
                                 <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Description</label>
-                                <textarea required rows={4} value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Job description and requirements…" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none', resize: 'vertical' }} />
+                                <textarea required rows={4} value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Job description and requirementsâ€¦" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none', resize: 'vertical' }} />
                             </div>
 
                             <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
                                 <button type="button" onClick={() => setShowAddForm(false)} style={{ flex: 1, padding: '14px', borderRadius: 12, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>Cancel</button>
                                 <button type="submit" disabled={isSubmitting} style={{ flex: 1, padding: '14px', borderRadius: 12, background: 'var(--accent)', border: 'none', color: '#000', fontSize: 15, fontWeight: 700, cursor: isSubmitting ? 'not-allowed' : 'pointer', opacity: isSubmitting ? 0.7 : 1 }}>
-                                    {isSubmitting ? 'Creating…' : 'Create Job Listing'}
+                                    {isSubmitting ? 'Creatingâ€¦' : 'Create Job Listing'}
                                 </button>
                             </div>
                         </form>
@@ -231,3 +231,4 @@ const AdminJobs = () => {
 }
 
 export default AdminJobs
+

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import { ArrowUpRight, Tag } from 'lucide-react'
 
@@ -143,3 +143,4 @@ ProjectCard.defaultProps = {
 }
 
 export default ProjectCard
+

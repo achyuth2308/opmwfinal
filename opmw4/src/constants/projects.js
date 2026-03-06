@@ -1,4 +1,4 @@
-export const PROJECTS = [
+﻿export const PROJECTS = [
     {
         id: 'intl-voice',
         title: 'International Voice Campaign Deployment',
@@ -36,7 +36,7 @@ export const PROJECTS = [
         id: 'hrms-impl',
         title: 'Enterprise HRMS Implementation',
         category: 'HRMS',
-        summary: 'Full deployment of OPMW HRMS for a 250-employee manufacturing client — covering payroll, attendance, leave, and compliance modules.',
+        summary: 'Full deployment of OPMW HRMS for a 250-employee manufacturing client â€” covering payroll, attendance, leave, and compliance modules.',
         scope: 'Requirements gathering, data migration, payroll configuration, biometric integration, user training.',
         tech: ['OPMW HRMS', 'Laravel', 'MySQL', 'Biometric API', 'React'],
         outcome: 'Payroll processing time reduced from 3 days to 4 hours. 100% statutory compliance achieved.',
@@ -58,7 +58,7 @@ export const PROJECTS = [
         id: 'workforce-automation',
         title: 'Workforce Automation Platform',
         category: 'IT',
-        summary: 'Internal automation platform for OPMW operations — automating attendance imports, payroll triggers, leave approvals, and report generation.',
+        summary: 'Internal automation platform for OPMW operations â€” automating attendance imports, payroll triggers, leave approvals, and report generation.',
         scope: 'Workflow engine design, biometric data pipeline, automated payroll scheduler, email notification system.',
         tech: ['Laravel', 'MySQL', 'Cron Jobs', 'OPMW HRMS API', 'Vue.js', 'Redis'],
         outcome: 'Eliminated 40+ hours/month of manual HR operations. Fully live across all 5 OPMW branches.',
@@ -68,3 +68,4 @@ export const PROJECTS = [
 ]
 
 export const PROJECT_FILTERS = ['All', 'BPO', 'IT', 'HRMS']
+

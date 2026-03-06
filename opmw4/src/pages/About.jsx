@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { Linkedin, Target, TrendingUp, Award, Globe, Users, Zap, BarChart2 } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 
@@ -65,7 +65,7 @@ const REVENUE_MODELS = [
     {
         icon: Globe,
         title: 'SaaS Subscription',
-        description: 'Annual or monthly subscription for OPMW HRMS modules — payroll, attendance, compliance.',
+        description: 'Annual or monthly subscription for OPMW HRMS modules â€” payroll, attendance, compliance.',
         badge: 'HRMS',
         badgeColor: '#4ade80',
     },
@@ -87,7 +87,7 @@ const sectionGutter = {
 const About = () => {
     return (
         <>
-            {/* ─── Company Overview ─── */}
+            {/* â”€â”€â”€ Company Overview â”€â”€â”€ */}
             <section
                 style={{
                     padding: 'clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px) clamp(48px, 6vw, 72px)',
@@ -197,7 +197,7 @@ const About = () => {
                                     { label: 'Founded', value: '2021', detail: 'Chennai, India' },
                                     { label: 'Workforce', value: '300+', detail: 'Professionals' },
                                     { label: 'Cities', value: '5', detail: 'Active locations' },
-                                    { label: 'Sectors', value: '3', detail: 'BPO · IT · HRMS' },
+                                    { label: 'Sectors', value: '3', detail: 'BPO Â· IT Â· HRMS' },
                                 ].map((stat) => (
                                     <div
                                         key={stat.label}
@@ -253,7 +253,7 @@ const About = () => {
                                     margin: '0 auto'
                                 }}
                             >
-                                OPMW was built to solve a fragmented problem — enterprises juggling separate vendors for
+                                OPMW was built to solve a fragmented problem â€” enterprises juggling separate vendors for
                                 BPO, IT, and HR. We built a single integrated execution platform that handles all three
                                 under one unified governance model, spanning 5 cities with 300+ multi-skilled professionals.
                             </motion.p>
@@ -262,7 +262,7 @@ const About = () => {
                 </div>
             </section>
 
-            {/* ─── Vision & Mission ─── */}
+            {/* â”€â”€â”€ Vision & Mission â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -332,7 +332,7 @@ const About = () => {
                                 India's most integrated execution platform
                             </h3>
                             <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
-                                To be India's most integrated execution platform — combining process outsourcing,
+                                To be India's most integrated execution platform â€” combining process outsourcing,
                                 technology, and HR innovation under one unified brand that enterprises trust
                                 for mission-critical operations.
                             </p>
@@ -385,7 +385,7 @@ const About = () => {
                             </h3>
                             <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.75 }}>
                                 To provide scalable, compliance-first operations across BPO, IT, and HRMS
-                                verticals — enabling businesses to grow without the friction of internal
+                                verticals â€” enabling businesses to grow without the friction of internal
                                 infrastructure bottlenecks.
                             </p>
                         </motion.div>
@@ -393,7 +393,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Operational Model ─── */}
+            {/* â”€â”€â”€ Operational Model â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -471,7 +471,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Workforce Breakdown ─── */}
+            {/* â”€â”€â”€ Workforce Breakdown â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div
@@ -536,7 +536,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Market Positioning ─── */}
+            {/* â”€â”€â”€ Market Positioning â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -620,7 +620,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Growth Roadmap ─── */}
+            {/* â”€â”€â”€ Growth Roadmap â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div style={{ textAlign: 'center', marginBottom: 56 }}>
@@ -696,7 +696,7 @@ const About = () => {
                                                 }}
                                             >
                                                 {phase.phase}
-                                                {phase.status === 'current' && ' · Active'}
+                                                {phase.status === 'current' && ' Â· Active'}
                                             </span>
                                             <strong
                                                 style={{
@@ -716,7 +716,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Leadership ─── */}
+            {/* â”€â”€â”€ Leadership â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -812,7 +812,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Revenue Model ─── */}
+            {/* â”€â”€â”€ Revenue Model â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div style={{ textAlign: 'center', marginBottom: 48 }}>
@@ -912,7 +912,7 @@ const About = () => {
                 </div>
             </SectionWrapper>
 
-            {/* ─── Compliance ─── */}
+            {/* â”€â”€â”€ Compliance â”€â”€â”€ */}
             <SectionWrapper className="section-gutter">
                 <div style={sectionGutter}>
                     <div
@@ -970,3 +970,4 @@ const About = () => {
 }
 
 export default About
+

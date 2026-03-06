@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+﻿import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import useScrollReveal from '@/hooks/useScrollReveal'
@@ -39,3 +39,4 @@ SectionWrapper.defaultProps = {
 }
 
 export default SectionWrapper
+

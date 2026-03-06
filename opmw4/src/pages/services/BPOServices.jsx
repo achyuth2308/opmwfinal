@@ -1,4 +1,4 @@
-import {
+﻿import {
     PhoneCall,
     Database,
     Users,
@@ -62,7 +62,7 @@ const BPOServices = () => {
             <ServiceHero
                 label="BPO Services"
                 headline="Built for Scale. Driven by Performance."
-                subtext="OPMW delivers managed BPO services across voice and non-voice verticals — with 90 dedicated agents, structured KPI governance, and multi-city delivery capacity."
+                subtext="OPMW delivers managed BPO services across voice and non-voice verticals â€” with 90 dedicated agents, structured KPI governance, and multi-city delivery capacity."
                 ctaLabel="Request a Consultation"
                 ctaHref="/contact"
                 trustItems={['90 Dedicated Agents', '5 Operational Cities', 'KPI-Monitored', 'GST & MSME Registered']}
@@ -72,7 +72,7 @@ const BPOServices = () => {
             <FeatureGrid
                 sectionLabel="Our Capabilities"
                 headline="End-to-end process coverage"
-                subtext="From international voice campaigns to non-voice data operations — we run the full BPO spectrum under one management layer."
+                subtext="From international voice campaigns to non-voice data operations â€” we run the full BPO spectrum under one management layer."
                 features={BPO_FEATURES}
             />
 
@@ -88,3 +88,4 @@ const BPOServices = () => {
 }
 
 export default BPOServices
+

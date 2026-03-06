@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, Users, Mail, LogOut, Menu, X, Shield, Briefcase } from 'lucide-react'
 import { getAdminDashboard, adminLogout } from '@/services/admin.service'
@@ -173,7 +173,7 @@ const AdminDashboard = () => {
                             <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>
                                 <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>Recent Applications</h2>
-                                    <Link to="/admin/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all →</Link>
+                                    <Link to="/admin/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all â†’</Link>
                                 </div>
                                 {data.recent_applications && data.recent_applications.length > 0 ? (
                                     <div style={{ overflowX: 'auto' }}>
@@ -223,3 +223,4 @@ const AdminDashboard = () => {
 }
 
 export default AdminDashboard
+

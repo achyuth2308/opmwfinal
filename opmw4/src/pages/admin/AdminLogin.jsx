@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, AlertCircle, Shield } from 'lucide-react'
 import { adminLogin } from '@/services/admin.service'
@@ -226,13 +226,13 @@ const AdminLogin = () => {
                         onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.background = 'rgba(110,231,250,0.2)' } }}
                         onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                     >
-                        {isLoading ? <><Loader2 size={16} className="spin" /> Signing in…</> : 'Sign In to Admin'}
+                        {isLoading ? <><Loader2 size={16} className="spin" /> Signing inâ€¦</> : 'Sign In to Admin'}
                     </button>
                 </form>
 
                 <p style={{ marginTop: 24, textAlign: 'center', fontSize: 14, color: 'var(--text-secondary)' }}>
                     <Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: 13 }}>
-                        ← Back to website
+                        â† Back to website
                     </Link>
                 </p>
             </div>
@@ -242,3 +242,4 @@ const AdminLogin = () => {
 }
 
 export default AdminLogin
+

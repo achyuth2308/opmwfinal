@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+﻿import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import useScrollReveal from '@/hooks/useScrollReveal'
@@ -155,3 +155,4 @@ const StatsCounter = () => {
 }
 
 export default StatsCounter
+

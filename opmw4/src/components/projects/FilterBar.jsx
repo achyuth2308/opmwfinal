@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+﻿import PropTypes from 'prop-types'
 
 const FilterBar = ({ filters, activeFilter, onFilterChange }) => {
     return (
@@ -33,3 +33,4 @@ FilterBar.propTypes = {
 }
 
 export default FilterBar
+

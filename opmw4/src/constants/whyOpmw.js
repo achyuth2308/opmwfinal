@@ -1,4 +1,4 @@
-import {
+﻿import {
     Layers,
     Users,
     LayoutDashboard,
@@ -13,7 +13,7 @@ export const WHY_OPMW = [
         icon: Layers,
         title: 'Multi-Vertical Under One Brand',
         description:
-            'BPO, IT, and HRMS operations unified under a single management layer — no vendor sprawl, cleaner accountability.',
+            'BPO, IT, and HRMS operations unified under a single management layer â€” no vendor sprawl, cleaner accountability.',
     },
     {
         id: 'intl-campaign',
@@ -27,7 +27,7 @@ export const WHY_OPMW = [
         icon: LayoutDashboard,
         title: 'Proprietary HRMS Product',
         description:
-            'Our in-house HRMS is production-proven across 200+ employees — built from real operational pain, not speculation.',
+            'Our in-house HRMS is production-proven across 200+ employees â€” built from real operational pain, not speculation.',
     },
     {
         id: 'pricing',
@@ -51,3 +51,4 @@ export const WHY_OPMW = [
             'One central leadership, consistent SLAs, unified reporting. Your account owner has visibility across all verticals.',
     },
 ]
+

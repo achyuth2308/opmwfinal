@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 
 const CorporatePositioning = () => {
     return (
@@ -66,7 +66,7 @@ const CorporatePositioning = () => {
                         }}
                     >
                         While others specialise in one vertical, OPMW operates across the full enterprise
-                        operations stack — from agent floors to software products.
+                        operations stack â€” from agent floors to software products.
                     </p>
                     <div
                         style={{
@@ -83,3 +83,4 @@ const CorporatePositioning = () => {
 }
 
 export default CorporatePositioning
+

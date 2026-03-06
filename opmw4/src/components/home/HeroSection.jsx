@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+﻿import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronRight } from 'lucide-react'
@@ -174,11 +174,11 @@ const HeroSection = () => {
                     }}
                 >
                     Integrated BPO
-                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>Â·</span>
                     International Voice
-                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>Â·</span>
                     Web Applications
-                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>Â·</span>
                     Enterprise HRMS
                 </motion.p>
 
@@ -344,3 +344,4 @@ const HeroSection = () => {
 }
 
 export default HeroSection
+

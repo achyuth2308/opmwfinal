@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Loader2, AlertCircle, CheckCircle2, ArrowLeft } from 'lucide-react'
 
@@ -160,7 +160,7 @@ const ForgotPassword = () => {
                                 onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.2)' }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                             >
-                                {isLoading ? <><Loader2 size={16} className="spin" /> Sending…</> : 'Send Reset Link'}
+                                {isLoading ? <><Loader2 size={16} className="spin" /> Sendingâ€¦</> : 'Send Reset Link'}
                             </button>
                         </form>
 
@@ -178,3 +178,4 @@ const ForgotPassword = () => {
 }
 
 export default ForgotPassword
+

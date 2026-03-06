@@ -1,4 +1,4 @@
-export const STATS = [
+﻿export const STATS = [
     {
         id: 'workforce',
         value: 300,
@@ -35,3 +35,4 @@ export const HERO_STATS = [
     { label: 'Divisions', value: '4' },
     { label: 'Uptime', value: '100%' },
 ]
+

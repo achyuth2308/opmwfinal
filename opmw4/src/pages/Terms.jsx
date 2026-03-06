@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import TypewriterText from '@/components/shared/TypewriterText'
 
 const SECTIONS = [
@@ -16,7 +16,7 @@ const SECTIONS = [
     },
     {
         title: 'Intellectual Property',
-        body: 'All content, software, and proprietary systems provided by OPMW — including the OPMW HRMS platform — remain the intellectual property of OPMW. Client data remains the property of the respective client.',
+        body: 'All content, software, and proprietary systems provided by OPMW â€” including the OPMW HRMS platform â€” remain the intellectual property of OPMW. Client data remains the property of the respective client.',
     },
     {
         title: 'Confidentiality',
@@ -48,7 +48,7 @@ const SECTIONS = [
     },
     {
         title: 'Contact',
-        body: 'For questions regarding these Terms, contact us at info@opmw.in or OPMW, Tidel Park, Taramani, Chennai – 600113.',
+        body: 'For questions regarding these Terms, contact us at info@opmw.in or OPMW, Tidel Park, Taramani, Chennai â€“ 600113.',
     },
 ]
 
@@ -98,7 +98,7 @@ const Terms = () => {
                         marginBottom: 48,
                     }}
                 >
-                    Effective Date: 1 January 2025 · Last Updated: 1 January 2025
+                    Effective Date: 1 January 2025 Â· Last Updated: 1 January 2025
                 </p>
 
                 <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 40 }}>
@@ -138,3 +138,4 @@ const Terms = () => {
 }
 
 export default Terms
+

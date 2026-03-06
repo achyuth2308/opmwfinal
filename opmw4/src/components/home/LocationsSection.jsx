@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import { MapPin, Building2 } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { LOCATIONS } from '@/constants/locations'
@@ -196,3 +196,4 @@ const LocationsSection = () => {
 }
 
 export default LocationsSection
+

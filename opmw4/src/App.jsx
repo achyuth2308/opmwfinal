@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { AuthProvider } from '@/context/AuthContext'
@@ -33,3 +33,4 @@ const App = () => {
 }
 
 export default App
+

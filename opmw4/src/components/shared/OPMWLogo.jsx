@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 
 const OPMWLogo = ({ size, showAnimation }) => {
@@ -56,4 +56,5 @@ OPMWLogo.defaultProps = {
 }
 
 export default OPMWLogo
+
 

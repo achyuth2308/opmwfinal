@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import TypewriterText from '@/components/shared/TypewriterText'
@@ -203,3 +203,4 @@ const Projects = () => {
 }
 
 export default Projects
+

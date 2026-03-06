@@ -1,6 +1,6 @@
-import apiClient from './api'
+﻿import apiClient from './api'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal-1.onrender.com'
 
 /**
  * Admin Auth
@@ -150,3 +150,4 @@ export const deleteAdminJob = async (token, id) => {
     if (!res.ok) throw { message: 'Failed to delete job.', status: res.status }
     return true
 }
+

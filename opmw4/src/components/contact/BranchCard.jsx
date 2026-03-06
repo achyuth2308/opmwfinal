@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import { MapPin, Phone, Building2 } from 'lucide-react'
 
@@ -140,3 +140,4 @@ BranchCard.propTypes = {
 }
 
 export default BranchCard
+

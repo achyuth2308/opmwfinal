@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 
 const OPMWLogoStroke = () => (
@@ -178,3 +178,4 @@ MonitorReveal.propTypes = {
 }
 
 export default MonitorReveal
+

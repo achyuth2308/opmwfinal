@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+﻿import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import RootLayout from '@/layout/RootLayout'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
@@ -111,13 +111,13 @@ const NotFound = () => (
 const AppRouter = () => (
     <Suspense fallback={<PageLoader />}>
         <Routes>
-            {/* ─── Auth routes (no Navbar/Footer) — must be before layout catch-all ─── */}
+            {/* â”€â”€â”€ Auth routes (no Navbar/Footer) â€” must be before layout catch-all â”€â”€â”€ */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
 
-            {/* ─── Portal routes (protected, no Navbar/Footer) ─── */}
+            {/* â”€â”€â”€ Portal routes (protected, no Navbar/Footer) â”€â”€â”€ */}
             <Route
                 path="/portal"
                 element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
@@ -131,7 +131,7 @@ const AppRouter = () => (
                 element={<ProtectedRoute><Profile /></ProtectedRoute>}
             />
 
-            {/* ─── Admin routes (no Navbar/Footer) ─── */}
+            {/* â”€â”€â”€ Admin routes (no Navbar/Footer) â”€â”€â”€ */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/applications" element={<AdminApplications />} />
@@ -139,7 +139,7 @@ const AppRouter = () => (
             <Route path="/admin/contacts" element={<AdminContacts />} />
             <Route path="/admin/jobs" element={<AdminJobs />} />
 
-            {/* ─── Public routes (with Navbar + Footer via RootLayout) ─── */}
+            {/* â”€â”€â”€ Public routes (with Navbar + Footer via RootLayout) â”€â”€â”€ */}
             <Route element={<RootLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -155,7 +155,7 @@ const AppRouter = () => (
                 <Route path="/services/hrms" element={<HRMS />} />
             </Route>
 
-            {/* ─── 404 catch-all (must be LAST, outside any layout group) ─── */}
+            {/* â”€â”€â”€ 404 catch-all (must be LAST, outside any layout group) â”€â”€â”€ */}
             <Route path="*" element={<RootLayout />}>
                 <Route path="*" element={<NotFound />} />
             </Route>
@@ -164,3 +164,4 @@ const AppRouter = () => (
 )
 
 export default AppRouter
+

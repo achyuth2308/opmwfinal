@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Skeleton loader components for fast perceived loading performance.
  * Works with CSS animation defined in index.css / App.css.
  */
@@ -99,3 +99,4 @@ export const SkeletonCareerGrid = ({ count = 6 }) => (
 )
 
 export default SkeletonBlock
+

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, X, Menu, ChevronLeft, ChevronRight, User } from 'lucide-react'
 import { AdminSidebar } from './AdminDashboard'
@@ -63,7 +63,7 @@ const AdminCandidates = () => {
                             <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
                             <input
                                 type="text"
-                                placeholder="Search name, email, city…"
+                                placeholder="Search name, email, cityâ€¦"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 style={{ width: '100%', padding: '10px 12px 10px 34px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)', fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
@@ -101,8 +101,8 @@ const AdminCandidates = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{user.phone || '—'}</td>
-                                            <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{user.city || '—'}</td>
+                                            <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{user.phone || 'â€”'}</td>
+                                            <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{user.city || 'â€”'}</td>
                                             <td style={{ padding: '14px 20px' }}>
                                                 <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--accent)', fontFamily: 'JetBrains Mono,monospace' }}>{user.applications_count}</span>
                                             </td>
@@ -129,3 +129,4 @@ const AdminCandidates = () => {
 }
 
 export default AdminCandidates
+

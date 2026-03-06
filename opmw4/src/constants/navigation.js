@@ -1,4 +1,4 @@
-export const NAV_LINKS = [
+﻿export const NAV_LINKS = [
     { label: 'Home', href: '/' },
     {
         label: 'Services',
@@ -32,3 +32,4 @@ export const FOOTER_LINKS = {
         { label: 'Terms & Conditions', href: '/terms' },
     ],
 }
+

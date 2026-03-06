@@ -1,4 +1,4 @@
-import apiClient from './api'
+﻿import apiClient from './api'
 
 export const requestDemo = async (data) => {
     const payload = {
@@ -11,3 +11,4 @@ export const requestDemo = async (data) => {
     }
     return apiClient.post('demo/request', payload)
 }
+

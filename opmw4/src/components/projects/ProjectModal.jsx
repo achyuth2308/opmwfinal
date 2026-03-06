@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+﻿import { useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PropTypes from 'prop-types'
 import { X, Tag, CheckCircle2, FileText, Layers } from 'lucide-react'
@@ -368,3 +368,4 @@ ProjectModal.defaultProps = {
 }
 
 export default ProjectModal
+

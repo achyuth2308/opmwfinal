@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 import AnimatedButton from '@/components/shared/AnimatedButton'
 import { Link } from 'react-router-dom'
@@ -246,3 +246,4 @@ ServiceHero.defaultProps = {
 }
 
 export default ServiceHero
+

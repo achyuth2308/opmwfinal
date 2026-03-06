@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+﻿import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 
 const GlassCard = ({ children, className, onClick, as }) => {
@@ -43,3 +43,4 @@ GlassCard.defaultProps = {
 }
 
 export default GlassCard
+

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
@@ -140,7 +140,7 @@ const Dashboard = () => {
     const stats = {
         total: applications.length,
         pending: applications.filter((a) => a.status === 'Pending').length,
-        latest: applications[0]?.status || '—',
+        latest: applications[0]?.status || 'â€”',
     }
 
     return (
@@ -187,13 +187,13 @@ const Dashboard = () => {
                             <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>
                                 <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>Recent Applications</h2>
-                                    <Link to="/portal/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all →</Link>
+                                    <Link to="/portal/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all â†’</Link>
                                 </div>
 
                                 {applications.length === 0 ? (
                                     <div style={{ padding: '40px 24px', textAlign: 'center' }}>
                                         <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
-                                        <Link to="/careers" style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none' }}>Browse open roles →</Link>
+                                        <Link to="/careers" style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none' }}>Browse open roles â†’</Link>
                                     </div>
                                 ) : (
                                     <div style={{ overflowX: 'auto' }}>
@@ -210,7 +210,7 @@ const Dashboard = () => {
                                                     <tr key={app.id || i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                                                         <td style={{ padding: '14px 24px', fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.role}</td>
                                                         <td style={{ padding: '14px 24px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.location}</td>
-                                                        <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
+                                                        <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : 'â€”'}</td>
                                                         <td style={{ padding: '14px 24px' }}><StatusBadge status={app.status} /></td>
                                                     </tr>
                                                 ))}
@@ -229,3 +229,4 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+

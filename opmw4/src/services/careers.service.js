@@ -1,4 +1,4 @@
-import apiClient from './api'
+﻿import apiClient from './api'
 
 export const submitApplication = async (formData) => {
     const token = localStorage.getItem('opmw-token')
@@ -9,3 +9,4 @@ export const submitApplication = async (formData) => {
         },
     })
 }
+
