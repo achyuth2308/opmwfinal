@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, FileText, User, LogOut, Menu, X, Camera, Upload, Lock, Save, CheckCircle2, Loader2 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+import apiClient from '@/services/api'
+
 const CITIES = ['Chennai', 'Hyderabad', 'Bangalore', 'Noida', 'Indore']
 
 const fieldStyle = {
@@ -33,8 +34,7 @@ const PortalNav = ({ mobileOpen, setMobileOpen }) => {
 
     const handleLogout = async () => {
         try {
-            const tk = localStorage.getItem('opmw-token')
-            await fetch(`${API_BASE}/logout`, { method: 'POST', headers: { Authorization: `Bearer ${tk}`, Accept: 'application/json' } })
+            await apiClient.post('logout')
         } catch { /* ignore */ }
         logout()
         navigate('/login')
@@ -100,7 +100,14 @@ const Profile = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     const [profileForm, setProfileForm] = useState({ name: user?.name || '', phone: user?.phone || '', city: user?.city || '' })
-    const [photoPreview, setPhotoPreview] = useState(user?.profile_photo ? `${API_BASE.replace('/api', '')}/storage/${user.profile_photo}` : null)
+
+    // Use the getBaseURL logic from apiClient to construct storage URLs reliably
+    const getStorageURL = (path) => {
+        const base = (import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com/api').replace(/\/api\/?$/, '')
+        return `${base}/storage/${path}`
+    }
+
+    const [photoPreview, setPhotoPreview] = useState(user?.profile_photo ? getStorageURL(user.profile_photo) : null)
     const [resumeName, setResumeName] = useState(user?.resume_path ? user.resume_path.split('/').pop() : null)
 
     const [profileSaving, setProfileSaving] = useState(false)
@@ -112,12 +119,10 @@ const Profile = () => {
     const [pwSuccess, setPwSuccess] = useState(false)
     const [pwError, setPwError] = useState('')
 
-    const headers = { Authorization: `Bearer ${token}`, Accept: 'application/json' }
-
     useEffect(() => {
         if (user) {
             setProfileForm({ name: user.name || '', phone: user.phone || '', city: user.city || '' })
-            setPhotoPreview(user.profile_photo ? `${API_BASE.replace('/api', '')}/storage/${user.profile_photo}` : null)
+            setPhotoPreview(user.profile_photo ? getStorageURL(user.profile_photo) : null)
             setResumeName(user.resume_path ? user.resume_path.split('/').pop() : null)
         }
     }, [user])
@@ -134,17 +139,11 @@ const Profile = () => {
         setProfileError('')
         setProfileSuccess(false)
         try {
-            const res = await fetch(`${API_BASE}/profile`, {
-                method: 'PUT',
-                headers: { ...headers, 'Content-Type': 'application/json' },
-                body: JSON.stringify(profileForm),
-            })
-            const data = await res.json()
-            if (!res.ok) { setProfileError(data.message || 'Failed to save changes.'); return }
+            const data = await apiClient.put('profile', profileForm)
             login(data, token)
             setProfileSuccess(true)
             setTimeout(() => setProfileSuccess(false), 3000)
-        } catch { setProfileError('Network error.') } finally { setProfileSaving(false) }
+        } catch (err) { setProfileError(err.message || 'Failed to save changes.') } finally { setProfileSaving(false) }
     }
 
     const handlePhotoChange = async (e) => {
@@ -155,9 +154,10 @@ const Profile = () => {
         const form = new FormData()
         form.append('photo', file)
         try {
-            const res = await fetch(`${API_BASE}/profile/photo`, { method: 'POST', headers, body: form })
-            const data = await res.json()
-            if (res.ok && data.path) login({ ...user, profile_photo: data.path }, token)
+            const data = await apiClient.post('profile/photo', form, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            })
+            if (data.path) login({ ...user, profile_photo: data.path }, token)
         } catch { /* ignore */ }
     }
 
@@ -168,9 +168,10 @@ const Profile = () => {
         const form = new FormData()
         form.append('resume', file)
         try {
-            const res = await fetch(`${API_BASE}/profile/resume`, { method: 'POST', headers, body: form })
-            const data = await res.json()
-            if (res.ok && data.path) login({ ...user, resume_path: data.path }, token)
+            const data = await apiClient.post('profile/resume', form, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            })
+            if (data.path) login({ ...user, resume_path: data.path }, token)
         } catch { /* ignore */ }
     }
 
@@ -187,17 +188,11 @@ const Profile = () => {
         setPwError('')
         setPwSuccess(false)
         try {
-            const res = await fetch(`${API_BASE}/profile/password`, {
-                method: 'PATCH',
-                headers: { ...headers, 'Content-Type': 'application/json' },
-                body: JSON.stringify(pwForm),
-            })
-            const data = await res.json()
-            if (!res.ok) { setPwError(data.message || 'Failed to change password.'); return }
+            await apiClient.patch('profile/password', pwForm)
             setPwSuccess(true)
             setPwForm({ current_password: '', password: '', password_confirmation: '' })
             setTimeout(() => setPwSuccess(false), 3000)
-        } catch { setPwError('Network error.') } finally { setPwSaving(false) }
+        } catch (err) { setPwError(err.message || 'Failed to change password.') } finally { setPwSaving(false) }
     }
 
     if (!user && !token) return null // Should be handled by AuthRoute/AppRouter anyway

@@ -20,24 +20,18 @@ const AdminApplications = () => {
     const [newStatus, setNewStatus] = useState('')
     const [adminNotes, setAdminNotes] = useState('')
 
-    const token = localStorage.getItem('opmw-admin-token')
-
     const loadApplications = async (page = 1) => {
-        if (!token) { navigate('/admin/login', { replace: true }); return }
         setIsLoading(true)
         try {
             const params = { page }
             if (statusFilter !== 'All') params.status = statusFilter
             if (searchQuery.trim()) params.search = searchQuery.trim()
-            const result = await getAdminApplications(token, params)
+            const result = await getAdminApplications(params)
             setApplications(result.data || [])
             setPagination({ current_page: result.current_page, last_page: result.last_page })
         } catch (err) {
-            if (err.status === 401 || err.status === 403) {
-                localStorage.removeItem('opmw-admin-token')
-                localStorage.removeItem('opmw-admin')
-                navigate('/admin/login', { replace: true })
-            }
+            // Error handled by apiClient interceptor for 401/403
+            console.error(err)
         } finally {
             setIsLoading(false)
         }
@@ -54,7 +48,7 @@ const AdminApplications = () => {
         if (!newStatus || !selectedApp) return
         setUpdating(true)
         try {
-            const result = await updateApplicationStatus(token, selectedApp.id, newStatus, adminNotes)
+            await updateApplicationStatus(selectedApp.id, newStatus, adminNotes)
 
             // If the status was Rejected, the backend deleted it, so remove it from state
             if (newStatus === 'Rejected') {

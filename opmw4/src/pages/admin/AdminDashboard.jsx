@@ -27,8 +27,7 @@ const AdminSidebar = ({ mobileOpen, setMobileOpen }) => {
 
     const handleLogout = async () => {
         try {
-            const token = localStorage.getItem('opmw-admin-token')
-            await adminLogout(token)
+            await adminLogout()
         } catch { /* ignore */ }
         localStorage.removeItem('opmw-admin-token')
         localStorage.removeItem('opmw-admin')
@@ -106,10 +105,8 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         const load = async () => {
-            const token = localStorage.getItem('opmw-admin-token')
-            if (!token) { navigate('/admin/login', { replace: true }); return }
             try {
-                const result = await getAdminDashboard(token)
+                const result = await getAdminDashboard()
                 setData(result)
             } catch (err) {
                 if (err.status === 401 || err.status === 403) {

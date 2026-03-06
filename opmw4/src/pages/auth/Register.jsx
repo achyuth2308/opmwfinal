@@ -1,10 +1,5 @@
-﻿import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
-import { useAuth } from '@/context/AuthContext'
-import OPMWLogo from '@/components/shared/OPMWLogo'
+﻿import apiClient from '@/services/api'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
 const CITIES = ['Chennai', 'Hyderabad', 'Bangalore', 'Noida', 'Indore']
 
 const fieldStyle = {
@@ -134,31 +129,19 @@ const Register = () => {
         setIsLoading(true)
         setError('')
         try {
-            const res = await fetch(`${API_BASE}/register`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({
-                    name: form.name, email: form.email, phone: form.phone,
-                    city: form.city, password: form.password, password_confirmation: form.confirmPassword,
-                }),
+            await apiClient.post('register', {
+                name: form.name, email: form.email, phone: form.phone,
+                city: form.city, password: form.password, password_confirmation: form.confirmPassword,
             })
-            const data = await res.json()
-            if (!res.ok) {
-                if (data.errors) {
-                    const mapped = {}
-                    Object.entries(data.errors).forEach(([k, v]) => { mapped[k] = Array.isArray(v) ? v[0] : v })
-                    setFieldErrors(mapped)
-                } else {
-                    setError(data.message || 'Registration failed. Please try again.')
-                }
-                return
-            }
-            // navigate('/portal', { replace: true })
             navigate('/login', {
                 state: { message: 'Registration successful! Please log in to your account.' }
             })
-        } catch {
-            setError('Network error. Please check your connection.')
+        } catch (err) {
+            if (err.fieldErrors) {
+                setFieldErrors(err.fieldErrors)
+            } else {
+                setError(err.message || 'Registration failed. Please try again.')
+            }
         } finally {
             setIsLoading(false)
         }

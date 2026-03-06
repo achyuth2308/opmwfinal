@@ -4,7 +4,7 @@ import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-r
 import { useAuth } from '@/context/AuthContext'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+import apiClient from '@/services/api'
 
 const STATUS_COLORS = {
     Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
@@ -37,8 +37,7 @@ const PortalNav = ({ mobileOpen, setMobileOpen }) => {
 
     const handleLogout = async () => {
         try {
-            const tk = localStorage.getItem('opmw-token')
-            await fetch(`${API_BASE}/logout`, { method: 'POST', headers: { Authorization: `Bearer ${tk}`, Accept: 'application/json' } })
+            await apiClient.post('logout')
         } catch { /* ignore */ }
         logout()
         navigate('/login')
@@ -103,19 +102,12 @@ const MyApplications = () => {
     useEffect(() => {
         const load = async () => {
             try {
-                const headers = { Authorization: `Bearer ${token}`, Accept: 'application/json' }
-                const [appsRes, notifsRes] = await Promise.all([
-                    fetch(`${API_BASE}/applications`, { headers }),
-                    fetch(`${API_BASE}/notifications`, { headers }).catch(() => ({ ok: false })),
+                const [apps, notifs] = await Promise.all([
+                    apiClient.get('applications'),
+                    apiClient.get('notifications').catch(() => ({ data: [] })),
                 ])
-                if (appsRes.ok) {
-                    const d = await appsRes.json()
-                    setApplications(Array.isArray(d) ? d : d.data || [])
-                }
-                if (notifsRes.ok) {
-                    const nd = await notifsRes.json()
-                    setNotifications(Array.isArray(nd) ? nd : nd.data || [])
-                }
+                setApplications(apps)
+                setNotifications(notifs)
             } catch { /* ignore */ } finally { setIsLoading(false) }
         }
         if (token) load()

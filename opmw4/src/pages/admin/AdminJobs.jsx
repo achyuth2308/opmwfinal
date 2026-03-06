@@ -24,20 +24,14 @@ const AdminJobs = () => {
     })
     const [cityInput, setCityInput] = useState('')
 
-    const token = localStorage.getItem('opmw-admin-token')
-
     const loadJobs = async () => {
-        if (!token) { navigate('/admin/login', { replace: true }); return }
         setIsLoading(true)
         try {
-            const data = await getAdminJobs(token)
+            const data = await getAdminJobs()
             setJobs(data)
         } catch (err) {
-            if (err.status === 401 || err.status === 403) {
-                localStorage.removeItem('opmw-admin-token')
-                localStorage.removeItem('opmw-admin')
-                navigate('/admin/login', { replace: true })
-            }
+            // Error handled by apiClient interceptor
+            console.error(err)
         } finally {
             setIsLoading(false)
         }
@@ -73,7 +67,7 @@ const AdminJobs = () => {
 
         setIsSubmitting(true)
         try {
-            await createAdminJob(token, { ...formData, cities: currentCities })
+            await createAdminJob({ ...formData, cities: currentCities })
             setShowAddForm(false)
             setFormData({ title: '', department: 'BPO', type: 'Full-time', experience: '0â€“2 years', cities: [], description: '' })
             setCityInput('')
@@ -88,7 +82,7 @@ const AdminJobs = () => {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this job?')) return
         try {
-            await deleteAdminJob(token, id)
+            await deleteAdminJob(id)
             loadJobs()
         } catch (err) {
             alert(err.message || 'Failed to delete job')

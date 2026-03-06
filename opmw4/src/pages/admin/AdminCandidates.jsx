@@ -13,23 +13,17 @@ const AdminCandidates = () => {
     const [searchQuery, setSearchQuery] = useState('')
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-    const token = localStorage.getItem('opmw-admin-token')
-
     const loadCandidates = async (page = 1) => {
-        if (!token) { navigate('/admin/login', { replace: true }); return }
         setIsLoading(true)
         try {
             const params = { page }
             if (searchQuery.trim()) params.search = searchQuery.trim()
-            const result = await getAdminCandidates(token, params)
+            const result = await getAdminCandidates(params)
             setCandidates(result.data || [])
             setPagination({ current_page: result.current_page, last_page: result.last_page })
         } catch (err) {
-            if (err.status === 401 || err.status === 403) {
-                localStorage.removeItem('opmw-admin-token')
-                localStorage.removeItem('opmw-admin')
-                navigate('/admin/login', { replace: true })
-            }
+            // Error handled by apiClient interceptor
+            console.error(err)
         } finally {
             setIsLoading(false)
         }

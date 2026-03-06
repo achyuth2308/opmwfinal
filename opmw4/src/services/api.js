@@ -8,11 +8,20 @@ const generateRequestId = () => {
     })
 }
 
+const getBaseURL = () => {
+    let url = import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com/api'
+    // Normalize: remove trailing slashes
+    url = url.replace(/\/+$/, '')
+    // Ensure it ends with /api
+    if (!url.endsWith('/api')) {
+        url = `${url}/api`
+    }
+    return `${url}/`
+}
+
 const apiClient = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
-        ? import.meta.env.VITE_API_URL.replace(/\/+$/, '') + '/'
-        : 'https://opmwfinal.onrender.com/api/',
-    timeout: 12000,
+    baseURL: getBaseURL(),
+    timeout: 15000,
     headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -21,9 +30,18 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
     (config) => {
+        // Support both candidate and admin tokens
         const token = localStorage.getItem('opmw-token')
-        if (token) {
+        const adminToken = localStorage.getItem('opmw-admin-token')
+
+        // If it's an admin route, prioritize admin token
+        if (config.url.includes('admin/') && adminToken) {
+            config.headers.Authorization = `Bearer ${adminToken}`
+        } else if (token) {
             config.headers.Authorization = `Bearer ${token}`
+        } else if (adminToken) {
+            // Fallback to admin token if only that exists
+            config.headers.Authorization = `Bearer ${adminToken}`
         }
         config.headers['X-Request-ID'] = generateRequestId()
         return config
@@ -46,7 +64,15 @@ apiClient.interceptors.response.use(
         if (status === 401) {
             localStorage.removeItem('opmw-token')
             localStorage.removeItem('opmw-user')
-            window.location.href = '/'
+            localStorage.removeItem('opmw-admin-token')
+            localStorage.removeItem('opmw-admin')
+
+            // Redirect based on current path
+            if (window.location.pathname.startsWith('/admin')) {
+                window.location.href = '/admin/login'
+            } else {
+                window.location.href = '/'
+            }
             return Promise.reject({ message: 'Session expired. Please try again.', type: 'auth' })
         }
 

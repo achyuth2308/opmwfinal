@@ -7,7 +7,7 @@ import AnimatedButton from '@/components/shared/AnimatedButton'
 import { NAV_LINKS } from '@/constants/navigation'
 import { useAuth } from '@/context/AuthContext'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+import apiClient from '@/services/api'
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -19,8 +19,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const token = localStorage.getItem('opmw-token')
-            await fetch(`${API_BASE}/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } })
+            await apiClient.post('logout')
         } catch { /* ignore */ }
         logout()
         navigate('/')

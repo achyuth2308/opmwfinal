@@ -4,7 +4,7 @@ import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-r
 import { useAuth } from '@/context/AuthContext'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+import apiClient from '@/services/api'
 
 const STATUS_COLORS = {
     Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
@@ -37,8 +37,7 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
 
     const handleLogout = async () => {
         try {
-            const token = localStorage.getItem('opmw-token')
-            await fetch(`${API_BASE}/logout`, { method: 'POST', headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } })
+            await apiClient.post('logout')
         } catch { /* ignore */ }
         logout()
         navigate('/login')
@@ -114,7 +113,7 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
 }
 
 const Dashboard = () => {
-    const { user, token } = useAuth()
+    const { token } = useAuth()
     const [applications, setApplications] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -122,13 +121,8 @@ const Dashboard = () => {
     useEffect(() => {
         const load = async () => {
             try {
-                const res = await fetch(`${API_BASE}/applications`, {
-                    headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
-                })
-                if (res.ok) {
-                    const data = await res.json()
-                    setApplications(Array.isArray(data) ? data : data.data || [])
-                }
+                const data = await apiClient.get('applications')
+                setApplications(data)
             } catch { /* ignore */ } finally {
                 setIsLoading(false)
             }

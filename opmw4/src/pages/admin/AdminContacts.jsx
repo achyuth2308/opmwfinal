@@ -12,26 +12,20 @@ const AdminContacts = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [selectedContact, setSelectedContact] = useState(null)
 
-    const token = localStorage.getItem('opmw-admin-token')
-
     useEffect(() => {
         const load = async () => {
-            if (!token) { navigate('/admin/login', { replace: true }); return }
             try {
-                const result = await getAdminContacts(token)
+                const result = await getAdminContacts()
                 setContacts(Array.isArray(result) ? result : [])
             } catch (err) {
-                if (err.status === 401 || err.status === 403) {
-                    localStorage.removeItem('opmw-admin-token')
-                    localStorage.removeItem('opmw-admin')
-                    navigate('/admin/login', { replace: true })
-                }
+                // Error handled by apiClient interceptor
+                console.error(err)
             } finally {
                 setIsLoading(false)
             }
         }
         load()
-    }, [token, navigate])
+    }, [navigate])
 
     return (
         <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--surface-1)' }}>

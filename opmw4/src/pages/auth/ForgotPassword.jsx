@@ -1,8 +1,4 @@
-﻿import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Loader2, AlertCircle, CheckCircle2, ArrowLeft } from 'lucide-react'
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+﻿import apiClient from '@/services/api'
 
 const fieldStyle = {
     width: '100%',
@@ -30,19 +26,10 @@ const ForgotPassword = () => {
         setIsLoading(true)
         setError('')
         try {
-            const res = await fetch(`${API_BASE}/forgot-password`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({ email }),
-            })
-            const data = await res.json()
-            if (!res.ok) {
-                setError(data.message || 'Unable to send reset link. Please try again.')
-                return
-            }
+            await apiClient.post('forgot-password', { email })
             setSuccess(true)
-        } catch {
-            setError('Network error. Please check your connection.')
+        } catch (err) {
+            setError(err.message || 'Unable to send reset link. Please try again.')
         } finally {
             setIsLoading(false)
         }

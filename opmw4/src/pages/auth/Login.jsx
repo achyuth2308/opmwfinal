@@ -1,10 +1,4 @@
-﻿import { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
-import { useAuth } from '@/context/AuthContext'
-import OPMWLogo from '@/components/shared/OPMWLogo'
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+﻿import apiClient from '@/services/api'
 
 const fieldStyle = {
     width: '100%',
@@ -46,20 +40,11 @@ const Login = () => {
         setIsLoading(true)
         setError('')
         try {
-            const res = await fetch(`${API_BASE}/login`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({ email: form.email, password: form.password }),
-            })
-            const data = await res.json()
-            if (!res.ok) {
-                setError(data.message || 'Invalid credentials. Please try again.')
-                return
-            }
+            const data = await apiClient.post('login', { email: form.email, password: form.password })
             login(data.user, data.token)
             navigate(from, { replace: true })
-        } catch {
-            setError('Network error. Please check your connection.')
+        } catch (err) {
+            setError(err.message || 'Invalid credentials. Please try again.')
         } finally {
             setIsLoading(false)
         }

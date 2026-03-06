@@ -1,8 +1,4 @@
-﻿import { useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
+﻿import apiClient from '@/services/api'
 
 const fieldStyle = {
     width: '100%',
@@ -43,24 +39,15 @@ const ResetPassword = () => {
         setIsLoading(true)
         setError('')
         try {
-            const res = await fetch(`${API_BASE}/reset-password`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                body: JSON.stringify({
-                    token,
-                    email,
-                    password: form.password,
-                    password_confirmation: form.confirmPassword,
-                }),
+            await apiClient.post('reset-password', {
+                token,
+                email,
+                password: form.password,
+                password_confirmation: form.confirmPassword,
             })
-            const data = await res.json()
-            if (!res.ok) {
-                setError(data.message || 'Failed to reset password. The link may have expired.')
-                return
-            }
             navigate('/login?reset=success', { replace: true })
-        } catch {
-            setError('Network error. Please check your connection.')
+        } catch (err) {
+            setError(err.message || 'Failed to reset password. The link may have expired.')
         } finally {
             setIsLoading(false)
         }

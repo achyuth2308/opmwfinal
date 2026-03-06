@@ -8,6 +8,8 @@ import ApplyForm from '@/components/careers/ApplyForm'
 import { SkeletonCareerGrid } from '@/components/shared/Skeleton'
 import { CAREERS, CAREER_CITY_FILTERS, CAREER_DEPT_FILTERS } from '@/constants/careers'
 
+import apiClient from '@/services/api'
+
 const Careers = () => {
     const [jobs, setJobs] = useState(CAREERS)
     const [isLoading, setIsLoading] = useState(true)
@@ -18,12 +20,8 @@ const Careers = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const url = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
-                const res = await fetch(`${url}/jobs`)
-                if (res.ok) {
-                    const data = await res.json()
-                    setJobs(data)
-                }
+                const data = await apiClient.get('jobs')
+                setJobs(data)
             } catch (err) {
                 console.error('Failed to fetch jobs:', err)
             } finally {
