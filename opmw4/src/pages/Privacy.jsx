@@ -86,7 +86,7 @@ const Privacy = () => {
                         marginBottom: 48,
                     }}
                 >
-                    Effective Date: 1 January 2025 Â· Last Updated: 1 January 2025
+                    Effective Date: 1 January 2025 · Last Updated: 1 January 2025
                 </p>
 
                 <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 40 }}>

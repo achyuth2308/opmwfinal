@@ -114,7 +114,7 @@ const CTASection = () => {
                             }}
                         >
                             Join enterprises across 5 cities powered by OPMW's integrated platform
-                            â€” BPO, IT, and HRMS in one execution engine.
+                            BPO, IT, and HRMS in one execution engine.
                         </motion.p>
 
                         <motion.div

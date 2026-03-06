@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { X, Upload, CheckCircle2, Loader2, LogIn } from 'lucide-react'
 import { PREFERRED_CITIES } from '@/constants/careers'
@@ -10,6 +10,7 @@ import { useAuth } from '@/context/AuthContext'
 const ApplyForm = ({ role, onClose }) => {
     const { user, token } = useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
 
     const [form, setForm] = useState({
         full_name: user?.name || '',
@@ -135,7 +136,7 @@ const ApplyForm = ({ role, onClose }) => {
         }
     }
 
-    // Auth guard â€” not logged in
+    // Auth guard not logged in
     if (!token) {
         return (
             <AnimatePresence>
@@ -166,7 +167,7 @@ const ApplyForm = ({ role, onClose }) => {
                             You need to be signed in to apply for a position at OPMW.
                         </p>
                         <button
-                            onClick={() => { onClose(); navigate('/login') }}
+                            onClick={() => { onClose(); navigate('/login', { state: { from: location } }) }}
                             style={{ padding: '12px 28px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: 'var(--accent)', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 200ms ease' }}
                             onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.18)' }}
                             onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.1)' }}

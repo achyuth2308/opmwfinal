@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 const OPMWLogo = ({ size, showAnimation }) => {
     // Standardizing dimensions: sm: ~100px, md: ~140px, lg: ~210px
     const scale = size === 'sm' ? 0.7 : size === 'lg' ? 1.5 : 1
-    const baseWidth = 140
+    const baseWidth = 180
     const w = Math.round(baseWidth * scale)
 
     return (
@@ -12,7 +12,7 @@ const OPMWLogo = ({ size, showAnimation }) => {
             style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 width: w,
                 minWidth: w,
                 overflow: 'visible'

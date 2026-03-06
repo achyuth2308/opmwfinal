@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
+import OPMWLogo from '@/components/shared/OPMWLogo'
 
 import apiClient from '@/services/api'
 
@@ -46,9 +47,8 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
     const sidebarContent = (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             {/* Logo */}
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', padding: '24px 20px', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 7, background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)' }}>CP</div>
-                <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Candidate Portal</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', padding: '0px', textDecoration: 'none' }}>
+                <OPMWLogo size="md" showAnimation={false} />
             </Link>
 
             {/* User info */}
@@ -113,7 +113,7 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
 }
 
 const Dashboard = () => {
-    const { token } = useAuth()
+    const { token, user } = useAuth()
     const [applications, setApplications] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

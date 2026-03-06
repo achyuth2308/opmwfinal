@@ -647,6 +647,18 @@ body {
 /* ============================================
    SELECT DROPDOWN BASE
    ============================================ */
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background-color: #111419 !important;
+  /* Force dark background */
+  color: #F0F4F8 !important;
+  /* Force light text */
+  padding: 8px;
+}
+
 select.field-input option {
   background: var(--surface-2);
   color: var(--text-primary);

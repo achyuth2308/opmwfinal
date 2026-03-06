@@ -149,8 +149,9 @@ const Careers = () => {
                                 }}
                             />
                             <img
-                                src="/OPMW Images/Careers.png"
+                                src="/opmw-images/careers.png"
                                 alt="Careers at OPMW"
+                                loading="lazy"
                                 style={{
                                     width: '100%',
                                     height: '100%',
@@ -224,6 +225,7 @@ const Careers = () => {
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                gridAutoRows: '1fr',
                                 gap: 20,
                             }}
                         >

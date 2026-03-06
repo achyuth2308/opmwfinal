@@ -111,7 +111,7 @@ const HRMSDashboardMockup = () => (
                 OPMW HRMS
             </span>
             <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
-                Dashboard Â· Q1 2025
+                Dashboard · Q1 2025
             </span>
         </div>
 
@@ -177,7 +177,7 @@ const HRMSDashboardMockup = () => (
                     ))}
                 </div>
 
-                {/* Attendance Chart â€” Stays visible but shrinks */}
+                {/* Attendance Chart Stays visible but shrinks */}
                 <div>
                     <p style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: 12 }}>
                         WEEKLY ATTENDANCE TREND
@@ -243,7 +243,7 @@ const HRMS = () => {
                 ctaLabel="Request a Free Demo"
                 ctaHref="#demo"
                 trustItems={['200+ Employees Managed', 'Multi-Branch Ready', 'Payroll Automation', 'Compliance Built-In']}
-                image="/OPMW Images/HRMS–ProprietaryProduct.png"
+                image="/opmw-images/HRMS–ProprietaryProduct.png"
             />
 
             {/* Dashboard mockup */}

@@ -18,7 +18,7 @@ const AdminJobs = () => {
         title: '',
         department: 'BPO',
         type: 'Full-time',
-        experience: '0â€“2 years',
+        experience: '02 years',
         cities: [],
         description: ''
     })
@@ -69,7 +69,7 @@ const AdminJobs = () => {
         try {
             await createAdminJob({ ...formData, cities: currentCities })
             setShowAddForm(false)
-            setFormData({ title: '', department: 'BPO', type: 'Full-time', experience: '0â€“2 years', cities: [], description: '' })
+            setFormData({ title: '', department: 'BPO', type: 'Full-time', experience: '02 years', cities: [], description: '' })
             setCityInput('')
             loadJobs()
         } catch (err) {
@@ -131,7 +131,7 @@ const AdminJobs = () => {
                                         <div>
                                             <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(110,231,250,0.08)', padding: '2px 8px', borderRadius: 4, marginBottom: 8, display: 'inline-block' }}>{job.department}</span>
                                             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>{job.title}</h3>
-                                            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{job.type} â€¢ {job.experience}</p>
+                                            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{job.type} €¢ {job.experience}</p>
                                         </div>
                                         <button onClick={() => handleDelete(job.id)} style={{ padding: 8, borderRadius: 8, background: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', cursor: 'pointer' }} title="Delete Job">
                                             <Trash2 size={16} />

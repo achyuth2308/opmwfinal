@@ -23,6 +23,7 @@ const BranchCard = ({ location }) => {
                 gap: 14,
                 position: 'relative',
                 overflow: 'hidden',
+                height: '100%',
             }}
         >
             {/* HQ Badge */}

@@ -10,7 +10,7 @@ export const DIVISIONS = [
         tags: ['Non-Voice', 'Voice', 'Amazon'],
         href: '/services/bpo',
         accentColor: 'rgba(110,231,250,0.12)',
-        image: '/OPMW Images/BPO & Process Management.png',
+        image: '/opmw-images/bpo-division.png',
     },
     {
         id: 'it',
@@ -21,7 +21,7 @@ export const DIVISIONS = [
         tags: ['Laravel', 'React', '.NET'],
         href: '/services/it-web',
         accentColor: 'rgba(110,231,250,0.12)',
-        image: '/OPMW Images/IT&WebApplicationDivision.png',
+        image: '/opmw-images/it-division.png',
     },
     {
         id: 'hrms',
@@ -32,7 +32,7 @@ export const DIVISIONS = [
         tags: ['SaaS', 'Cloud', 'Enterprise'],
         href: '/services/hrms',
         accentColor: 'rgba(110,231,250,0.12)',
-        image: '/OPMW Images/HRMSâ€“ProprietaryProduct.png',
+        image: '/opmw-images/HRMS–ProprietaryProduct.png',
     },
 ]
 

@@ -108,7 +108,7 @@ const ResetPassword = () => {
                 {!token ? (
                     <div style={{ textAlign: 'center' }}>
                         <p style={{ color: 'rgba(248,113,113,0.9)', fontSize: 14, marginBottom: 16 }}>Invalid or missing reset token.</p>
-                        <Link to="/forgot-password" style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: 14 }}>Request a new reset link â†’</Link>
+                        <Link to="/forgot-password" style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: 14 }}>Request a new reset link</Link>
                     </div>
                 ) : (
                     <>
@@ -165,7 +165,7 @@ const ResetPassword = () => {
                                 onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.2)' }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                             >
-                                {isLoading ? <><Loader2 size={16} className="spin" /> Resettingâ€¦</> : 'Reset Password'}
+                                {isLoading ? <><Loader2 size={16} className="spin" /> Resetting€¦</> : 'Reset Password'}
                             </button>
                         </form>
                     </>

@@ -32,7 +32,7 @@ const ProcessSteps = ({ sectionLabel, headline, steps }) => {
                     </h2>
                 </div>
 
-                {/* Steps â€” horizontal flow on desktop, vertical on mobile */}
+                {/* Steps horizontal flow on desktop, vertical on mobile */}
                 <div
                     style={{
                         display: 'flex',

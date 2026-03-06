@@ -49,13 +49,13 @@ const HeroSection = () => {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    opacity: 0.15,
+                    opacity: 0.3,
                     pointerEvents: 'none',
                     zIndex: 0,
-                    mixBlendMode: 'screen',
+                    transform: 'scale(1.08)', // Scaling to hide watermark at bottom right
                 }}
             >
-                <source src="/Futuristic_Office_Tech_Visual.mp4" type="video/mp4" />
+                <source src="/hero_section_video.mp4" type="video/mp4" />
             </video>
 
             {/* Subtle cyan radial spot behind content */}
@@ -174,11 +174,11 @@ const HeroSection = () => {
                     }}
                 >
                     Integrated BPO
-                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>Â·</span>
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
                     International Voice
-                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>Â·</span>
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
                     Web Applications
-                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>Â·</span>
+                    <span style={{ color: 'rgba(110,231,250,0.5)', margin: '0 10px' }}>·</span>
                     Enterprise HRMS
                 </motion.p>
 

@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, Users, Mail, LogOut, Menu, X, Shield, Briefcase } from 'lucide-react'
 import { getAdminDashboard, adminLogout } from '@/services/admin.service'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
+import OPMWLogo from '@/components/shared/OPMWLogo'
 
 const STATUS_COLORS = {
     Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
@@ -36,9 +37,8 @@ const AdminSidebar = ({ mobileOpen, setMobileOpen }) => {
 
     const sidebarContent = (
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', padding: '24px 20px', borderBottom: '1px solid var(--border)' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 7, background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', color: 'var(--accent)' }}>OP</div>
-                <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>OPMW Admin</span>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', padding: '20px 20px', borderBottom: '1px solid var(--border)' }}>
+                <OPMWLogo size="md" showAnimation={false} />
             </Link>
 
             <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)' }}>
@@ -130,7 +130,9 @@ const AdminDashboard = () => {
             <main style={{ flex: 1, overflowY: 'auto' }}>
                 {/* Mobile topbar */}
                 <div style={{ display: 'none', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', height: 56, background: 'var(--surface-2)', borderBottom: '1px solid var(--border)' }} className="admin-mobile-topbar">
-                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>OPMW Admin</span>
+                    <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+                        <OPMWLogo size="md" showAnimation={false} />
+                    </Link>
                     <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-primary)', padding: 6 }}>
                         {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                     </button>
@@ -170,7 +172,7 @@ const AdminDashboard = () => {
                             <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>
                                 <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <h2 style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>Recent Applications</h2>
-                                    <Link to="/admin/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all â†’</Link>
+                                    <Link to="/admin/applications" style={{ fontSize: 13, color: 'var(--accent)', textDecoration: 'none' }}>View all</Link>
                                 </div>
                                 {data.recent_applications && data.recent_applications.length > 0 ? (
                                     <div style={{ overflowX: 'auto' }}>

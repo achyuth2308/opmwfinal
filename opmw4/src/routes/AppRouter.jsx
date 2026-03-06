@@ -43,6 +43,8 @@ const PageLoader = () => (
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            opacity: 0,
+            animation: 'delayedFadeIn 0.3s ease 0.5s forwards', // Only show if loading > 500ms
         }}
     >
         <div
@@ -55,7 +57,10 @@ const PageLoader = () => (
                 animation: 'spin 0.8s linear infinite',
             }}
         />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <style>{`
+            @keyframes spin { to { transform: rotate(360deg); } }
+            @keyframes delayedFadeIn { to { opacity: 1; } }
+        `}</style>
     </div>
 )
 
@@ -155,7 +160,7 @@ const AppRouter = () => (
                 <Route path="/services/hrms" element={<HRMS />} />
             </Route>
 
-            {/* â”€â”€â”€ 404 catch-all (must be LAST, outside any layout group) â”€â”€â”€ */}
+            {/* ”€”€”€ 404 catch-all (must be LAST, outside any layout group) ”€”€”€ */}
             <Route path="*" element={<RootLayout />}>
                 <Route path="*" element={<NotFound />} />
             </Route>

@@ -126,7 +126,7 @@ const Projects = () => {
                                 }}
                             />
                             <img
-                                src="/OPMW Images/Projects.png"
+                                src="/opmw-images/projects.png"
                                 alt="OPMW Projects"
                                 style={{
                                     width: '100%',
@@ -169,6 +169,7 @@ const Projects = () => {
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                gridAutoRows: '1fr',
                                 gap: 20,
                             }}
                         >

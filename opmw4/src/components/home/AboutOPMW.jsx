@@ -12,12 +12,12 @@ const HIGHLIGHTS = [
         icon: MapPin,
         label: 'HQ',
         value: 'Tidel Park',
-        detail: 'Chennai â€“ 600113',
+        detail: 'Chennai 600113',
     },
     {
         icon: Layers,
         label: 'Sectors',
-        value: 'BPO Â· IT Â· HRMS',
+        value: 'BPO · IT · HRMS',
         detail: 'Integrated delivery',
     },
 ]
@@ -40,7 +40,7 @@ const AboutOPMW = () => {
                     alignItems: 'center',
                 }}
             >
-                {/* Left â€” text */}
+                {/* Left text */}
                 <motion.div
                     initial={{ opacity: 0, x: -24 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -71,7 +71,7 @@ const AboutOPMW = () => {
                             marginBottom: 16,
                         }}
                     >
-                        OPMW (One Platform Multiple Work) was founded to solve a fragmented problem â€” enterprises
+                        OPMW (One Platform Multiple Work) was founded to solve a fragmented problem enterprises
                         juggling separate vendors for BPO, IT, and HR. We built a single delivery engine that
                         handles all three.
                     </p>
@@ -88,7 +88,7 @@ const AboutOPMW = () => {
                     </p>
                 </motion.div>
 
-                {/* Right â€” stat highlights */}
+                {/* Right stat highlights */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     {HIGHLIGHTS.map((item, i) => {
                         const Icon = item.icon

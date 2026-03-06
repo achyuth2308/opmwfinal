@@ -112,6 +112,7 @@ const Contact = () => {
                         style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                            gridAutoRows: '1fr',
                             gap: 16,
                         }}
                     >

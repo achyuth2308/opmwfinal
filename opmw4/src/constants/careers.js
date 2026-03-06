@@ -6,7 +6,7 @@
         type: 'Full-time',
         cities: ['Chennai', 'Hyderabad', 'Bangalore', 'Noida', 'Indore'],
         citiesLabel: 'All Cities',
-        experience: '0â€“3 years',
+        experience: '03 years',
         description:
             'Handle inbound and outbound international voice processes with expert communication and KPI discipline. Prior BPO experience preferred.',
     },
@@ -17,7 +17,7 @@
         type: 'Full-time',
         cities: ['Chennai', 'Hyderabad', 'Bangalore', 'Noida', 'Indore'],
         citiesLabel: 'All Cities',
-        experience: '0â€“2 years',
+        experience: '02 years',
         description:
             'Process and manage data entry, catalog updates, and backend operations with high accuracy and speed.',
     },
@@ -28,7 +28,7 @@
         type: 'Full-time',
         cities: ['Chennai', 'Hyderabad'],
         citiesLabel: 'Chennai, Hyderabad',
-        experience: '0â€“3 years',
+        experience: '03 years',
         description:
             'Support Amazon seller operations including catalog management, case handling, and marketplace compliance activities.',
     },
@@ -39,7 +39,7 @@
         type: 'Full-time',
         cities: ['Hyderabad', 'Bangalore'],
         citiesLabel: 'Hyderabad, Bangalore',
-        experience: '2â€“5 years',
+        experience: '25 years',
         description:
             'Build enterprise web applications using Laravel, React, or .NET Core. Experience with MySQL or SQL Server required.',
     },
@@ -50,7 +50,7 @@
         type: 'Full-time',
         cities: ['Chennai'],
         citiesLabel: 'Chennai',
-        experience: '1â€“3 years',
+        experience: '13 years',
         description:
             'Manage recruitment, onboarding, employee engagement, and compliance documentation across OPMW branches.',
     },
@@ -61,7 +61,7 @@
         type: 'Full-time',
         cities: ['Chennai', 'Noida'],
         citiesLabel: 'Chennai, Noida',
-        experience: '2â€“4 years',
+        experience: '24 years',
         description:
             'Process multi-city payroll, manage attendance records, and ensure statutory compliance across all branches.',
     },
@@ -72,7 +72,7 @@
         type: 'Full-time',
         cities: ['Chennai', 'Hyderabad', 'Bangalore', 'Noida', 'Indore'],
         citiesLabel: 'All Cities',
-        experience: '3â€“6 years',
+        experience: '36 years',
         description:
             'Lead a team of voice or non-voice executives, manage daily KPIs, run floor operations, and report to operations management.',
     },
@@ -83,7 +83,7 @@
         type: 'Full-time',
         cities: ['Chennai', 'Hyderabad'],
         citiesLabel: 'Chennai, Hyderabad',
-        experience: '1â€“4 years',
+        experience: '14 years',
         description:
             'Monitor call and process quality, provide feedback and coaching, and maintain quality documentation and reporting.',
     },

@@ -193,6 +193,7 @@ const ServiceHero = ({ label, headline, subtext, ctaLabel, ctaHref, trustItems, 
                                 <img
                                     src={image}
                                     alt={label}
+                                    loading="lazy"
                                     style={{
                                         width: '100%',
                                         height: 'auto',

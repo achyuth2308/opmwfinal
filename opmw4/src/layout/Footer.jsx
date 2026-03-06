@@ -69,7 +69,7 @@ const Footer = () => {
                                 }}
                             >
                                 <MapPin size={13} />
-                                Chennai Â· Hyderabad Â· Bangalore Â· Noida Â· Indore
+                                Chennai · Hyderabad · Bangalore · Noida · Indore
                             </span>
                         </div>
                     </div>
@@ -252,7 +252,7 @@ const Footer = () => {
                             letterSpacing: '0.08em',
                         }}
                     >
-                        Chennai Â· Hyderabad Â· Bangalore Â· Noida Â· Indore
+                        Chennai · Hyderabad · Bangalore · Noida · Indore
                     </p>
                 </div>
             </div>

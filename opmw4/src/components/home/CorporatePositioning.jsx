@@ -66,7 +66,7 @@ const CorporatePositioning = () => {
                         }}
                     >
                         While others specialise in one vertical, OPMW operates across the full enterprise
-                        operations stack â€” from agent floors to software products.
+                        operations stack from agent floors to software products.
                     </p>
                     <div
                         style={{

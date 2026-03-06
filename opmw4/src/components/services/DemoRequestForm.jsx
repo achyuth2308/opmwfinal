@@ -187,6 +187,10 @@ const DemoRequestForm = () => {
                                 font-size: 13px;
                             }
                         }
+                        .demo-field-input option {
+                            background-color: #111419;
+                            color: #F0F4F8;
+                        }
                     `}</style>
 
                     <form onSubmit={onSubmit} noValidate>

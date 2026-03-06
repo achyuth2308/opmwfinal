@@ -67,8 +67,8 @@ const ITWeb = () => {
                 subtext="Not every business needs complex software. Our IT division develops web-based applications tailored to your specific workflow — delivering practical, scalable, and long-term solutions."
                 ctaLabel="Talk to Our Engineering Team"
                 ctaHref="/contact"
-                trustItems={['40 IT Developers', 'Laravel Â· React Â· .NET', 'MNC Collaborations']}
-                image="/OPMW Images/IT&WebApplicationDivision.png"
+                trustItems={['40 IT Developers', 'Laravel · React · .NET', 'MNC Collaborations']}
+                image="/opmw-images/it-division.png"
             />
 
             <FeatureGrid

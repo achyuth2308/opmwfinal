@@ -117,7 +117,7 @@ const ContactForm = () => {
                     Message received
                 </h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: 15, lineHeight: 1.7 }}>
-                    We'll get back to you within 1â€“2 business days. For urgent inquiries, email us directly at{' '}
+                    We'll get back to you within 12 business days. For urgent inquiries, email us directly at{' '}
                     <a href="mailto:info@opmw.in" style={{ color: 'var(--accent)' }}>info@opmw.in</a>.
                 </p>
             </motion.div>
@@ -292,7 +292,7 @@ const ContactForm = () => {
                     {isLoading ? (
                         <>
                             <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                            Sendingâ€¦
+                            Sending€¦
                         </>
                     ) : (
                         'Send Message'

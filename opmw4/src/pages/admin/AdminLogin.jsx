@@ -2,6 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, AlertCircle, Shield } from 'lucide-react'
 import { adminLogin } from '@/services/admin.service'
+import OPMWLogo from '@/components/shared/OPMWLogo'
 
 const fieldStyle = {
     width: '100%',
@@ -95,10 +96,9 @@ const AdminLogin = () => {
                 }}
             >
                 {/* Logo */}
-                <div style={{ marginBottom: 32 }}>
-                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                        <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace', color: 'var(--accent)' }}>OP</div>
-                        <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>OPMW</span>
+                <div style={{ marginBottom: 36, display: 'flex', justifyContent: 'center' }}>
+                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+                        <OPMWLogo size="md" showAnimation={false} />
                     </Link>
                 </div>
 

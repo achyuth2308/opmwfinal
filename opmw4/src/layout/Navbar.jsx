@@ -56,8 +56,8 @@ const Navbar = () => {
                     height: 64,
                     display: 'flex',
                     alignItems: 'center',
-                    paddingLeft: 'max(24px, env(safe-area-inset-left))',
-                    paddingRight: 'max(24px, env(safe-area-inset-right))',
+                    paddingLeft: 'max(8px, env(safe-area-inset-left))',
+                    paddingRight: 'max(16px, env(safe-area-inset-right))',
                     background: isScrolled
                         ? 'rgba(15,15,18,0.92)'
                         : 'rgba(15,15,18,0.6)',
@@ -71,7 +71,7 @@ const Navbar = () => {
             >
                 <div
                     style={{
-                        maxWidth: 1400, // Slightly wider for centered layout
+                        maxWidth: 1600, // Increased to allow logo to move further left
                         margin: '0 auto',
                         width: '100%',
                         display: 'flex',
@@ -256,6 +256,7 @@ const Navbar = () => {
                             ) : (
                                 <Link
                                     to="/login"
+                                    state={{ from: location }}
                                     style={{
                                         display: 'flex', alignItems: 'center', gap: 6,
                                         padding: '7px 16px', borderRadius: 8,
@@ -398,6 +399,7 @@ const Navbar = () => {
                             ) : (
                                 <Link
                                     to="/login"
+                                    state={{ from: location }}
                                     onClick={() => setMobileOpen(false)}
                                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '14px 20px', borderRadius: 10, background: 'rgba(110,231,250,0.08)', border: '1px solid rgba(110,231,250,0.2)', textDecoration: 'none', fontSize: 16, fontWeight: 600, color: 'var(--accent)' }}
                                 >

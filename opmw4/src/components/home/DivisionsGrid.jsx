@@ -214,6 +214,7 @@ const DivisionsGrid = () => {
                                         <img
                                             src={division.image}
                                             alt={division.title}
+                                            loading="lazy"
                                             style={{
                                                 width: '100%',
                                                 height: '100%',

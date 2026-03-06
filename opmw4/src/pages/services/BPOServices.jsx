@@ -66,7 +66,7 @@ const BPOServices = () => {
                 ctaLabel="Request a Consultation"
                 ctaHref="/contact"
                 trustItems={['90 Dedicated Agents', '5 Operational Cities', 'KPI-Monitored', 'GST & MSME Registered']}
-                image="/OPMW Images/BPO & Process Management.png"
+                image="/opmw-images/bpo-division.png"
             />
 
             <FeatureGrid
