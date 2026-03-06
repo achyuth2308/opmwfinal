@@ -4,7 +4,7 @@ import { LayoutDashboard, FileText, User, LogOut, Menu, X, Star } from 'lucide-r
 import { useAuth } from '@/context/AuthContext'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal-1.onrender.com/api'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
 
 const STATUS_COLORS = {
     Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
@@ -229,5 +229,6 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+
 
 

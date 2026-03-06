@@ -2,7 +2,7 @@
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal-1.onrender.com/api'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
 
 const fieldStyle = {
     width: '100%',
@@ -186,5 +186,6 @@ const ResetPassword = () => {
 }
 
 export default ResetPassword
+
 
 

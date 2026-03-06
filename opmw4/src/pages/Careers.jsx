@@ -18,7 +18,7 @@ const Careers = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                const url = import.meta.env.VITE_API_URL || 'http://opmwfinal-1.onrender.com/api'
+                const url = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
                 const res = await fetch(`${url}/jobs`)
                 if (res.ok) {
                     const data = await res.json()
@@ -262,5 +262,6 @@ const Careers = () => {
 }
 
 export default Careers
+
 
 

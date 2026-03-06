@@ -9,7 +9,7 @@ const generateRequestId = () => {
 }
 
 const apiClient = axios.create({
-    baseURL: (import.meta.env.VITE_API_URL || 'https://opmwfinal-1.onrender.com/api').replace(/\/$/, '') + '/',
+    baseURL: (import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com/api').replace(/\/$/, '') + '/',
     timeout: 12000,
     headers: {
         'Content-Type': 'application/json',
@@ -80,4 +80,5 @@ apiClient.interceptors.response.use(
 )
 
 export default apiClient
+
 

@@ -7,7 +7,7 @@ import AnimatedButton from '@/components/shared/AnimatedButton'
 import { NAV_LINKS } from '@/constants/navigation'
 import { useAuth } from '@/context/AuthContext'
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal-1.onrender.com/api'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://opmwfinal.onrender.com/api'
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -425,5 +425,6 @@ const Navbar = () => {
 }
 
 export default Navbar
+
 
 
