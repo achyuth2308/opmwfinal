@@ -9,5 +9,5 @@ export const requestDemo = async (data) => {
         employee_count: data.employee_count,
         message: data.message,
     }
-    return apiClient.post('/api/demo/request', payload)
+    return apiClient.post('/demo/request', payload)
 }

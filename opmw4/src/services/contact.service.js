@@ -7,5 +7,5 @@ export const submitContactForm = async (data) => {
         subject: data.service_interest || data.subject || 'General Inquiry',
         message: data.message,
     }
-    return apiClient.post('/api/contact', payload)
+    return apiClient.post('/contact', payload)
 }
