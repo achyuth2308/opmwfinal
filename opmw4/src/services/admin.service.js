@@ -51,6 +51,10 @@ export const getAdminContacts = async () => {
     return apiClient.get('admin/contacts')
 }
 
+export const markContactAsRead = async (id) => {
+    return apiClient.patch(`admin/contacts/${id}/read`)
+}
+
 /**
  * Admin Jobs
  */

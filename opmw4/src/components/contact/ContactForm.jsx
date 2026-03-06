@@ -292,7 +292,7 @@ const ContactForm = () => {
                     {isLoading ? (
                         <>
                             <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} />
-                            Sending€¦
+                            Sending...
                         </>
                     ) : (
                         'Send Message'

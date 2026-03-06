@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import { X, Menu, Mail, Clock } from 'lucide-react'
 import { AdminSidebar } from './AdminDashboard'
-import { getAdminContacts } from '@/services/admin.service'
+import { getAdminContacts, markContactAsRead } from '@/services/admin.service'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const AdminContacts = () => {
@@ -11,6 +11,19 @@ const AdminContacts = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [selectedContact, setSelectedContact] = useState(null)
+
+    const handleSelectContact = async (contact) => {
+        setSelectedContact(contact)
+        if (!contact.is_read) {
+            try {
+                await markContactAsRead(contact.id)
+                // Update local state to show it's read immediately
+                setContacts(prev => prev.map(c => c.id === contact.id ? { ...c, is_read: true } : c))
+            } catch (err) {
+                console.error('Failed to mark contact as read:', err)
+            }
+        }
+    }
 
     useEffect(() => {
         const load = async () => {
@@ -52,7 +65,7 @@ const AdminContacts = () => {
                             {contacts.map((contact) => (
                                 <div
                                     key={contact.id}
-                                    onClick={() => setSelectedContact(contact)}
+                                    onClick={() => handleSelectContact(contact)}
                                     style={{
                                         background: 'var(--surface-2)',
                                         border: `1px solid ${contact.is_read ? 'var(--border)' : 'rgba(110,231,250,0.2)'}`,
@@ -122,12 +135,27 @@ const AdminContacts = () => {
                             </div>
                         </div>
 
-                        <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end' }}>
+                        <div style={{ marginTop: 24, display: 'flex', justifyContent: 'flex-end' }}>
                             <a
-                                href={`mailto:${selectedContact.email}?subject=Re: ${encodeURIComponent(selectedContact.subject)}`}
-                                style={{ padding: '10px 20px', borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1px solid rgba(110,231,250,0.3)', color: 'var(--accent)', fontSize: 14, fontWeight: 600, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}
+                                href={`mailto:${selectedContact.email}?subject=RE: ${encodeURIComponent(selectedContact.subject)}&body=${encodeURIComponent(`\n\n\n--- Original Message from ${selectedContact.name} ---\n${selectedContact.message}`)}`}
+                                style={{
+                                    padding: '12px 24px',
+                                    borderRadius: 10,
+                                    background: 'rgba(110,231,250,0.1)',
+                                    border: '1px solid rgba(110,231,250,0.25)',
+                                    color: 'var(--accent)',
+                                    fontSize: 14,
+                                    fontWeight: 600,
+                                    textDecoration: 'none',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 8,
+                                    transition: 'all 200ms ease'
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(110,231,250,0.18)'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(110,231,250,0.1)'}
                             >
-                                <Mail size={14} /> Reply via Email
+                                <Mail size={15} /> Reply via Email
                             </a>
                         </div>
                     </div>

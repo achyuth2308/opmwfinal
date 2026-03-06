@@ -45,4 +45,13 @@ class ContactController extends Controller
         $contacts = Contact::latest()->get();
         return response()->json($contacts);
     }
+
+    /**
+     * Mark a contact as read (PATCH /api/admin/contacts/{contact}/read)
+     */
+    public function markAsRead(Contact $contact): JsonResponse
+    {
+        $contact->update(['is_read' => true]);
+        return response()->json(['message' => 'Contact marked as read.']);
+    }
 }

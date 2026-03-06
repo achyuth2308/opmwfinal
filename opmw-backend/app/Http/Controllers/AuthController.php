@@ -83,13 +83,28 @@ class AuthController extends Controller
     {
         $request->validate(['email' => ['required', 'email']]);
 
-        $status = Password::sendResetLink($request->only('email'));
+        $user = User::where('email', $request->email)->first();
 
-        if ($status !== Password::RESET_LINK_SENT) {
-            return response()->json(['message' => __($status)], 422);
+        if (!$user) {
+            // Be vague for security, but we need to return success for UI consistency
+            return response()->json(['message' => 'If your email exists in our records, you will receive a reset link.']);
         }
 
-        return response()->json(['message' => __($status)]);
+        try {
+            // Generate a new password reset token using the default broker
+            $token = Password::broker()->createToken($user);
+
+            return response()->json([
+                'message' => 'Reset token generated.',
+                'token' => $token,
+                'name' => $user->name,
+            ]);
+        } catch (\Throwable $e) {
+            \Log::error('Password reset token generation failed', ['error' => $e->getMessage()]);
+            return response()->json([
+                'message' => 'We encountered an error generating your reset link. Please try again later.'
+            ], 500);
+        }
     }
 
     public function resetPassword(Request $request): JsonResponse

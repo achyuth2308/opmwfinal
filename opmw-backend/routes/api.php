@@ -21,8 +21,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+Route::post('/auth/google', [\App\Http\Controllers\GoogleAuthController::class, 'handleCallback']);
 
 // Contact form (public)
+Route::post('/contact', [ContactController::class, 'store']);
 // Job listings (public)
 Route::get('/jobs', [JobController::class, 'index']);
 
@@ -89,5 +91,6 @@ Route::prefix('admin')->group(function () {
 
         // Contacts
         Route::get('/contacts', [ContactController::class, 'index']);
+        Route::patch('/contacts/{contact}/read', [ContactController::class, 'markAsRead']);
     });
 });
