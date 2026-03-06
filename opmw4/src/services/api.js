@@ -9,7 +9,9 @@ const generateRequestId = () => {
 }
 
 const apiClient = axios.create({
-    baseURL: (import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com').replace(/\/$/, '') + '/',
+    baseURL: import.meta.env.VITE_API_URL
+        ? import.meta.env.VITE_API_URL.replace(/\/+$/, '') + '/'
+        : 'https://opmwfinal.onrender.com/api/',
     timeout: 12000,
     headers: {
         'Content-Type': 'application/json',
