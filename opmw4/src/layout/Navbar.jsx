@@ -412,11 +412,11 @@ const Navbar = () => {
             </AnimatePresence>
 
             <style>{`
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
           .hidden-mobile { display: flex !important; }
           .show-mobile { display: none !important; }
         }
-        @media (max-width: 767px) {
+        @media (max-width: 1023px) {
           .hidden-mobile { display: none !important; }
           .show-mobile { display: flex !important; }
         }

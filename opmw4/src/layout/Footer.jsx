@@ -15,6 +15,27 @@ const Footer = () => {
             }}
         >
             <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                <style>{`
+                    @media (max-width: 768px) {
+                        .footer-brand-column {
+                            align-items: center !important;
+                            text-align: center !important;
+                            grid-column: 1 / -1 !important;
+                        }
+                        .footer-logo-link {
+                            margin-top: 0 !important;
+                            justify-content: center !important;
+                        }
+                        .footer-description {
+                            margin-top: 0 !important;
+                            margin-left: auto !important;
+                            margin-right: auto !important;
+                        }
+                        .footer-contact-info {
+                            align-items: center !important;
+                        }
+                    }
+                `}</style>
                 <div
                     className="footer-grid"
                     style={{
@@ -25,8 +46,17 @@ const Footer = () => {
                     }}
                 >
                     {/* Brand column */}
-                    <div className="footer-brand-column" style={{ gridColumn: 'span 1' }}>
-                        <Link to="/" className="footer-logo-link" style={{ display: 'inline-flex', marginBottom: 16 }}>
+                    <div
+                        className="footer-brand-column"
+                        style={{
+                            gridColumn: 'span 1',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            textAlign: 'left'
+                        }}
+                    >
+                        <Link to="/" className="footer-logo-link" style={{ display: 'flex', marginBottom: 16, textDecoration: 'none', marginTop: -40 }}>
                             <OPMWLogo size="md" showAnimation={false} />
                         </Link>
                         <p
@@ -35,13 +65,16 @@ const Footer = () => {
                                 color: 'var(--text-secondary)',
                                 fontSize: 14,
                                 lineHeight: 1.7,
-                                maxWidth: 240,
+                                maxWidth: 280,
                                 marginBottom: 24,
+                                marginTop: -30,
+                                marginLeft: 0,
+                                paddingLeft: 0
                             }}
                         >
                             One Place Multi Work — India's integrated enterprise operations platform delivering BPO, IT, and HRMS under one brand.
                         </p>
-                        <div className="footer-contact-info" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        <div className="footer-contact-info" style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'flex-start' }}>
                             <a
                                 href="mailto:info@opmw.in"
                                 style={{
