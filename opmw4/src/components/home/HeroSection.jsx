@@ -1,4 +1,4 @@
-﻿import { useRef } from 'react'
+﻿import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronRight } from 'lucide-react'
@@ -21,6 +21,37 @@ const stagger = {
 
 const HeroSection = () => {
     const sectionRef = useRef(null)
+    const videoRef = useRef(null)
+
+    useEffect(() => {
+        const video = videoRef.current
+        if (!video) return
+
+        // Manual seamless loop: jump to start slightly before the absolute end
+        // to bypass the browser's "flicker" during loop reset.
+        const handleTimeUpdate = () => {
+            if (video.currentTime >= video.duration - 0.1) {
+                video.currentTime = 0
+                video.play().catch(() => { })
+            }
+        }
+
+        // Standard play logic
+        const playVideo = async () => {
+            try {
+                video.play()
+            } catch (err) {
+                console.log('Autoplay handled')
+            }
+        }
+
+        video.addEventListener('timeupdate', handleTimeUpdate)
+        playVideo()
+
+        return () => {
+            video.removeEventListener('timeupdate', handleTimeUpdate)
+        }
+    }, [])
 
     return (
         <section
@@ -33,15 +64,18 @@ const HeroSection = () => {
                 padding: 'clamp(24px, 6vw, 120px) clamp(16px, 5vw, 80px)',
                 position: 'relative',
                 overflow: 'hidden',
+                background: '#0a0a0c', // Safety color to prevent white flicker
             }}
             aria-label="Hero section"
         >
-            {/* Background Video */}
+            {/* Background Video - Manual Loop for Seamlessness */}
             <video
+                ref={videoRef}
                 autoPlay
-                loop
                 muted
                 playsInline
+                preload="auto"
+                src="/hero_section_video.mp4"
                 style={{
                     position: 'absolute',
                     top: 0,
@@ -53,10 +87,9 @@ const HeroSection = () => {
                     pointerEvents: 'none',
                     zIndex: 0,
                     transform: 'scale(1.08)', // Scaling to hide watermark at bottom right
+                    willChange: 'transform, opacity',
                 }}
-            >
-                <source src="/hero_section_video.mp4" type="video/mp4" />
-            </video>
+            />
 
             {/* Subtle cyan radial spot behind content */}
             <div
@@ -120,7 +153,6 @@ const HeroSection = () => {
                         />
                         Scalable Execution
                     </span>
-
                 </motion.div>
 
                 {/* H1 with Typewriter Animation and Custom Colors */}
@@ -358,4 +390,3 @@ const HeroSection = () => {
 }
 
 export default HeroSection
-

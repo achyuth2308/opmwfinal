@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import apiClient from '@/services/api'
@@ -165,7 +165,7 @@ const ResetPassword = () => {
                                 onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.2)' }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                             >
-                                {isLoading ? <><Loader2 size={16} className="spin" /> Resetting€¦</> : 'Reset Password'}
+                                {isLoading ? <><Loader2 size={16} className="spin" /> Resetting…</> : 'Reset Password'}
                             </button>
                         </form>
                     </>

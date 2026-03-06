@@ -19,16 +19,16 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://opmwfinal-six.vercel.app', 'https://opmwfinal.vercel.app', 'http://localhost:5173', 'https://opmwfinal-lake.vercel.app'],
+    'allowed_origins' => ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://opmwfinal-six.vercel.app', 'https://opmwfinal.vercel.app', 'https://opmwfinal-lake.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => ['XSRF-TOKEN'],
+    'exposed_headers' => [],
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];

@@ -2,10 +2,11 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { X, Upload, CheckCircle2, Loader2, LogIn } from 'lucide-react'
+import { X, Upload, CheckCircle2, Loader2, LogIn, Mail } from 'lucide-react'
 import { PREFERRED_CITIES } from '@/constants/careers'
 import { submitApplication } from '@/services/careers.service'
 import { useAuth } from '@/context/AuthContext'
+import { sendJobApplicationEmail } from '@/services/emailjs.service'
 
 const ApplyForm = ({ role, onClose }) => {
     const { user, token } = useAuth()
@@ -121,6 +122,16 @@ const ApplyForm = ({ role, onClose }) => {
             if (form.resume) fd.append('resume', form.resume)
 
             await submitApplication(fd)
+
+            // Send confirmation email via EmailJS (non-blocking)
+            sendJobApplicationEmail({
+                to_email: form.email,
+                to_name: form.full_name,
+                position: form.position,
+                location: form.preferred_city,
+                submitted_on: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+            }).catch((ejsErr) => console.warn('EmailJS career email warning:', ejsErr))
+
             setSuccess(true)
         } catch (err) {
             if (err.response?.status === 409) {
@@ -227,7 +238,11 @@ const ApplyForm = ({ role, onClose }) => {
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ textAlign: 'center', padding: '48px 0' }}>
                             <CheckCircle2 size={48} style={{ color: 'var(--accent)', margin: '0 auto 20px' }} />
                             <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>Application submitted!</h3>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>We review every application carefully and will reach out within 5 business days.</p>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 16 }}>We review every application carefully and will reach out within 5 business days.</p>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 13, color: 'var(--text-muted)' }}>
+                                <Mail size={13} />
+                                A confirmation email has been sent to <strong style={{ color: 'var(--text-secondary)' }}>{form.email}</strong>
+                            </div>
                         </motion.div>
                     ) : (
                         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

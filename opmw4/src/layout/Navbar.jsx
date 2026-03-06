@@ -238,8 +238,16 @@ const Navbar = () => {
                                         onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.16)' }}
                                         onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.08)' }}
                                     >
-                                        <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(110,231,250,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace' }}>
-                                            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                                        <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(110,231,250,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden' }}>
+                                            {(user?.profile_photo || user?.google_avatar) ? (
+                                                <img
+                                                    src={user.profile_photo || user.google_avatar}
+                                                    alt={user.name}
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                />
+                                            ) : (
+                                                user?.name?.charAt(0)?.toUpperCase() || 'U'
+                                            )}
                                         </span>
                                         Portal
                                     </Link>

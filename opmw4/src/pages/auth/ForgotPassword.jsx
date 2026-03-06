@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AlertCircle, Loader2, ArrowLeft, MailCheck } from 'lucide-react'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import apiClient from '@/services/api'
+import { sendForgotPasswordEmail } from '@/services/emailjs.service'
 
 const fieldStyle = {
     width: '100%',
@@ -30,10 +31,33 @@ const ForgotPassword = () => {
         setIsLoading(true)
         setError('')
         try {
-            await apiClient.post('forgot-password', { email })
+            // 1. Call backend to generate the reset token
+            const response = await apiClient.post('forgot-password', { email })
+
+            // 2. Build the reset URL — prefer the token returned by backend,
+            //    fall back to a generic link if not provided.
+            const resetToken = response?.token || response?.reset_token || ''
+            const resetLink = resetToken
+                ? `${window.location.origin}/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`
+                : `${window.location.origin}/reset-password`
+
+            // 3. Fire the EmailJS email (now blocking for better error visibility)
+            await sendForgotPasswordEmail({
+                to_email: email,
+                to_name: response?.name || email.split('@')[0],
+                reset_link: resetLink,
+            })
+
             setSuccess(true)
         } catch (err) {
-            setError(err.message || 'Unable to send reset link. Please try again.')
+            if (err.type === 'network') {
+                setError(`Connection failed. Please ensure your backend is running at ${import.meta.env.VITE_API_URL || 'the correctly configured API URL'}.`)
+            } else if (err.status === 401 || err.status === 403 || err.text) {
+                // This captures EmailJS specific errors
+                setError(`Email service error: ${err.text || 'Unable to send email'}. Please check your Service ID and Template ID.`)
+            } else {
+                setError(err.message || 'Unable to send reset link. Please try again.')
+            }
         } finally {
             setIsLoading(false)
         }
@@ -48,8 +72,44 @@ const ForgotPassword = () => {
                 justifyContent: 'center',
                 background: 'var(--surface-1)',
                 padding: '24px',
+                position: 'relative',
+                overflow: 'hidden',
             }}
         >
+            {/* Background Video */}
+            <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: 1,
+                    pointerEvents: 'none',
+                    zIndex: 0,
+                }}
+            >
+                <source src="/signup background.mp4" type="video/mp4" />
+            </video>
+
+            {/* Overlay */}
+            <div
+                aria-hidden="true"
+                style={{
+                    position: 'absolute',
+                    top: 0, left: 0, width: '100%', height: '100%',
+                    background: 'radial-gradient(circle at center, rgba(15,15,18,0.05) 0%, rgba(15,15,18,0.5) 100%)',
+                    zIndex: 0,
+                    pointerEvents: 'none',
+                }}
+            />
+
+            {/* Ambient glow */}
             <div
                 aria-hidden="true"
                 style={{
@@ -61,6 +121,7 @@ const ForgotPassword = () => {
                     height: 300,
                     background: 'radial-gradient(ellipse, rgba(110,231,250,0.04) 0%, transparent 70%)',
                     pointerEvents: 'none',
+                    zIndex: 0,
                 }}
             />
 
@@ -68,33 +129,50 @@ const ForgotPassword = () => {
                 style={{
                     width: '100%',
                     maxWidth: 420,
-                    background: 'var(--surface-2)',
-                    border: '1px solid var(--border)',
+                    background: 'rgba(18, 18, 22, 0.65)',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
                     borderRadius: 16,
                     padding: 'clamp(28px, 5vw, 44px)',
                     position: 'relative',
                     zIndex: 1,
+                    boxShadow: '0 24px 80px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.03)',
                 }}
             >
                 {/* Logo */}
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 32 }}>
-                    <div style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(110,231,250,0.1)', border: '1.5px solid rgba(110,231,250,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, fontFamily: 'JetBrains Mono, monospace', color: 'var(--accent)' }}>
-                        OP
-                    </div>
-                    <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>OPMW</span>
-                </Link>
+                <div style={{ marginBottom: 32 }}>
+                    <Link to="/" aria-label="OPMW Home" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
+                        <OPMWLogo size="md" showAnimation={false} />
+                    </Link>
+                </div>
 
                 {success ? (
                     <div style={{ textAlign: 'center', padding: '8px 0' }}>
-                        <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(74,222,128,0.1)', border: '1.5px solid rgba(74,222,128,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
-                            <CheckCircle2 size={24} style={{ color: '#4ade80' }} />
+                        {/* Success icon */}
+                        <div style={{
+                            width: 64,
+                            height: 64,
+                            borderRadius: '50%',
+                            background: 'rgba(74,222,128,0.1)',
+                            border: '1.5px solid rgba(74,222,128,0.3)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: '0 auto 24px',
+                        }}>
+                            <MailCheck size={28} style={{ color: '#4ade80' }} />
                         </div>
                         <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12, letterSpacing: '-0.02em' }}>
                             Check your email
                         </h2>
                         <p style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 28 }}>
-                            We've sent a password reset link to <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>.
+                            We've sent a password reset link to{' '}
+                            <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>.
                             Please check your inbox and click the link to reset your password.
+                        </p>
+                        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 28 }}>
+                            Didn't receive it? Check your spam folder or wait a few minutes.
                         </p>
                         <Link
                             to="/login"
@@ -122,7 +200,7 @@ const ForgotPassword = () => {
 
                         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             <div>
-                                <label htmlFor="forgot-email" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
+                                <label htmlFor="forgot-email" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
                                     Email Address
                                 </label>
                                 <input
@@ -151,7 +229,7 @@ const ForgotPassword = () => {
                                 onMouseEnter={(e) => { if (!isLoading) e.currentTarget.style.background = 'rgba(110,231,250,0.2)' }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.12)' }}
                             >
-                                {isLoading ? <><Loader2 size={16} className="spin" /> Sending€¦</> : 'Send Reset Link'}
+                                {isLoading ? <><Loader2 size={16} className="spin" /> Sending...</> : 'Send Reset Link'}
                             </button>
                         </form>
 
@@ -169,6 +247,3 @@ const ForgotPassword = () => {
 }
 
 export default ForgotPassword
-
-
-
