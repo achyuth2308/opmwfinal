@@ -9,7 +9,7 @@ const generateRequestId = () => {
 }
 
 const getBaseURL = () => {
-    let url = import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com/api'
+    let url = import.meta.env.VITE_API_URL || 'https://opmwfinal.onrender.com'
     // Normalize: remove trailing slashes
     url = url.replace(/\/+$/, '')
     // Ensure it ends with /api
