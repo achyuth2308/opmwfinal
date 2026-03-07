@@ -988,10 +988,14 @@ iframe {
     text-align: center;
   }
 
-  /* ── Section divider — center on mobile ─────────────────── */
-  .section-divider {
-    margin-left: auto;
-    margin-right: auto;
+  /* ── Mobile Centering Utility ────────────────────────── */
+  .mobile-center {
+    text-align: center !important;
+  }
+
+  .mobile-center .section-divider {
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   /* ── Toast ────────────────────────────────────────────────── */

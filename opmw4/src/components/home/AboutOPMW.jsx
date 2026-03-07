@@ -46,6 +46,7 @@ const AboutOPMW = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.55 }}
+                    className="mobile-center"
                 >
                     <div className="section-divider" style={{ marginBottom: 16 }} />
                     <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 12 }}>
