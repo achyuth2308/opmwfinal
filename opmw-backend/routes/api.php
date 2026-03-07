@@ -31,6 +31,23 @@ Route::post('/demo/request', [DemoRequestController::class, 'store']);
 // Job listings (public)
 Route::get('/jobs', [JobController::class, 'index']);
 
+// Temporary: Run migrations on Render Free Tier (Visit this URL once, then delete this route)
+Route::get('/run-migrations-secure-7788', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Migration completed!',
+            'output' => \Illuminate\Support\Facades\Artisan::output()
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+});
+
 /*
 |──────────────────────────────────────────────────────────
 |  CANDIDATE ROUTES (requires Sanctum auth)
