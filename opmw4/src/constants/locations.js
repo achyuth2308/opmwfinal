@@ -8,7 +8,7 @@
         address: 'Sector 62, Noida 201309',
         isHeadquarters: false,
         image: '/opmw-images/it-division.png',
-        coords: { x: 48, y: 18 }
+        coords: { x: 48, y: 15 }
     },
     {
         id: 'indore',
@@ -19,7 +19,7 @@
         address: 'Vijay Nagar, Indore 452010',
         isHeadquarters: false,
         image: '/opmw-images/multi-city-non-voice.png',
-        coords: { x: 34, y: 44 }
+        coords: { x: 35, y: 40 }
     },
     {
         id: 'hyderabad',
@@ -30,7 +30,7 @@
         address: 'Hitech City, Madhapur, Hyderabad 500081',
         isHeadquarters: false,
         image: '/opmw-images/international-voice.png',
-        coords: { x: 44, y: 64 }
+        coords: { x: 45, y: 60 }
     },
     {
         id: 'bangalore',
@@ -41,7 +41,7 @@
         address: 'Whitefield, Bangalore 560066',
         isHeadquarters: false,
         image: '/opmw-images/bpo-division.png',
-        coords: { x: 41, y: 80 }
+        coords: { x: 43, y: 75 }
     },
     {
         id: 'chennai',
@@ -52,7 +52,7 @@
         address: 'Tidel Park, Taramani, Chennai 600113',
         isHeadquarters: true,
         image: '/opmw-images/locations/chennai_v2.png',
-        coords: { x: 50, y: 82 }
+        coords: { x: 50, y: 80 }
     },
 ]
 
