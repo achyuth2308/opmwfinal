@@ -124,14 +124,8 @@ const CTASection = () => {
                             transition={{ duration: 0.5, delay: 0.24 }}
                             style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}
                         >
-                            <Link to="/services/bpo" style={{ textDecoration: 'none' }}>
-                                <AnimatedButton variant="primary" size="lg" animatedBorder>
-                                    Explore Services
-                                    <ArrowRight size={16} />
-                                </AnimatedButton>
-                            </Link>
                             <Link to="/contact#contact-form" style={{ textDecoration: 'none' }}>
-                                <AnimatedButton variant="ghost" size="lg">
+                                <AnimatedButton variant="primary" size="lg" animatedBorder>
                                     Contact Us
                                 </AnimatedButton>
                             </Link>
