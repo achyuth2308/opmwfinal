@@ -31,57 +31,47 @@ const AboutOPMW = () => {
             }}
         >
             <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-                {/* Header - Side Aligned - Above everything else */}
-                <div style={{ textAlign: 'left', marginBottom: 48, paddingLeft: 'clamp(0px, 2vw, 24px)' }}>
-                    <div className="section-divider" style={{ marginBottom: 16 }} />
+                {/* Centered Section Label at Top */}
+                <div style={{ textAlign: 'center', marginBottom: 56 }}>
+                    <div className="section-divider" style={{ margin: '0 auto 16px' }} />
                     <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 12 }}>
                         About OPMW
                     </p>
-                    <h2
-                        style={{
-                            fontSize: 'clamp(32px, 3.5vw, 48px)',
-                            fontWeight: 700,
-                            letterSpacing: '-0.03em',
-                            color: 'var(--text-primary)',
-                            lineHeight: 1.15,
-                            maxWidth: '22ch'
-                        }}
-                    >
-                        Execution at scale,<br />built from ground up
-                    </h2>
                 </div>
 
                 <div
                     style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                        gap: 'clamp(40px, 6vw, 80px)',
-                        alignItems: 'start',
+                        gap: 64,
+                        alignItems: 'center',
                     }}
                 >
-                    {/* Description - User requested "at center" style within its layout */}
+                    {/* Left Column: Heading & Description */}
                     <motion.div
                         initial={{ opacity: 0, x: -24 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.55 }}
-                        style={{
-                            textAlign: 'center', // User requested "make the description at center"
-                            padding: '0 clamp(10px, 2vw, 40px)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            height: '100%'
-                        }}
                     >
+                        <h2
+                            style={{
+                                fontSize: 'clamp(32px, 3.5vw, 48px)',
+                                fontWeight: 700,
+                                letterSpacing: '-0.03em',
+                                color: 'var(--text-primary)',
+                                marginBottom: 24,
+                                lineHeight: 1.15,
+                            }}
+                        >
+                            Execution at scale,<br />built from ground up
+                        </h2>
                         <p
                             style={{
                                 fontSize: 'clamp(15px, 1.8vw, 17px)',
                                 color: 'var(--text-secondary)',
                                 lineHeight: 1.8,
-                                marginBottom: 20,
-                                margin: '0 auto 20px',
-                                maxWidth: '50ch'
+                                marginBottom: 16,
                             }}
                         >
                             OPMW (One Platform Multiple Work) was founded to solve a fragmented problem enterprises
@@ -93,8 +83,6 @@ const AboutOPMW = () => {
                                 fontSize: 'clamp(15px, 1.8vw, 17px)',
                                 color: 'var(--text-secondary)',
                                 lineHeight: 1.8,
-                                margin: '0 auto',
-                                maxWidth: '50ch'
                             }}
                         >
                             Today, 300+ professionals across 5 Indian cities deliver voice campaigns, software
@@ -146,7 +134,7 @@ const AboutOPMW = () => {
                                     >
                                         <Icon size={18} style={{ color: 'var(--accent)' }} />
                                     </div>
-                                    <div style={{ textAlign: 'left' }}>
+                                    <div>
                                         <p
                                             style={{
                                                 fontSize: 10,
@@ -175,5 +163,4 @@ const AboutOPMW = () => {
 }
 
 export default AboutOPMW
-
 
