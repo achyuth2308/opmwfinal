@@ -219,20 +219,6 @@ const HRMSDashboardMockup = () => (
 
 
 const HRMS = () => {
-    const { hash } = useLocation()
-
-    useEffect(() => {
-        if (hash) {
-            const id = hash.replace('#', '')
-            const element = document.getElementById(id)
-            if (element) {
-                // Small delay to ensure content is fully rendered
-                setTimeout(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                }, 100)
-            }
-        }
-    }, [hash])
 
     return (
         <>
