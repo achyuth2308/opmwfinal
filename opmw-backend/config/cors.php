@@ -19,7 +19,15 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://opmwfinal-six.vercel.app', 'https://opmwfinal.vercel.app', 'https://opmwfinal-lake.vercel.app'],
+    'allowed_origins' => [
+        'http://localhost:5173',
+        'http://127.0.0.1:5173',
+        'https://opmwfinal-six.vercel.app',
+        'https://opmwfinal-six.vercel.app/',
+        'https://opmwfinal.vercel.app',
+        'https://opmwfinal-lake.vercel.app',
+        'https://opmwfinal-lake.vercel.app/'
+    ],
 
     'allowed_origins_patterns' => [],
 
