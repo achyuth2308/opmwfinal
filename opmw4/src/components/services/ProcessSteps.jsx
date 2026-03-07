@@ -115,24 +115,7 @@ const ProcessSteps = ({ sectionLabel, headline, steps }) => {
                                 </div>
                             </motion.div>
 
-                            {/* Connector arrow (not on last item) */}
-                            {i < steps.length - 1 && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.4, delay: i * 0.12 + 0.2 }}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        paddingTop: 16,
-                                        color: 'rgba(110,231,250,0.3)',
-                                        flexShrink: 0,
-                                    }}
-                                >
-                                    <ArrowRight size={18} />
-                                </motion.div>
-                            )}
+
                         </div>
                     ))}
                 </div>

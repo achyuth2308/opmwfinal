@@ -106,24 +106,26 @@ const BranchCard = ({ location }) => {
             </p>
 
             {/* Phone */}
-            <a
-                href={`tel:${location.phone.replace(/\s/g, '')}`}
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    fontSize: 13,
-                    fontFamily: 'JetBrains Mono, monospace',
-                    color: 'var(--text-secondary)',
-                    textDecoration: 'none',
-                    transition: 'color 200ms ease',
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)' }}
-            >
-                <Phone size={13} />
-                {location.phone}
-            </a>
+            {location.phone && (
+                <a
+                    href={`tel:${location.phone.replace(/\s/g, '')}`}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8,
+                        fontSize: 13,
+                        fontFamily: 'JetBrains Mono, monospace',
+                        color: 'var(--text-secondary)',
+                        textDecoration: 'none',
+                        transition: 'color 200ms ease',
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)' }}
+                >
+                    <Phone size={13} />
+                    {location.phone}
+                </a>
+            )}
         </motion.div>
     )
 }
