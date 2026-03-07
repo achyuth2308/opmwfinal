@@ -248,9 +248,45 @@ const ApplyForm = ({ role, onClose }) => {
                             <CheckCircle2 size={48} style={{ color: 'var(--accent)', margin: '0 auto 20px' }} />
                             <h3 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 10 }}>Application submitted!</h3>
                             <p style={{ color: 'var(--text-secondary)', fontSize: 14, marginBottom: 16 }}>We review every application carefully and will reach out within 5 business days.</p>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 13, color: 'var(--text-muted)' }}>
-                                <Mail size={13} />
-                                A confirmation email has been sent to <strong style={{ color: 'var(--text-secondary)' }}>{form.email}</strong>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 12,
+                                fontSize: 14,
+                                color: 'var(--text-muted)',
+                                background: 'rgba(255,255,255,0.02)',
+                                padding: '16px 20px',
+                                borderRadius: 12,
+                                border: '1px solid var(--border)',
+                                maxWidth: 400,
+                                margin: '0 auto'
+                            }}>
+                                <div style={{
+                                    width: 36,
+                                    height: 36,
+                                    borderRadius: '50%',
+                                    background: 'rgba(110,231,250,0.1)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    marginBottom: 4
+                                }}>
+                                    <Mail size={18} style={{ color: 'var(--accent)' }} />
+                                </div>
+                                <p style={{ textAlign: 'center', lineHeight: 1.6 }}>
+                                    A confirmation email has been sent to
+                                    <strong style={{
+                                        color: 'var(--text-primary)',
+                                        display: 'block',
+                                        marginTop: 4,
+                                        fontSize: 15,
+                                        wordBreak: 'break-all'
+                                    }}>
+                                        {form.email}
+                                    </strong>
+                                </p>
                             </div>
                         </motion.div>
                     ) : (
