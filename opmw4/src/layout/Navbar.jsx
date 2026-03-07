@@ -17,12 +17,13 @@ const Navbar = () => {
     const navigate = useNavigate()
     const { user, isAuthenticated, logout } = useAuth()
 
-    const handleLogout = async () => {
-        try {
-            await apiClient.post('logout')
-        } catch { /* ignore */ }
+    const handleLogout = () => {
+        // Make it feel instant: clear state and redirect first
         logout()
         navigate('/')
+
+        // Fire and forget the server-side logout to invalidate session
+        apiClient.post('logout').catch(() => { /* ignore */ })
     }
 
     useEffect(() => {

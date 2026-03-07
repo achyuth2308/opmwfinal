@@ -1,7 +1,8 @@
-﻿import { lazy, Suspense } from 'react'
+﻿import { Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import RootLayout from '@/layout/RootLayout'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import { lazyWithRetry as lazy } from '@/utils/lazyWithRetry'
 
 // Public pages
 const Home = lazy(() => import('@/pages/Home'))
