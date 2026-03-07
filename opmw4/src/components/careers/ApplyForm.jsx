@@ -128,14 +128,20 @@ const ApplyForm = ({ role, onClose }) => {
 
             await submitApplication(fd)
 
-            // Send confirmation email via EmailJS (non-blocking)
-            sendJobApplicationEmail({
-                to_email: form.email,
-                to_name: form.full_name,
-                position: form.position,
-                location: form.preferred_city,
-                submitted_on: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
-            }).catch((ejsErr) => console.warn('EmailJS career email warning:', ejsErr))
+            // Send confirmation email via EmailJS (await for reliability)
+            try {
+                await sendJobApplicationEmail({
+                    to_email: form.email,
+                    to_name: form.full_name,
+                    position: form.position,
+                    location: form.preferred_city,
+                    submitted_on: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+                })
+            } catch (ejsErr) {
+                console.error('EmailJS career email failed:', ejsErr)
+                // We don't block the UI SUCCESS state because the DB record was created successfully
+                // but we might want to inform the user or log it.
+            }
 
             addToast('Application submitted successfully!', 'success')
             setSuccess(true)

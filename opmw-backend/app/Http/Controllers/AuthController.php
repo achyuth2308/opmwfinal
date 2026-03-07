@@ -34,11 +34,15 @@ class AuthController extends Controller
 
         $token = $user->createToken('opmw-token')->plainTextToken;
 
-        // Send welcome mail (non-blocking)
+        // Send welcome mail
         try {
             Mail::to($user)->send(new WelcomeMail($user));
         } catch (\Throwable $e) {
-            // Log but don't fail
+            \Log::error('Welcome Mail failed during registration', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'error' => $e->getMessage()
+            ]);
         }
 
         return response()->json([

@@ -61,11 +61,6 @@ class AdminApplicationController extends Controller
             ], 422);
         }
 
-        if ($requestedStatus === 'Rejected') {
-            $application->delete();
-            return response()->json(['message' => 'Application has been rejected and deleted.', 'id' => $application->id]);
-        }
-
         $application->update($validated);
 
         // Notify candidate by email
@@ -73,7 +68,12 @@ class AdminApplicationController extends Controller
             Mail::to($application->applicant_email)
                 ->send(new ApplicationStatusMail($application));
         } catch (\Throwable $e) {
-            // Log but don't fail
+            \Log::error('Application Status Mail failed', [
+                'email' => $application->applicant_email,
+                'application_id' => $application->id,
+                'new_status' => $requestedStatus,
+                'error' => $e->getMessage()
+            ]);
         }
 
         return response()->json($application->fresh());

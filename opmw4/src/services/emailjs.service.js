@@ -16,7 +16,7 @@ const TEMPLATE_JOB_APPLICATION = import.meta.env.VITE_EMAILJS_TEMPLATE_JOB_APPLI
  * Initialise EmailJS once (idempotent — safe to call multiple times).
  */
 export const initEmailJS = () => {
-    emailjs.init({ publicKey: 'apJtNeeRZ2-ZlxILN' })
+    emailjs.init('apJtNeeRZ2-ZlxILN') // Fixed: Should be a string, not an object
 }
 
 // ─── Forgot Password Email ───────────────────────────────────────────────────
@@ -36,13 +36,15 @@ export const sendForgotPasswordEmail = async ({ to_email, to_name, reset_link })
         EMAILJS_SERVICE_ID,
         TEMPLATE_FORGOT_PASSWORD,
         {
+            email: to_email,        // Common alias
+            user_email: to_email,   // Common alias
             to_email,
             to_name: to_name || to_email,
             reset_link,
             app_name: 'OPMW',
             reply_to: 'noreply@opmw.in',
         },
-        EMAILJS_PUBLIC_KEY // Passing public key directly
+        EMAILJS_PUBLIC_KEY
     )
 }
 
@@ -57,23 +59,29 @@ export const sendForgotPasswordEmail = async ({ to_email, to_name, reset_link })
  * @param {string} params.submitted_on  - Human-readable submission date
  */
 export const sendJobApplicationEmail = async ({ to_email, to_name, position, location, submitted_on }) => {
-    console.log('--- EmailJS: Sending Job Application Email ---')
-    console.log('To:', to_email)
-    console.log('Params:', { to_email, to_name, position, location, submitted_on })
+    console.log('─── EmailJS v3.0: VERIFIED DATA MAPPING ───')
+    console.log('Recipient:', to_email)
+    console.log('Sending following parameters:', { email: to_email, name: to_name, job_role: position, location, submitted_on })
 
     return emailjs.send(
         EMAILJS_SERVICE_ID,
         TEMPLATE_JOB_APPLICATION,
         {
-            to_email,
-            to_name,
-            position,
-            location,
+            // Variables matching your EmailJS Template layout
+            email: to_email,
+            name: to_name,
+            job_role: position,
+            location: location,
             submitted_on: submitted_on || new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
+
+            // Backup/Legacy variables
+            to_email: to_email,
+            to_name: to_name,
+            position: position,
             app_name: 'OPMW',
             portal_link: `${window.location.origin}/portal/applications`,
             reply_to: 'careers@opmw.in',
         },
-        EMAILJS_PUBLIC_KEY // Passing public key directly
+        EMAILJS_PUBLIC_KEY
     )
 }

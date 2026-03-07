@@ -66,12 +66,16 @@ class ApplicationController extends Controller
             'status' => 'Pending',
         ]);
 
-        // Send confirmation email (silent on failure)
+        // Send confirmation email
         try {
             Mail::to($application->applicant_email)
                 ->send(new ApplicationConfirmationMail($application));
         } catch (\Throwable $e) {
-            // Log but don't block
+            \Log::error('Job Application Confirmation Mail failed', [
+                'email' => $application->applicant_email,
+                'application_id' => $application->id,
+                'error' => $e->getMessage()
+            ]);
         }
 
         return response()->json($application, 201);
