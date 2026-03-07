@@ -1,29 +1,24 @@
-﻿import { motion } from 'framer-motion'
-import { MapPin, Building2 } from 'lucide-react'
+﻿import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { MapPin, Globe } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { LOCATIONS } from '@/constants/locations'
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 24 },
-    show: (i) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] },
-    }),
-}
-
 const LocationsSection = () => {
+    const [activeIndex, setActiveIndex] = useState(0)
+    const activeLoc = LOCATIONS[activeIndex]
+
     return (
         <SectionWrapper className="section-gutter">
             <div
                 style={{
                     maxWidth: 1200,
                     margin: '0 auto',
-                    padding: 'clamp(32px, 5vw, 64px) clamp(24px, 5vw, 80px)',
+                    padding: 'clamp(48px, 8vw, 100px) 0',
                 }}
             >
                 {/* Header */}
-                <div style={{ textAlign: 'center', marginBottom: 56 }}>
+                <div style={{ textAlign: 'center', marginBottom: 64 }}>
                     <div className="section-divider" style={{ margin: '0 auto 16px' }} />
                     <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 12 }}>
                         Operational Footprint
@@ -35,160 +30,210 @@ const LocationsSection = () => {
                             letterSpacing: '-0.03em',
                             color: 'var(--text-primary)',
                             lineHeight: 1.15,
-                            marginBottom: 16,
                         }}
                     >
                         Five cities. One team.
                     </h2>
-                    <p
-                        style={{
-                            color: 'var(--text-secondary)',
-                            fontSize: 16,
-                            lineHeight: 1.7,
-                            maxWidth: 480,
-                            margin: '0 auto',
-                        }}
-                    >
-                        OPMW operates a unified delivery model across India's key IT and BPO corridors.
-                    </p>
                 </div>
 
-                {/* Locations grid */}
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                        gap: 16,
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                        gap: 64,
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
                 >
-                    {LOCATIONS.map((loc, i) => (
-                        <motion.div
-                            key={loc.id}
-                            custom={i}
-                            variants={cardVariants}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true, margin: '-40px' }}
-                            whileHover={{
-                                y: -4,
-                                borderColor: 'rgba(110,231,250,0.22)',
-                                boxShadow: '0 12px 40px rgba(110,231,250,0.1)',
-                                transition: { duration: 0.25 },
-                            }}
-                            style={{
-                                background: loc.isHeadquarters ? 'rgba(110,231,250,0.04)' : 'var(--surface-2)',
-                                border: loc.isHeadquarters
-                                    ? '1px solid rgba(110,231,250,0.18)'
-                                    : '1px solid var(--border)',
-                                borderRadius: 12,
-                                padding: 24,
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: 12,
-                                position: 'relative',
-                                overflow: 'hidden',
-                            }}
-                        >
-                            {/* HQ badge */}
-                            {loc.isHeadquarters && (
-                                <span
-                                    style={{
-                                        position: 'absolute',
-                                        top: 14,
-                                        right: 14,
-                                        fontSize: 10,
-                                        fontFamily: 'JetBrains Mono, monospace',
-                                        letterSpacing: '0.12em',
-                                        textTransform: 'uppercase',
-                                        color: 'var(--accent)',
-                                        background: 'rgba(110,231,250,0.1)',
-                                        border: '1px solid rgba(110,231,250,0.2)',
-                                        borderRadius: 4,
-                                        padding: '2px 8px',
-                                    }}
-                                >
-                                    HQ
-                                </span>
-                            )}
+                    {/* Left Side: India Silhouette Map */}
+                    <div
+                        style={{
+                            position: 'relative',
+                            width: '100%',
+                            aspectRatio: '1/1.2',
+                            maxWidth: 500,
+                            margin: '0 auto',
+                            background: 'radial-gradient(circle at 50% 50%, rgba(110,231,250,0.03) 0%, transparent 70%)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        {/* Stylized Silhouette */}
+                        <svg viewBox="0 0 200 240" style={{ width: '90%', height: 'auto', fill: 'rgba(255,255,255,0.02)', stroke: 'rgba(110,231,250,0.15)', strokeWidth: 1 }}>
+                            <path d="M100 10 L130 30 L150 60 L180 100 L170 160 L140 200 L100 230 L60 200 L30 160 L20 100 L50 60 L70 30 Z" />
+                        </svg>
 
-                            {/* Icon */}
-                            <div
+                        {/* Location Dots */}
+                        {LOCATIONS.map((loc, i) => (
+                            <motion.div
+                                key={loc.id}
+                                onClick={() => setActiveIndex(i)}
+                                whileHover={{ scale: 1.2 }}
                                 style={{
-                                    width: 36,
-                                    height: 36,
-                                    borderRadius: 8,
-                                    background: 'var(--accent-dim)',
-                                    border: '1px solid rgba(110,231,250,0.15)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: 'var(--accent)',
-                                    flexShrink: 0,
+                                    position: 'absolute',
+                                    left: `${loc.coords.x}%`,
+                                    top: `${loc.coords.y}%`,
+                                    cursor: 'pointer',
+                                    zIndex: 2,
                                 }}
                             >
-                                <MapPin size={16} />
-                            </div>
+                                <div style={{ position: 'relative' }}>
+                                    {/* Pulse effect for active */}
+                                    {activeIndex === i && (
+                                        <motion.div
+                                            layoutId="pulse"
+                                            initial={{ scale: 0.8, opacity: 0 }}
+                                            animate={{ scale: [1, 2, 1], opacity: [0, 0.4, 0] }}
+                                            transition={{ repeat: Infinity, duration: 2 }}
+                                            style={{
+                                                position: 'absolute',
+                                                top: -12,
+                                                left: -12,
+                                                width: 32,
+                                                height: 32,
+                                                borderRadius: '50%',
+                                                background: 'var(--accent)',
+                                            }}
+                                        />
+                                    )}
+                                    <div
+                                        style={{
+                                            width: 8,
+                                            height: 8,
+                                            borderRadius: '50%',
+                                            background: activeIndex === i ? 'var(--accent)' : 'rgba(255,255,255,0.3)',
+                                            boxShadow: activeIndex === i ? '0 0 12px var(--accent)' : 'none',
+                                            transition: 'all 0.3s ease',
+                                        }}
+                                    />
+                                    {/* City name label on map */}
+                                    <span
+                                        style={{
+                                            position: 'absolute',
+                                            left: 14,
+                                            top: -6,
+                                            whiteSpace: 'nowrap',
+                                            fontSize: activeIndex === i ? 14 : 11,
+                                            fontWeight: activeIndex === i ? 700 : 400,
+                                            color: activeIndex === i ? 'var(--text-primary)' : 'var(--text-muted)',
+                                            transition: 'all 0.3s ease',
+                                            fontFamily: 'JetBrains Mono, monospace',
+                                        }}
+                                    >
+                                        {loc.city}
+                                    </span>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
 
-                            {/* City & state */}
-                            <div>
-                                <h3
+                    {/* Right Side: Details Card */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeLoc.id}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.4 }}
+                                style={{
+                                    background: 'var(--surface-2)',
+                                    border: '1px solid var(--border)',
+                                    borderRadius: 32,
+                                    overflow: 'hidden',
+                                    position: 'relative',
+                                    boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
+                                }}
+                            >
+                                {/* Image container */}
+                                <div style={{ width: '100%', height: 320, position: 'relative' }}>
+                                    <img
+                                        src={activeLoc.image}
+                                        alt={activeLoc.city}
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                    />
+                                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--surface-2) 0%, transparent 60%)' }} />
+
+                                    {/* Business District Badge */}
+                                    <div style={{ position: 'absolute', top: 24, right: 24 }}>
+                                        <span className="pill-badge" style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)', borderColor: 'rgba(255,255,255,0.1)' }}>
+                                            {activeLoc.label}
+                                        </span>
+                                    </div>
+
+                                    {/* Live Status Badge */}
+                                    <div style={{ position: 'absolute', bottom: 100, left: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
+                                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 8px var(--accent)' }} />
+                                        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)' }}>
+                                            LIVE HUB
+                                        </span>
+                                    </div>
+
+                                    {/* City Content overlay */}
+                                    <div style={{ position: 'absolute', bottom: 32, left: 32, right: 32 }}>
+                                        <h3 style={{ fontSize: 44, fontWeight: 800, color: '#fff', marginBottom: 4, letterSpacing: '-0.02em' }}>
+                                            {activeLoc.city}
+                                        </h3>
+                                        <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', fontFamily: 'JetBrains Mono, monospace' }}>
+                                            {activeLoc.type}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Bottom info section */}
+                                <div style={{ padding: '0 32px 32px' }}>
+                                    <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)', marginBottom: 0 }}>
+                                        {activeLoc.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+
+                        {/* Slider Dots */}
+                        <div style={{ display: 'flex', gap: 10, justifyContent: 'center' }}>
+                            {LOCATIONS.map((_, i) => (
+                                <div
+                                    key={i}
+                                    onClick={() => setActiveIndex(i)}
                                     style={{
-                                        fontSize: 16,
+                                        width: activeIndex === i ? 24 : 8,
+                                        height: 8,
+                                        borderRadius: 4,
+                                        background: activeIndex === i ? 'var(--accent)' : 'rgba(255,255,255,0.1)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease',
+                                    }}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Quick Selection Buttons */}
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+                            {LOCATIONS.map((loc, i) => (
+                                <button
+                                    key={loc.id}
+                                    onClick={() => setActiveIndex(i)}
+                                    style={{
+                                        padding: '8px 24px',
+                                        borderRadius: 99,
+                                        border: '1px solid',
+                                        borderColor: activeIndex === i ? 'var(--accent)' : 'rgba(255,255,255,0.08)',
+                                        background: activeIndex === i ? 'rgba(110,231,250,0.08)' : 'transparent',
+                                        color: activeIndex === i ? 'var(--accent)' : 'var(--text-muted)',
+                                        fontSize: 11,
                                         fontWeight: 700,
-                                        color: 'var(--text-primary)',
-                                        letterSpacing: '-0.01em',
-                                        marginBottom: 2,
+                                        letterSpacing: '0.1em',
+                                        textTransform: 'uppercase',
+                                        fontFamily: 'JetBrains Mono, monospace',
+                                        transition: 'all 0.3s ease',
                                     }}
                                 >
                                     {loc.city}
-                                </h3>
-                                <p
-                                    style={{
-                                        fontSize: 12,
-                                        fontFamily: 'JetBrains Mono, monospace',
-                                        color: 'var(--text-muted)',
-                                        letterSpacing: '0.06em',
-                                    }}
-                                >
-                                    {loc.state}
-                                </p>
-                            </div>
-
-                            {/* Address */}
-                            <p
-                                style={{
-                                    fontSize: 13,
-                                    color: 'var(--text-secondary)',
-                                    lineHeight: 1.6,
-                                }}
-                            >
-                                {loc.address}
-                            </p>
-
-                            {/* Pincode */}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 6,
-                                    paddingTop: 8,
-                                    borderTop: '1px solid var(--border)',
-                                }}
-                            >
-                                <Building2 size={12} style={{ color: 'var(--text-muted)' }} />
-                                <span
-                                    style={{
-                                        fontSize: 12,
-                                        fontFamily: 'JetBrains Mono, monospace',
-                                        color: 'var(--text-muted)',
-                                        letterSpacing: '0.08em',
-                                    }}
-                                >
-                                    {loc.pincode}
-                                </span>
-                            </div>
-                        </motion.div>
-                    ))}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         </SectionWrapper>
