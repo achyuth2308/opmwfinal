@@ -11,7 +11,7 @@ const LocationsSection = () => {
     useEffect(() => {
         const timer = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % LOCATIONS.length)
-        }, 2000)
+        }, 3500)
         return () => clearInterval(timer)
     }, [])
 
