@@ -130,7 +130,7 @@ const CTASection = () => {
                                     <ArrowRight size={16} />
                                 </AnimatedButton>
                             </Link>
-                            <Link to="/contact" style={{ textDecoration: 'none' }}>
+                            <Link to="/contact#contact-form" style={{ textDecoration: 'none' }}>
                                 <AnimatedButton variant="ghost" size="lg">
                                     Contact Us
                                 </AnimatedButton>

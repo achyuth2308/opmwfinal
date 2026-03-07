@@ -66,8 +66,8 @@ const ITWeb = () => {
                 headline="Systems that actually work."
                 subtext="Not every business needs complex software. Our IT division develops web-based applications tailored to your specific workflow — delivering practical, scalable, and long-term solutions."
                 ctaLabel="Talk to Our Engineering Team"
-                ctaHref="/contact"
-                trustItems={['40 IT Developers', 'Laravel · React · .NET', 'MNC Collaborations']}
+                ctaHref="/contact#contact-form"
+                // trustItems={['40 IT Developers', 'Laravel · React · .NET', 'MNC Collaborations']}
                 image="/opmw-images/it-division.png"
             />
 

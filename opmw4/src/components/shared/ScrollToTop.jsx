@@ -2,13 +2,22 @@
 import { useLocation } from 'react-router-dom'
 
 const ScrollToTop = () => {
-    const { pathname } = useLocation()
+    const { pathname, hash } = useLocation()
 
     useEffect(() => {
-        // Use 'instant' to jump immediately to top without any scroll animation.
-        // This prevents the "scrolling from bottom to top" effect on page navigation.
-        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-    }, [pathname])
+        if (!hash) {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+        } else {
+            // Give time for components to render
+            setTimeout(() => {
+                const id = hash.replace('#', '')
+                const element = document.getElementById(id)
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' })
+                }
+            }, 100)
+        }
+    }, [pathname, hash])
 
     return null
 }

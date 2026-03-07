@@ -64,7 +64,7 @@ const BPOServices = () => {
                 headline="Built for Scale. Driven by Performance."
                 subtext="OPMW delivers managed BPO services across voice and non-voice verticals — with 90 dedicated agents, structured KPI governance, and multi-city delivery capacity."
                 ctaLabel="Request a Consultation"
-                ctaHref="/contact"
+                ctaHref="/contact#contact-form"
                 trustItems={['90 Dedicated Agents', '5 Operational Cities', 'KPI-Monitored', 'GST & MSME Registered']}
                 image="/opmw-images/bpo-division.png"
             />

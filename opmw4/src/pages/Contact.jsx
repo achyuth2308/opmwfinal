@@ -124,7 +124,7 @@ const Contact = () => {
             </SectionWrapper>
 
             {/* Contact form + map */}
-            <SectionWrapper className="section-gutter">
+            <SectionWrapper id="contact-form" className="section-gutter">
                 <div
                     style={{
                         maxWidth: 1200,
