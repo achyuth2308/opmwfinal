@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, Globe } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
@@ -7,6 +7,13 @@ import { LOCATIONS } from '@/constants/locations'
 const LocationsSection = () => {
     const [activeIndex, setActiveIndex] = useState(0)
     const activeLoc = LOCATIONS[activeIndex]
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % LOCATIONS.length)
+        }, 2000)
+        return () => clearInterval(timer)
+    }, [])
 
     return (
         <SectionWrapper className="section-gutter">
@@ -236,7 +243,7 @@ const LocationsSection = () => {
                     </div>
                 </div>
             </div>
-        </SectionWrapper>
+        </SectionWrapper >
     )
 }
 
