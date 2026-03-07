@@ -7,7 +7,7 @@
         description: 'Elite technical unit driving software innovation and enterprise HRMS development.',
         address: 'Sector 62, Noida 201309',
         isHeadquarters: false,
-        image: '/opmw-images/it-division.png',
+        image: '/opmw-images/noida.png',
         coords: { x: 48, y: 15 }
     },
     {
@@ -18,7 +18,7 @@
         description: 'Scalable infrastructure and dedicated teams supporting various operational workflows.',
         address: 'Vijay Nagar, Indore 452010',
         isHeadquarters: false,
-        image: '/opmw-images/multi-city-non-voice.png',
+        image: '/opmw-images/indore.png',
         coords: { x: 35, y: 40 }
     },
     {
@@ -29,7 +29,7 @@
         description: 'Advanced delivery center specializing in international voice and non-voice campaigns.',
         address: 'Hitech City, Madhapur, Hyderabad 500081',
         isHeadquarters: false,
-        image: '/opmw-images/international-voice.png',
+        image: '/opmw-images/hyderabad.png',
         coords: { x: 45, y: 60 }
     },
     {
@@ -40,7 +40,7 @@
         description: 'State-of-the-art facility focused on large-scale business process outsourcing.',
         address: 'Whitefield, Bangalore 560066',
         isHeadquarters: false,
-        image: '/opmw-images/bpo-division.png',
+        image: '/opmw-images/bangalore.png',
         coords: { x: 43, y: 75 }
     },
     {
@@ -51,7 +51,7 @@
         description: 'Executive headquarters and core operations engine for OPMW globally.',
         address: 'Tidel Park, Taramani, Chennai 600113',
         isHeadquarters: true,
-        image: '/opmw-images/locations/chennai_v2.png',
+        image: '/opmw-images/chennai.png',
         coords: { x: 50, y: 80 }
     },
 ]
