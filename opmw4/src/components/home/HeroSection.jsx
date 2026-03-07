@@ -192,7 +192,8 @@ const HeroSection = () => {
                     variants={stagger.item}
                     style={{
                         marginTop: 24,
-                        fontSize: 11,
+                        fontSize: 'clamp(14px, 1.5vw, 20px)',
+                        fontWeight: 700,
                         fontFamily: 'JetBrains Mono, monospace',
                         letterSpacing: '0.2em',
                         textTransform: 'uppercase',
