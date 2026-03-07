@@ -239,14 +239,8 @@ const HeroSection = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Link to="/services/bpo" style={{ textDecoration: 'none' }}>
-                        <AnimatedButton variant="primary" size="lg">
-                            Explore Services
-                            <ArrowRight size={16} />
-                        </AnimatedButton>
-                    </Link>
                     <Link to="/projects" style={{ textDecoration: 'none' }}>
-                        <AnimatedButton variant="ghost" size="lg">
+                        <AnimatedButton variant="primary" size="lg">
                             View Projects
                             <ChevronRight size={16} />
                         </AnimatedButton>
