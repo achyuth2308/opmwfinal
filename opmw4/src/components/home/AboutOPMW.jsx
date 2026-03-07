@@ -30,24 +30,9 @@ const AboutOPMW = () => {
                 position: 'relative',
             }}
         >
-            <div
-                style={{
-                    maxWidth: 1200,
-                    margin: '0 auto',
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: 64,
-                    alignItems: 'center',
-                }}
-            >
-                {/* Left text */}
-                <motion.div
-                    initial={{ opacity: 0, x: -24 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.55 }}
-                    className="mobile-center"
-                >
+            <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+                {/* Header - Side Aligned - Above everything else */}
+                <div style={{ textAlign: 'left', marginBottom: 48, paddingLeft: 'clamp(0px, 2vw, 24px)' }}>
                     <div className="section-divider" style={{ marginBottom: 16 }} />
                     <p className="text-label" style={{ color: 'var(--accent)', marginBottom: 12 }}>
                         About OPMW
@@ -58,101 +43,131 @@ const AboutOPMW = () => {
                             fontWeight: 700,
                             letterSpacing: '-0.03em',
                             color: 'var(--text-primary)',
-                            marginBottom: 20,
                             lineHeight: 1.15,
+                            maxWidth: '22ch'
                         }}
                     >
                         Execution at scale,<br />built from ground up
                     </h2>
-                    <p
-                        style={{
-                            fontSize: 'clamp(15px, 1.8vw, 17px)',
-                            color: 'var(--text-secondary)',
-                            lineHeight: 1.8,
-                            marginBottom: 20,
-                        }}
-                    >
-                        OPMW (One Platform Multiple Work) was founded to solve a fragmented problem enterprises
-                        juggling separate vendors for BPO, IT, and HR. We built a single delivery engine that
-                        handles all three.
-                    </p>
-                    <p
-                        style={{
-                            fontSize: 'clamp(15px, 1.8vw, 17px)',
-                            color: 'var(--text-secondary)',
-                            lineHeight: 1.8,
-                        }}
-                    >
-                        Today, 300+ professionals across 5 Indian cities deliver voice campaigns, software
-                        platforms, and HRMS solutions for clients spanning e-commerce, manufacturing,
-                        fintech, and real estate.
-                    </p>
-                </motion.div>
+                </div>
 
-                {/* Right stat highlights */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    {HIGHLIGHTS.map((item, i) => {
-                        const Icon = item.icon
-                        return (
-                            <motion.div
-                                key={item.label}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.45, delay: i * 0.1 }}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 16,
-                                    background: 'var(--surface-2)',
-                                    border: '1px solid var(--border)',
-                                    borderRadius: 12,
-                                    padding: '16px 20px',
-                                    transition: 'border-color 200ms ease',
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.borderColor = 'rgba(110,231,250,0.2)'
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.borderColor = 'var(--border)'
-                                }}
-                            >
-                                <div
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                        gap: 'clamp(40px, 6vw, 80px)',
+                        alignItems: 'start',
+                    }}
+                >
+                    {/* Description - User requested "at center" style within its layout */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.55 }}
+                        style={{
+                            textAlign: 'center', // User requested "make the description at center"
+                            padding: '0 clamp(10px, 2vw, 40px)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            height: '100%'
+                        }}
+                    >
+                        <p
+                            style={{
+                                fontSize: 'clamp(15px, 1.8vw, 17px)',
+                                color: 'var(--text-secondary)',
+                                lineHeight: 1.8,
+                                marginBottom: 20,
+                                margin: '0 auto 20px',
+                                maxWidth: '50ch'
+                            }}
+                        >
+                            OPMW (One Platform Multiple Work) was founded to solve a fragmented problem enterprises
+                            juggling separate vendors for BPO, IT, and HR. We built a single delivery engine that
+                            handles all three.
+                        </p>
+                        <p
+                            style={{
+                                fontSize: 'clamp(15px, 1.8vw, 17px)',
+                                color: 'var(--text-secondary)',
+                                lineHeight: 1.8,
+                                margin: '0 auto',
+                                maxWidth: '50ch'
+                            }}
+                        >
+                            Today, 300+ professionals across 5 Indian cities deliver voice campaigns, software
+                            platforms, and HRMS solutions for clients spanning e-commerce, manufacturing,
+                            fintech, and real estate.
+                        </p>
+                    </motion.div>
+
+                    {/* Right stat highlights */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        {HIGHLIGHTS.map((item, i) => {
+                            const Icon = item.icon
+                            return (
+                                <motion.div
+                                    key={item.label}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.45, delay: i * 0.1 }}
                                     style={{
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: 8,
-                                        background: 'rgba(110,231,250,0.07)',
-                                        border: '1px solid rgba(110,231,250,0.15)',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        justifyContent: 'center',
-                                        flexShrink: 0,
+                                        gap: 16,
+                                        background: 'var(--surface-2)',
+                                        border: '1px solid var(--border)',
+                                        borderRadius: 12,
+                                        padding: '16px 20px',
+                                        transition: 'border-color 200ms ease',
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.borderColor = 'rgba(110,231,250,0.2)'
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.borderColor = 'var(--border)'
                                     }}
                                 >
-                                    <Icon size={18} style={{ color: 'var(--accent)' }} />
-                                </div>
-                                <div style={{ textAlign: 'left' }}>
-                                    <p
+                                    <div
                                         style={{
-                                            fontSize: 10,
-                                            fontFamily: 'JetBrains Mono, monospace',
-                                            letterSpacing: '0.12em',
-                                            textTransform: 'uppercase',
-                                            color: 'var(--text-muted)',
-                                            marginBottom: 3,
+                                            width: 40,
+                                            height: 40,
+                                            borderRadius: 8,
+                                            background: 'rgba(110,231,250,0.07)',
+                                            border: '1px solid rgba(110,231,250,0.15)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            flexShrink: 0,
                                         }}
                                     >
-                                        {item.label}
-                                    </p>
-                                    <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>
-                                        {item.value}
-                                    </p>
-                                    <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.detail}</p>
-                                </div>
-                            </motion.div>
-                        )
-                    })}
+                                        <Icon size={18} style={{ color: 'var(--accent)' }} />
+                                    </div>
+                                    <div style={{ textAlign: 'left' }}>
+                                        <p
+                                            style={{
+                                                fontSize: 10,
+                                                fontFamily: 'JetBrains Mono, monospace',
+                                                letterSpacing: '0.12em',
+                                                textTransform: 'uppercase',
+                                                color: 'var(--text-muted)',
+                                                marginBottom: 3,
+                                            }}
+                                        >
+                                            {item.label}
+                                        </p>
+                                        <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>
+                                            {item.value}
+                                        </p>
+                                        <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.detail}</p>
+                                    </div>
+                                </motion.div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         </section>
