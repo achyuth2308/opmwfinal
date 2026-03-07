@@ -114,7 +114,6 @@ const IntroSequence = ({ onComplete }) => {
                     className="intro-video"
                     muted
                     playsInline
-                    autoPlay
                     onEnded={handleEnded}
                     onError={() => setVideoError(true)}
                 />

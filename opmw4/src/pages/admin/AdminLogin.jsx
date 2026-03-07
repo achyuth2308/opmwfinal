@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, Loader2, AlertCircle, Shield } from 'lucide-react'
+import { useToast } from '@/context/ToastContext'
 import { adminLogin } from '@/services/admin.service'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 
@@ -20,6 +21,7 @@ const fieldStyle = {
 
 const AdminLogin = () => {
     const navigate = useNavigate()
+    const { addToast } = useToast()
     const [form, setForm] = useState({ email: '', password: '' })
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -43,9 +45,12 @@ const AdminLogin = () => {
             const data = await adminLogin(form.email, form.password)
             localStorage.setItem('opmw-admin-token', data.token)
             localStorage.setItem('opmw-admin', JSON.stringify(data.admin))
+            addToast(`Admin login successful. Welcome, ${data.admin.name}.`, 'success')
             navigate('/admin', { replace: true })
         } catch (err) {
-            setError(err.message || 'Invalid credentials. Please try again.')
+            const msg = err.message || 'Invalid credentials. Please try again.'
+            setError(msg)
+            addToast(msg, 'error')
         } finally {
             setIsLoading(false)
         }

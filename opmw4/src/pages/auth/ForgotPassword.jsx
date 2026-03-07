@@ -1,6 +1,7 @@
-﻿import { useState } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { AlertCircle, Loader2, ArrowLeft, MailCheck } from 'lucide-react'
+import { useToast } from '@/context/ToastContext'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import apiClient from '@/services/api'
 import { sendForgotPasswordEmail } from '@/services/emailjs.service'
@@ -24,6 +25,8 @@ const ForgotPassword = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
+    const { addToast } = useToast()
+    const videoRef = useRef(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -49,19 +52,29 @@ const ForgotPassword = () => {
             })
 
             setSuccess(true)
+            addToast('Reset link sent to your email!', 'success')
         } catch (err) {
+            let msg = ''
             if (err.type === 'network') {
-                setError(`Connection failed. Please ensure your backend is running at ${import.meta.env.VITE_API_URL || 'the correctly configured API URL'}.`)
+                msg = `Connection failed. Please ensure your backend is running.`
             } else if (err.status === 401 || err.status === 403 || err.text) {
-                // This captures EmailJS specific errors
-                setError(`Email service error: ${err.text || 'Unable to send email'}. Please check your Service ID and Template ID.`)
+                msg = `Email service error: ${err.text || 'Unable to send email'}.`
             } else {
-                setError(err.message || 'Unable to send reset link. Please try again.')
+                msg = err.message || 'Unable to send reset link. Please try again.'
             }
+            setError(msg)
+            addToast(msg, 'error')
         } finally {
             setIsLoading(false)
         }
     }
+
+    /* ── Handle Background Video ── */
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(() => { })
+        }
+    }, [])
 
     return (
         <div
@@ -76,9 +89,8 @@ const ForgotPassword = () => {
                 overflow: 'hidden',
             }}
         >
-            {/* Background Video */}
             <video
-                autoPlay
+                ref={videoRef}
                 loop
                 muted
                 playsInline

@@ -14,11 +14,17 @@ export default defineConfig({
     open: false,
     // Redirect all 404s back to index.html so React Router handles them
     historyApiFallback: true,
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+    },
   },
   preview: {
     port: 4173,
     // Same fix for `vite preview` (production build preview)
     historyApiFallback: true,
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+    },
   },
   build: {
     rollupOptions: {

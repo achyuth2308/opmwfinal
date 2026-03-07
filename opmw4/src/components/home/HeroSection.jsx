@@ -39,9 +39,9 @@ const HeroSection = () => {
         // Standard play logic
         const playVideo = async () => {
             try {
-                video.play()
+                await video.play()
             } catch (err) {
-                console.log('Autoplay handled')
+                // Silently handle autoplay block or user navigation
             }
         }
 
@@ -71,7 +71,6 @@ const HeroSection = () => {
             {/* Background Video - Manual Loop for Seamlessness */}
             <video
                 ref={videoRef}
-                autoPlay
                 muted
                 playsInline
                 preload="auto"

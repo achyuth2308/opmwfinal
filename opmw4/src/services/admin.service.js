@@ -73,3 +73,14 @@ export const updateAdminJob = async (id, jobData) => {
 export const deleteAdminJob = async (id) => {
     return apiClient.delete(`admin/jobs/${id}`)
 }
+
+/**
+ * Admin Demo Requests
+ */
+export const getAdminDemoRequests = async () => {
+    return apiClient.get('admin/demo-requests')
+}
+
+export const markDemoRequestAsRead = async (id) => {
+    return apiClient.patch(`admin/demo-requests/${id}/read`)
+}

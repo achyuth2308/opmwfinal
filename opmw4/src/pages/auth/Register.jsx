@@ -1,6 +1,7 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
+import { useToast } from '@/context/ToastContext'
 import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import apiClient from '@/services/api'
@@ -59,6 +60,7 @@ const strengthColors = ['', '#f87171', '#FBB040', '#4ade80', '#6EE7FA']
 const Register = () => {
     const navigate = useNavigate()
     const { login } = useAuth()
+    const { addToast } = useToast()
 
     const [form, setForm] = useState({ name: '', email: '', phone: '', city: '', password: '', confirmPassword: '' })
     const [showPw, setShowPw] = useState(false)
@@ -67,6 +69,7 @@ const Register = () => {
     const [googleLoading, setGoogleLoading] = useState(false)
     const [error, setError] = useState('')
     const [fieldErrors, setFieldErrors] = useState({})
+    const videoRef = useRef(null)
 
     useEffect(() => {
         if (!GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID') return
@@ -168,14 +171,18 @@ const Register = () => {
                 name: form.name, email: form.email, phone: form.phone,
                 city: form.city, password: form.password, password_confirmation: form.confirmPassword,
             })
+            addToast('Account created successfully! Please sign in.', 'success')
             navigate('/login', {
                 state: { message: 'Registration successful! Please log in to your account.' }
             })
         } catch (err) {
             if (err.fieldErrors) {
                 setFieldErrors(err.fieldErrors)
+                addToast('Please fix the errors in the form.', 'error')
             } else {
-                setError(err.message || 'Registration failed. Please try again.')
+                const msg = err.message || 'Registration failed. Please try again.'
+                setError(msg)
+                addToast(msg, 'error')
             }
         } finally {
             setIsLoading(false)
@@ -214,6 +221,13 @@ const Register = () => {
         window.google.accounts.id.prompt()
     }
 
+    /* ── Handle Background Video ── */
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(() => { })
+        }
+    }, [])
+
     const FocusStyle = { borderColor: 'rgba(110,231,250,0.4)' }
     const BlurStyle = { borderColor: 'rgba(255,255,255,0.10)' }
 
@@ -230,9 +244,8 @@ const Register = () => {
                 overflow: 'hidden',
             }}
         >
-            {/* Background Video */}
             <video
-                autoPlay
+                ref={videoRef}
                 loop
                 muted
                 playsInline

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminApplicationController;
 use App\Http\Controllers\Admin\AdminCandidateController;
 use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\DemoRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ Route::post('/auth/google', [\App\Http\Controllers\GoogleAuthController::class, 
 
 // Contact form (public)
 Route::post('/contact', [ContactController::class, 'store']);
+// Demo request (public)
+Route::post('/demo/request', [DemoRequestController::class, 'store']);
 // Job listings (public)
 Route::get('/jobs', [JobController::class, 'index']);
 
@@ -89,7 +92,11 @@ Route::prefix('admin')->group(function () {
         Route::patch('/jobs/{job}', [AdminJobController::class, 'update']);
         Route::delete('/jobs/{job}', [AdminJobController::class, 'destroy']);
 
-        // Contacts
+        // Demo Requests
+        Route::get('/demo-requests', [DemoRequestController::class, 'index']);
+        Route::patch('/demo-requests/{demoRequest}/read', [DemoRequestController::class, 'markAsRead']);
+
+        // Contact Messages
         Route::get('/contacts', [ContactController::class, 'index']);
         Route::patch('/contacts/{contact}/read', [ContactController::class, 'markAsRead']);
     });

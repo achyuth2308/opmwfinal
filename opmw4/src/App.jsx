@@ -2,6 +2,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { AuthProvider } from '@/context/AuthContext'
+import { ToastProvider } from '@/context/ToastContext'
 import AppRouter from '@/routes/AppRouter'
 import IntroSequence from '@/intro/IntroSequence'
 import ScrollToTop from '@/components/shared/ScrollToTop'
@@ -19,18 +20,19 @@ const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <AuthProvider>
-        <AnimatePresence mode="wait">
-          {!introComplete ? (
-            <IntroSequence key="intro" onComplete={handleIntroComplete} />
-          ) : (
-            <AppRouter key="app" />
-          )}
-        </AnimatePresence>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AnimatePresence mode="wait">
+            {!introComplete ? (
+              <IntroSequence key="intro" onComplete={handleIntroComplete} />
+            ) : (
+              <AppRouter key="app" />
+            )}
+          </AnimatePresence>
+        </AuthProvider>
+      </ToastProvider>
     </BrowserRouter>
   )
 }
 
 export default App
-

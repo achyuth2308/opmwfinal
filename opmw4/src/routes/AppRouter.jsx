@@ -34,6 +34,7 @@ const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'))
 const AdminApplications = lazy(() => import('@/pages/admin/AdminApplications'))
 const AdminCandidates = lazy(() => import('@/pages/admin/AdminCandidates'))
 const AdminContacts = lazy(() => import('@/pages/admin/AdminContacts'))
+const AdminDemoRequests = lazy(() => import('@/pages/admin/AdminDemoRequests'))
 const AdminJobs = lazy(() => import('@/pages/admin/AdminJobs'))
 
 const PageLoader = () => (
@@ -142,6 +143,7 @@ const AppRouter = () => (
             <Route path="/admin/applications" element={<AdminApplications />} />
             <Route path="/admin/candidates" element={<AdminCandidates />} />
             <Route path="/admin/contacts" element={<AdminContacts />} />
+            <Route path="/admin/demo-requests" element={<AdminDemoRequests />} />
             <Route path="/admin/jobs" element={<AdminJobs />} />
 
             {/* ——— Public routes (with Navbar + Footer via RootLayout) ——— */}

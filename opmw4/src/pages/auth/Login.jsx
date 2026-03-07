@@ -1,6 +1,7 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
+import { useToast } from '@/context/ToastContext'
 import { Eye, EyeOff, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 import apiClient from '@/services/api'
@@ -51,6 +52,7 @@ const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const { login } = useAuth()
+    const { addToast } = useToast()
     const from = location.state?.from?.pathname || '/'
 
     const [form, setForm] = useState({ email: '', password: '', remember: false })
@@ -58,6 +60,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [googleLoading, setGoogleLoading] = useState(false)
     const [error, setError] = useState('')
+    const videoRef = useRef(null)
 
     // Show success banner when redirected from password-reset or registration
     const resetSuccess = new URLSearchParams(location.search).get('reset') === 'success'
@@ -92,6 +95,15 @@ const Login = () => {
         }).catch(() => console.warn('Failed to load Google GSI'))
     }, [from, login, navigate])
 
+    /* ── Handle Background Video ── */
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(() => {
+                // Silently sink the AbortError (e.g. power save mode)
+            })
+        }
+    }, [])
+
     /* ── Form handlers ── */
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
@@ -110,7 +122,9 @@ const Login = () => {
             login(data.user, data.token)
             navigate(from, { replace: true })
         } catch (err) {
-            setError(err.message || 'Invalid credentials. Please try again.')
+            const msg = err.message || 'Invalid credentials. Please try again.'
+            setError(msg)
+            addToast(msg, 'error')
         } finally {
             setIsLoading(false)
         }
@@ -136,9 +150,9 @@ const Login = () => {
                 overflow: 'hidden',
             }}
         >
-            {/* Background Video */}
             <video
-                autoPlay loop muted playsInline
+                ref={videoRef}
+                loop muted playsInline
                 style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 1, pointerEvents: 'none', zIndex: 0 }}
             >
                 <source src="/signup background.mp4" type="video/mp4" />

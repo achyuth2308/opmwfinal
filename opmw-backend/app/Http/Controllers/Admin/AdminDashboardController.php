@@ -17,6 +17,7 @@ class AdminDashboardController extends Controller
             ->selectRaw('(SELECT COUNT(*) FROM applications) as total_applications')
             ->selectRaw("(SELECT COUNT(*) FROM applications WHERE status = 'Pending') as pending_applications")
             ->selectRaw("(SELECT COUNT(*) FROM contacts WHERE is_read = 0) as unread_contacts")
+            ->selectRaw("(SELECT COUNT(*) FROM demo_requests WHERE is_read = 0) as unread_demo_requests")
             ->first();
 
         return response()->json([
@@ -24,6 +25,7 @@ class AdminDashboardController extends Controller
             'total_applications' => (int) $counts->total_applications,
             'pending_applications' => (int) $counts->pending_applications,
             'unread_contacts' => (int) $counts->unread_contacts,
+            'unread_demo_requests' => (int) $counts->unread_demo_requests,
             'recent_applications' => Application::with('user')
                 ->latest()
                 ->take(10)

@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutDashboard, FileText, Users, Mail, LogOut, Menu, X, Shield, Briefcase } from 'lucide-react'
+import { useToast } from '@/context/ToastContext'
 import { getAdminDashboard, adminLogout } from '@/services/admin.service'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
 import OPMWLogo from '@/components/shared/OPMWLogo'
@@ -18,12 +19,14 @@ const NAV_ITEMS = [
     { path: '/admin/applications', label: 'Applications', icon: FileText },
     { path: '/admin/candidates', label: 'Candidates', icon: Users },
     { path: '/admin/jobs', label: 'Jobs', icon: Briefcase },
+    { path: '/admin/demo-requests', label: 'Demo Requests', icon: LayoutDashboard },
     { path: '/admin/contacts', label: 'Contacts', icon: Mail },
 ]
 
 const AdminSidebar = ({ mobileOpen, setMobileOpen }) => {
     const navigate = useNavigate()
     const location = useLocation()
+    const { addToast } = useToast()
     const admin = (() => { try { return JSON.parse(localStorage.getItem('opmw-admin')) } catch { return null } })()
 
     const handleLogout = async () => {
@@ -32,6 +35,7 @@ const AdminSidebar = ({ mobileOpen, setMobileOpen }) => {
         } catch { /* ignore */ }
         localStorage.removeItem('opmw-admin-token')
         localStorage.removeItem('opmw-admin')
+        addToast('Admin logged out safely.', 'info')
         navigate('/admin/login')
     }
 
@@ -158,6 +162,7 @@ const AdminDashboard = () => {
                                     { label: 'Total Users', value: data.total_users, color: '#6EE7FA' },
                                     { label: 'Total Applications', value: data.total_applications, color: '#4ade80' },
                                     { label: 'Pending Review', value: data.pending_applications, color: '#FBB040' },
+                                    { label: 'Demo Requests', value: data.unread_demo_requests, color: '#6EE7FA' },
                                     { label: 'Unread Contacts', value: data.unread_contacts, color: '#f87171' },
                                 ].map((card) => (
                                     <div key={card.label} style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, padding: '20px 24px' }}>

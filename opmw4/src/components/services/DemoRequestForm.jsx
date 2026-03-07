@@ -31,10 +31,7 @@ const DemoRequestForm = () => {
 
     const { handleSubmit, isLoading, error, fieldErrors } = useFormSubmit(requestDemo, {
         onSuccess: () => {
-            // Success! Navigate to login after a brief moment
-            setTimeout(() => {
-                navigate('/login')
-            }, 1500)
+            // Success! We stay on the page and form resets automatically
         },
         resetOnSuccess: true,
     })

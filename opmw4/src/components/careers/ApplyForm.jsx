@@ -7,11 +7,13 @@ import { PREFERRED_CITIES } from '@/constants/careers'
 import { submitApplication } from '@/services/careers.service'
 import { useAuth } from '@/context/AuthContext'
 import { sendJobApplicationEmail } from '@/services/emailjs.service'
+import { useToast } from '@/context/ToastContext'
 
 const ApplyForm = ({ role, onClose }) => {
     const { user, token } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
+    const { addToast } = useToast()
 
     const [form, setForm] = useState({
         full_name: user?.name || '',
@@ -92,6 +94,9 @@ const ApplyForm = ({ role, onClose }) => {
         if (!form.preferred_city) {
             errors.preferred_city = 'Please select a preferred city.'
         }
+        if (!form.resume) {
+            errors.resume = 'Please upload your resume (PDF).'
+        }
         if (form.cover_note && form.cover_note.length > 2000) {
             errors.cover_note = `Cover note must be under 2000 characters (currently ${form.cover_note.length}).`
         }
@@ -132,16 +137,20 @@ const ApplyForm = ({ role, onClose }) => {
                 submitted_on: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }),
             }).catch((ejsErr) => console.warn('EmailJS career email warning:', ejsErr))
 
+            addToast('Application submitted successfully!', 'success')
             setSuccess(true)
         } catch (err) {
+            let msg = ''
             if (err.response?.status === 409) {
-                setError('You have already applied for this position.')
+                msg = 'You have already applied for this position.'
             } else if (err.type === 'validation' && err.fieldErrors) {
                 setFieldErrors(err.fieldErrors)
-                setError(err.message || 'Please fix the errors below.')
+                msg = err.message || 'Please fix the errors below.'
             } else {
-                setError(err.message || 'Submission failed. Please try again.')
+                msg = err.message || 'Submission failed. Please try again.'
             }
+            setError(msg)
+            addToast(msg, 'error')
         } finally {
             setIsLoading(false)
         }
@@ -326,7 +335,7 @@ const ApplyForm = ({ role, onClose }) => {
 
                             {/* Resume upload */}
                             <div>
-                                <label className="field-label" htmlFor="apply-resume">Resume (PDF, max 5MB)</label>
+                                <label className="field-label" htmlFor="apply-resume">Resume (PDF, max 5MB) *</label>
                                 <label
                                     htmlFor="apply-resume"
                                     style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', border: `1px dashed ${fieldErrors.resume ? 'rgba(248,113,113,0.4)' : 'rgba(110,231,250,0.2)'}`, borderRadius: 8, cursor: 'pointer', fontSize: 13, color: fileName ? 'var(--text-primary)' : 'var(--text-muted)', background: 'rgba(110,231,250,0.03)', transition: 'border-color 200ms ease' }}
