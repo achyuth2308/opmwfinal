@@ -66,9 +66,9 @@ const LocationsSection = () => {
                             justifyContent: 'center',
                         }}
                     >
-                        {/* Stylized Silhouette */}
-                        <svg viewBox="0 0 200 240" style={{ width: '90%', height: 'auto', fill: 'rgba(255,255,255,0.02)', stroke: 'rgba(110,231,250,0.15)', strokeWidth: 1 }}>
-                            <path d="M100 10 L130 30 L150 60 L180 100 L170 160 L140 200 L100 230 L60 200 L30 160 L20 100 L50 60 L70 30 Z" />
+                        {/* Improved India Silhouette */}
+                        <svg viewBox="0 0 200 240" style={{ width: '90%', height: 'auto', fill: 'rgba(110,231,250,0.01)', stroke: 'rgba(110,231,250,0.2)', strokeWidth: 1.5 }}>
+                            <path d="M102,5 L110,15 L125,18 L135,35 L145,45 L155,50 L165,65 L170,85 L165,100 L185,120 L195,145 L180,165 L155,175 L145,195 L125,215 L105,235 L85,215 L65,195 L55,175 L30,165 L15,145 L25,120 L45,100 L40,85 L45,65 L55,50 L65,45 L75,35 L85,18 L90,15 Z" />
                         </svg>
 
                         {/* Location Dots */}
@@ -86,46 +86,30 @@ const LocationsSection = () => {
                                 }}
                             >
                                 <div style={{ position: 'relative' }}>
-                                    {/* Pulse effect for active */}
-                                    {activeIndex === i && (
-                                        <motion.div
-                                            layoutId="pulse"
-                                            initial={{ scale: 0.8, opacity: 0 }}
-                                            animate={{ scale: [1, 2, 1], opacity: [0, 0.4, 0] }}
-                                            transition={{ repeat: Infinity, duration: 2 }}
-                                            style={{
-                                                position: 'absolute',
-                                                top: -12,
-                                                left: -12,
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: '50%',
-                                                background: 'var(--accent)',
-                                            }}
-                                        />
-                                    )}
                                     <div
                                         style={{
-                                            width: 8,
-                                            height: 8,
+                                            width: 10,
+                                            height: 10,
                                             borderRadius: '50%',
-                                            background: activeIndex === i ? 'var(--accent)' : 'rgba(255,255,255,0.3)',
-                                            boxShadow: activeIndex === i ? '0 0 12px var(--accent)' : 'none',
-                                            transition: 'all 0.3s ease',
+                                            background: activeIndex === i ? 'var(--accent)' : 'rgba(255,255,255,0.25)',
+                                            border: activeIndex === i ? '4px solid rgba(110,231,250,0.2)' : 'none',
+                                            boxShadow: activeIndex === i ? '0 0 15px var(--accent)' : 'none',
+                                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                                         }}
                                     />
                                     {/* City name label on map */}
                                     <span
                                         style={{
                                             position: 'absolute',
-                                            left: 14,
-                                            top: -6,
+                                            left: 16,
+                                            top: -4,
                                             whiteSpace: 'nowrap',
-                                            fontSize: activeIndex === i ? 14 : 11,
+                                            fontSize: 12,
                                             fontWeight: activeIndex === i ? 700 : 400,
                                             color: activeIndex === i ? 'var(--text-primary)' : 'var(--text-muted)',
                                             transition: 'all 0.3s ease',
                                             fontFamily: 'JetBrains Mono, monospace',
+                                            opacity: activeIndex === i ? 1 : 0.6
                                         }}
                                     >
                                         {loc.city}
@@ -140,10 +124,10 @@ const LocationsSection = () => {
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeLoc.id}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                transition={{ duration: 0.4 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.5, ease: 'easeOut' }}
                                 style={{
                                     background: 'var(--surface-2)',
                                     border: '1px solid var(--border)',
@@ -154,43 +138,49 @@ const LocationsSection = () => {
                                 }}
                             >
                                 {/* Image container */}
-                                <div style={{ width: '100%', height: 320, position: 'relative' }}>
+                                <div style={{ width: '100%', height: 340, position: 'relative' }}>
                                     <img
                                         src={activeLoc.image}
                                         alt={activeLoc.city}
                                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                     />
-                                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--surface-2) 0%, transparent 60%)' }} />
+                                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--surface-2) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)' }} />
 
                                     {/* Business District Badge */}
                                     <div style={{ position: 'absolute', top: 24, right: 24 }}>
-                                        <span className="pill-badge" style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)', borderColor: 'rgba(255,255,255,0.1)' }}>
+                                        <span className="pill-badge" style={{
+                                            background: 'rgba(0,0,0,0.5)',
+                                            backdropFilter: 'blur(8px)',
+                                            borderColor: 'rgba(255,255,255,0.1)',
+                                            padding: '6px 16px',
+                                            fontSize: 11
+                                        }}>
                                             {activeLoc.label}
                                         </span>
                                     </div>
 
-                                    {/* Live Status Badge */}
-                                    <div style={{ position: 'absolute', bottom: 100, left: 32, display: 'flex', alignItems: 'center', gap: 8 }}>
-                                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 8px var(--accent)' }} />
-                                        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--accent)' }}>
-                                            LIVE HUB
-                                        </span>
-                                    </div>
+                                    {/* City Content overlay - Layout fixed to prevent overlap */}
+                                    <div style={{ position: 'absolute', bottom: 32, left: 32, right: 32, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                        {/* Status Badge integrated here */}
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                                            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 8px var(--accent)' }} />
+                                            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent)' }}>
+                                                LIVE HUB
+                                            </span>
+                                        </div>
 
-                                    {/* City Content overlay */}
-                                    <div style={{ position: 'absolute', bottom: 32, left: 32, right: 32 }}>
-                                        <h3 style={{ fontSize: 44, fontWeight: 800, color: '#fff', marginBottom: 4, letterSpacing: '-0.02em' }}>
+                                        <h3 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, color: '#fff', lineHeight: 1, letterSpacing: '-0.02em', margin: 0 }}>
                                             {activeLoc.city}
                                         </h3>
-                                        <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', fontFamily: 'JetBrains Mono, monospace' }}>
+                                        <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)', fontFamily: 'JetBrains Mono, monospace' }}>
                                             {activeLoc.type}
                                         </p>
                                     </div>
                                 </div>
 
-                                {/* Bottom info section */}
+                                {/* Bottom description section */}
                                 <div style={{ padding: '0 32px 32px' }}>
-                                    <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--text-secondary)', marginBottom: 0 }}>
+                                    <p style={{ fontSize: 16, lineHeight: 1.7, color: 'var(--text-secondary)', maxWidth: '42ch' }}>
                                         {activeLoc.description}
                                     </p>
                                 </div>
