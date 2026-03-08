@@ -16,6 +16,7 @@ const IntroSequence = ({ onComplete }) => {
         }, 3500)
 
         if (videoRef.current) {
+            videoRef.current.playbackRate = 2.0
             videoRef.current.play().then(() => {
                 // If it starts playing, we can clear the timeout or let it finish
                 // Actually, let's clear it once it's playing
