@@ -9,7 +9,8 @@ const IntroSequence = ({ onComplete }) => {
     // Ensure video plays or fails gracefully
     useEffect(() => {
         // Set a maximum timeout for the intro video to load
-        // If it takes more than 3 seconds, we skip to the main content
+        // If it takes more than 3 seconds, we sk
+        // ip to the main content
         const slowLoadTimeout = setTimeout(() => {
             console.warn("Intro video sequence taking too long, skipping...")
             onComplete()
