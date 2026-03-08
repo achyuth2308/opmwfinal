@@ -1,4 +1,4 @@
-﻿import { useRef, useEffect } from 'react'
+﻿import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronRight } from 'lucide-react'
@@ -20,6 +20,7 @@ const stagger = {
 }
 
 const HeroSection = () => {
+    const [isVideoReady, setIsVideoReady] = useState(false)
     const sectionRef = useRef(null)
     const videoRef = useRef(null)
 
@@ -27,8 +28,10 @@ const HeroSection = () => {
         const video = videoRef.current
         if (!video) return
 
-        // Manual seamless loop: jump to start slightly before the absolute end
-        // to bypass the browser's "flicker" during loop reset.
+        const handleCanPlay = () => {
+            setIsVideoReady(true)
+        }
+
         const handleTimeUpdate = () => {
             if (video.currentTime >= video.duration - 0.1) {
                 video.currentTime = 0
@@ -36,19 +39,23 @@ const HeroSection = () => {
             }
         }
 
-        // Standard play logic
         const playVideo = async () => {
             try {
                 await video.play()
-            } catch (err) {
-                // Silently handle autoplay block or user navigation
-            }
+            } catch (err) { }
         }
 
+        video.addEventListener('canplay', handleCanPlay)
         video.addEventListener('timeupdate', handleTimeUpdate)
+
+        if (video.readyState >= 3) {
+            setIsVideoReady(true)
+        }
+
         playVideo()
 
         return () => {
+            video.removeEventListener('canplay', handleCanPlay)
             video.removeEventListener('timeupdate', handleTimeUpdate)
         }
     }, [])
@@ -73,7 +80,7 @@ const HeroSection = () => {
                 ref={videoRef}
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 src="/hero_section_video.mp4"
                 style={{
                     position: 'absolute',
@@ -82,10 +89,11 @@ const HeroSection = () => {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    opacity: 0.3,
+                    opacity: isVideoReady ? 0.3 : 0,
+                    transition: 'opacity 1s ease-in-out',
                     pointerEvents: 'none',
                     zIndex: 0,
-                    transform: 'scale(1.08)', // Scaling to hide watermark at bottom right
+                    transform: 'scale(1.08)',
                     willChange: 'transform, opacity',
                 }}
             />

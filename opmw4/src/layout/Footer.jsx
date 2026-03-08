@@ -92,6 +92,23 @@ const Footer = () => {
                                 <Mail size={13} />
                                 info@opmw.in
                             </a>
+                            <a
+                                href="tel:+919154399144"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 8,
+                                    color: 'var(--text-secondary)',
+                                    fontSize: 13,
+                                    textDecoration: 'none',
+                                    transition: 'color 200ms ease',
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)' }}
+                            >
+                                <Phone size={13} />
+                                +91 91543 99144
+                            </a>
                             <span
                                 style={{
                                     display: 'flex',

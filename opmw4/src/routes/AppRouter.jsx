@@ -25,13 +25,13 @@ const ForgotPassword = lazy(() => import('@/pages/auth/ForgotPassword'))
 const ResetPassword = lazy(() => import('@/pages/auth/ResetPassword'))
 
 // Candidate portal (protected, no Navbar/Footer)
-import Dashboard from '@/pages/portal/Dashboard'
+const Dashboard = lazy(() => import('@/pages/portal/Dashboard'))
 const MyApplications = lazy(() => import('@/pages/portal/MyApplications'))
 const Profile = lazy(() => import('@/pages/portal/Profile'))
 
 // Admin pages (no Navbar/Footer)
 const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'))
-import AdminDashboard from '@/pages/admin/AdminDashboard'
+const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'))
 const AdminApplications = lazy(() => import('@/pages/admin/AdminApplications'))
 const AdminCandidates = lazy(() => import('@/pages/admin/AdminCandidates'))
 const AdminContacts = lazy(() => import('@/pages/admin/AdminContacts'))

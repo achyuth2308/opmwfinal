@@ -8,15 +8,27 @@ const IntroSequence = ({ onComplete }) => {
 
     // Ensure video plays or fails gracefully
     useEffect(() => {
+        // Set a maximum timeout for the intro video to load
+        // If it takes more than 3 seconds, we skip to the main content
+        const slowLoadTimeout = setTimeout(() => {
+            console.warn("Intro video sequence taking too long, skipping...")
+            onComplete()
+        }, 3500)
+
         if (videoRef.current) {
-            videoRef.current.play().catch(err => {
+            videoRef.current.play().then(() => {
+                // If it starts playing, we can clear the timeout or let it finish
+                // Actually, let's clear it once it's playing
+                clearTimeout(slowLoadTimeout)
+            }).catch(err => {
                 console.error("Video play failed:", err)
-                // If autoplay fails, we might show a play button or just skip
-                // For a preloader, skipping to content is usually better than a broken screen
                 setVideoError(true)
+                clearTimeout(slowLoadTimeout)
             })
         }
-    }, [])
+
+        return () => clearTimeout(slowLoadTimeout)
+    }, [onComplete])
 
     const handleEnded = () => {
         if (onComplete) onComplete()
