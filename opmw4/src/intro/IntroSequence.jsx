@@ -93,20 +93,23 @@ const IntroSequence = ({ onComplete }) => {
                     position: absolute;
                     bottom: 40px;
                     right: 40px;
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    color: rgba(255, 255, 255, 0.5);
-                    padding: 8px 16px;
-                    border-radius: 20px;
-                    font-size: 11px;
-                    font-family: 'JetBrains Mono', monospace;
+                    background: rgba(0, 0, 0, 0.4);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: #fff;
+                    padding: 10px 20px;
+                    border-radius: 24px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    font-family: 'Inter', system-ui, sans-serif;
                     cursor: pointer;
                     z-index: 100;
-                    backdrop-filter: blur(10px);
-                    letter-spacing: 0.1em;
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                    letter-spacing: 0.05em;
                     text-transform: uppercase;
-                    transition: all 0.2s ease;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                     outline: none;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
                 }
 
                 @media (max-width: 768px) {
@@ -114,9 +117,11 @@ const IntroSequence = ({ onComplete }) => {
                         bottom: 30px;
                         right: 50% !important;
                         transform: translateX(50%);
-                        padding: 7px 14px;
-                        font-size: 9px;
+                        padding: 8px 16px;
+                        font-size: 11px;
                         white-space: nowrap;
+                        background: rgba(0, 0, 0, 0.6);
+                        border-width: 1.5px;
                     }
                 }
             `}</style>

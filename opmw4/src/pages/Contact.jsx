@@ -181,6 +181,7 @@ const Contact = () => {
                                 </h4>
                                 {[
                                     { label: 'Email', value: 'info@opmw.in', href: 'mailto:info@opmw.in' },
+                                    { label: 'Phone', value: '+91 91543 99144', href: 'tel:+919154399144' },
                                     { label: 'Response Time', value: '1 business day' },
                                     { label: 'HQ Location', value: 'Tidel Park, Chennai' },
                                     { label: 'Operating Hours', value: 'Mon–Sat, 9AM–7PM IST' },
