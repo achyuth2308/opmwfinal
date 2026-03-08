@@ -1,11 +1,12 @@
-﻿import { useState } from 'react'
+﻿import { useState, lazy, Suspense } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { AuthProvider } from '@/context/AuthContext'
 import { ToastProvider } from '@/context/ToastContext'
 import AppRouter from '@/routes/AppRouter'
-import IntroSequence from '@/intro/IntroSequence'
 import ScrollToTop from '@/components/shared/ScrollToTop'
+
+const IntroSequence = lazy(() => import('@/intro/IntroSequence'))
 
 const App = () => {
   const [introComplete, setIntroComplete] = useState(
@@ -24,7 +25,9 @@ const App = () => {
         <AuthProvider>
           <AnimatePresence mode="wait">
             {!introComplete ? (
-              <IntroSequence key="intro" onComplete={handleIntroComplete} />
+              <Suspense fallback={null}>
+                <IntroSequence key="intro" onComplete={handleIntroComplete} />
+              </Suspense>
             ) : (
               <AppRouter key="app" />
             )}
