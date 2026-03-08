@@ -9,6 +9,7 @@ const IntroSequence = ({ onComplete }) => {
     // Ensure video plays or fails gracefully
     useEffect(() => {
         if (videoRef.current) {
+            videoRef.current.playbackRate = 2.0
             videoRef.current.play().catch(err => {
                 console.error("Video play failed:", err)
                 // If autoplay fails, we might show a play button or just skip
