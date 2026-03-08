@@ -217,7 +217,7 @@ const About = () => {
                                                 fontFamily: 'JetBrains Mono, monospace',
                                                 letterSpacing: '0.12em',
                                                 textTransform: 'uppercase',
-                                                color: 'var(--text-muted)',
+                                                color: 'var(--text-secondary)',
                                                 marginBottom: 6,
                                             }}
                                         >
@@ -688,7 +688,7 @@ const About = () => {
                                                     fontFamily: 'JetBrains Mono, monospace',
                                                     letterSpacing: '0.14em',
                                                     textTransform: 'uppercase',
-                                                    color: phase.status === 'current' ? 'var(--accent)' : 'var(--text-muted)',
+                                                    color: phase.status === 'current' ? 'var(--accent)' : 'var(--text-secondary)',
                                                     background: phase.status === 'current' ? 'rgba(110,231,250,0.1)' : 'rgba(255,255,255,0.04)',
                                                     border: `1px solid ${phase.status === 'current' ? 'rgba(110,231,250,0.25)' : 'var(--border)'}`,
                                                     borderRadius: 6,
@@ -782,7 +782,7 @@ const About = () => {
                                     <h4 style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>
                                         {person.name}
                                     </h4>
-                                    <p style={{ fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
+                                    <p style={{ fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono, monospace' }}>
                                         {person.role}
                                     </p>
                                 </div>
@@ -795,13 +795,13 @@ const About = () => {
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: 6,
-                                        color: 'var(--text-muted)',
+                                        color: 'var(--text-secondary)',
                                         fontSize: 12,
                                         textDecoration: 'none',
                                         transition: 'color 200ms ease',
                                     }}
                                     onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)' }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)' }}
                                 >
                                     <Linkedin size={14} />
                                     LinkedIn
@@ -953,10 +953,10 @@ const About = () => {
                                         gap: 2,
                                     }}
                                 >
-                                    <span style={{ fontSize: 13, fontWeight: 600, color: badge.status === 'active' ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+                                    <span style={{ fontSize: 13, fontWeight: 600, color: badge.status === 'active' ? 'var(--text-primary)' : 'var(--text-secondary)' }}>
                                         {badge.label}
                                     </span>
-                                    <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.1em', color: badge.status === 'active' ? 'var(--accent)' : 'var(--text-muted)' }}>
+                                    <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.1em', color: badge.status === 'active' ? 'var(--accent)' : 'var(--text-secondary)' }}>
                                         {badge.status === 'active' ? 'ACTIVE' : 'PLANNED'}
                                     </span>
                                 </div>

@@ -82,7 +82,7 @@ const StatItem = ({ stat, isActive }) => {
                 style={{
                     marginTop: 6,
                     fontSize: 13,
-                    color: 'var(--text-muted)',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.5,
                     maxWidth: 140,
                 }}

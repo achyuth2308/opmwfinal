@@ -60,7 +60,7 @@ const AdminDemoRequests = () => {
                     {isLoading ? (
                         <SkeletonDashboard statCount={0} rowCount={6} cols={3} />
                     ) : requests.length === 0 ? (
-                        <div style={{ padding: '80px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No demo requests yet.</div>
+                        <div style={{ padding: '80px 0', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No demo requests yet.</div>
                     ) : (
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: 16 }}>
                             {requests.map((request) => (
@@ -89,7 +89,7 @@ const AdminDemoRequests = () => {
                                             <h3 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>{request.company_name}</h3>
                                         </div>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                            <User size={13} style={{ color: 'var(--text-muted)' }} />
+                                            <User size={13} style={{ color: 'var(--text-secondary)' }} />
                                             <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{request.contact_name}</p>
                                         </div>
                                     </div>
@@ -102,14 +102,14 @@ const AdminDemoRequests = () => {
                                     </div>
 
                                     {request.message && (
-                                        <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: 16, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                                        <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 16, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                                             "{request.message}"
                                         </p>
                                     )}
 
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                                        <Clock size={11} style={{ color: 'var(--text-muted)' }} />
-                                        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>
+                                        <Clock size={11} style={{ color: 'var(--text-secondary)' }} />
+                                        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>
                                             {new Date(request.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                         </span>
                                     </div>
@@ -146,8 +146,8 @@ const AdminDemoRequests = () => {
                             ].map((item) => (
                                 <div key={item.label} style={{ gridColumn: item.label === 'Submitted On' ? 'span 2' : 'auto' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-                                        <span style={{ color: 'var(--text-muted)' }}>{item.icon}</span>
-                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{item.label}</p>
+                                        <span style={{ color: 'var(--text-secondary)' }}>{item.icon}</span>
+                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>{item.label}</p>
                                     </div>
                                     {item.isLink ? (
                                         <a href={item.isLink} style={{ fontSize: 15, fontWeight: 500, color: 'var(--accent)', textDecoration: 'none' }}>{item.value}</a>
@@ -160,7 +160,7 @@ const AdminDemoRequests = () => {
 
                         {selectedRequest.message && (
                             <div style={{ marginBottom: 24 }}>
-                                <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Requirements / Message</p>
+                                <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Requirements / Message</p>
                                 <div style={{ padding: '16px 20px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
                                     {selectedRequest.message}
                                 </div>

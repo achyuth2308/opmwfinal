@@ -114,7 +114,7 @@ const ProjectCard = ({ project, onClick }) => {
                     </h3>
                     <motion.div
                         variants={{ hover: { x: 4, y: -4, color: 'var(--accent)' } }}
-                        style={{ color: 'var(--text-muted)', transition: 'color 0.3s ease' }}
+                        style={{ color: 'var(--text-secondary)', transition: 'color 0.3s ease' }}
                     >
                         <ArrowUpRight size={20} />
                     </motion.div>

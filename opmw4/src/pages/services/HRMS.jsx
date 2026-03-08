@@ -110,7 +110,7 @@ const HRMSDashboardMockup = () => (
             <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif' }}>
                 OPMW HRMS
             </span>
-            <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
+            <span style={{ marginLeft: 'auto', fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono, monospace' }}>
                 Dashboard · Q1 2025
             </span>
         </div>
@@ -133,7 +133,7 @@ const HRMSDashboardMockup = () => (
                         style={{
                             padding: '8px 16px',
                             fontSize: 12,
-                            color: i === 0 ? 'var(--accent)' : 'var(--text-muted)',
+                            color: i === 0 ? 'var(--accent)' : 'var(--text-secondary)',
                             background: i === 0 ? 'rgba(110,231,250,0.08)' : 'transparent',
                             borderLeft: i === 0 ? '2px solid var(--accent)' : '2px solid transparent',
                             fontFamily: 'Inter, sans-serif',
@@ -170,7 +170,7 @@ const HRMSDashboardMockup = () => (
                             <p style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 4 }}>
                                 {metric.value}
                             </p>
-                            <p style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                            <p style={{ fontSize: 10, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
                                 {metric.label}
                             </p>
                         </div>
@@ -179,7 +179,7 @@ const HRMSDashboardMockup = () => (
 
                 {/* Attendance Chart Stays visible but shrinks */}
                 <div>
-                    <p style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.08em', marginBottom: 12 }}>
+                    <p style={{ fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-secondary)', letterSpacing: '0.08em', marginBottom: 12 }}>
                         WEEKLY ATTENDANCE TREND
                     </p>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', height: 80 }}>
@@ -194,13 +194,13 @@ const HRMSDashboardMockup = () => (
                                     position: 'relative',
                                 }}
                             >
-                                <div style={{ position: 'absolute', top: -14, left: 0, right: 0, textAlign: 'center', fontSize: 8, color: 'var(--text-muted)' }}>{pct}%</div>
+                                <div style={{ position: 'absolute', top: -14, left: 0, right: 0, textAlign: 'center', fontSize: 8, color: 'var(--text-secondary)' }}>{pct}%</div>
                             </div>
                         ))}
                     </div>
                     <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
                         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((d) => (
-                            <span key={d} style={{ flex: 1, textAlign: 'center', fontSize: 10, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace' }}>
+                            <span key={d} style={{ flex: 1, textAlign: 'center', fontSize: 10, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono, monospace' }}>
                                 {d}
                             </span>
                         ))}

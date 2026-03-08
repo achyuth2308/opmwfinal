@@ -50,7 +50,7 @@ const PortalNav = ({ mobileOpen, setMobileOpen }) => {
                     {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>{user?.name || 'Candidate'}</p>
-                <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
             </div>
             <nav style={{ flex: 1, padding: '8px' }}>
                 {NAV_ITEMS.map(({ path, label, icon: Icon }) => {
@@ -66,9 +66,9 @@ const PortalNav = ({ mobileOpen, setMobileOpen }) => {
                 })}
             </nav>
             <div style={{ padding: '8px', borderTop: '1px solid var(--border)' }}>
-                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 12px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-muted)', transition: 'all 200ms ease' }}
+                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 12px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'all 200ms ease' }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.06)' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'transparent' }}>
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent' }}>
                     <LogOut size={15} />Logout
                 </button>
             </div>
@@ -254,19 +254,19 @@ const Profile = () => {
                             <form onSubmit={handleProfileSave} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14 }}>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Full Name</label>
+                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Full Name</label>
                                         <input name="name" type="text" value={profileForm.name} onChange={handleProfileChange} style={fieldStyle} onFocus={(e) => { e.target.style.borderColor = 'rgba(110,231,250,0.4)' }} onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.10)' }} />
                                     </div>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Email (read-only)</label>
+                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Email (read-only)</label>
                                         <input type="email" value={user?.email || ''} readOnly style={{ ...fieldStyle, opacity: 0.5, cursor: 'not-allowed' }} />
                                     </div>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Phone</label>
+                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Phone</label>
                                         <input name="phone" type="tel" value={profileForm.phone} onChange={handleProfileChange} style={fieldStyle} onFocus={(e) => { e.target.style.borderColor = 'rgba(110,231,250,0.4)' }} onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.10)' }} />
                                     </div>
                                     <div>
-                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>City</label>
+                                        <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>City</label>
                                         <select name="city" value={profileForm.city} onChange={handleProfileChange} style={fieldStyle} onFocus={(e) => { e.target.style.borderColor = 'rgba(110,231,250,0.4)' }} onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.10)' }}>
                                             <option value="">Select city</option>
                                             {CITIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -276,7 +276,7 @@ const Profile = () => {
 
                                 {/* Resume upload */}
                                 <div>
-                                    <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Resume (PDF)</label>
+                                    <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Resume (PDF)</label>
                                     <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
                                         <button type="button" onClick={() => resumeInputRef.current?.click()}
                                             style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 16px', borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', cursor: 'pointer', fontSize: 13, color: 'var(--text-secondary)', transition: 'all 200ms ease' }}
@@ -313,7 +313,7 @@ const Profile = () => {
                                     const labels = { current_password: 'Current Password', password: 'New Password', password_confirmation: 'Confirm New Password' }
                                     return (
                                         <div key={field}>
-                                            <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>{labels[field]}</label>
+                                            <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>{labels[field]}</label>
                                             <input name={field} type="password" value={pwForm[field]} onChange={handlePwChange} placeholder="••••••••"
                                                 style={{ ...fieldStyle, maxWidth: 360 }}
                                                 onFocus={(e) => { e.target.style.borderColor = 'rgba(110,231,250,0.4)' }}

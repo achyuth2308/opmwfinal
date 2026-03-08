@@ -127,7 +127,7 @@ const AdminLogin = () => {
                 <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     {/* Email */}
                     <div>
-                        <label htmlFor="admin-email" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
+                        <label htmlFor="admin-email" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>
                             Admin Email
                         </label>
                         <input
@@ -147,7 +147,7 @@ const AdminLogin = () => {
 
                     {/* Password */}
                     <div>
-                        <label htmlFor="admin-password" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
+                        <label htmlFor="admin-password" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>
                             Password
                         </label>
                         <div style={{ position: 'relative' }}>
@@ -175,7 +175,7 @@ const AdminLogin = () => {
                                     background: 'none',
                                     border: 'none',
                                     cursor: 'pointer',
-                                    color: 'var(--text-muted)',
+                                    color: 'var(--text-secondary)',
                                     padding: 4,
                                     display: 'flex',
                                 }}
@@ -236,7 +236,7 @@ const AdminLogin = () => {
                 </form>
 
                 <p style={{ marginTop: 24, textAlign: 'center', fontSize: 14, color: 'var(--text-secondary)' }}>
-                    <Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: 13 }}>
+                    <Link to="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontSize: 13 }}>
                         ← Back to website
                     </Link>
                 </p>

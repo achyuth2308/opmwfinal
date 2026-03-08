@@ -197,8 +197,8 @@ const HeroSection = () => {
                         fontFamily: 'JetBrains Mono, monospace',
                         letterSpacing: '0.2em',
                         textTransform: 'uppercase',
-                        color: 'var(--text-muted)',
-                        background: 'linear-gradient(90deg, var(--text-muted) 0%, var(--text-secondary) 50%, var(--text-muted) 100%)',
+                        color: 'var(--text-secondary)',
+                        background: 'linear-gradient(90deg, var(--text-secondary) 0%, var(--text-secondary) 50%, var(--text-secondary) 100%)',
                         backgroundSize: '200% auto',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
@@ -316,7 +316,7 @@ const HeroSection = () => {
                                     fontFamily: 'JetBrains Mono, monospace',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase',
-                                    color: 'var(--text-muted)',
+                                    color: 'var(--text-secondary)',
                                 }}
                             >
                                 {stat.label}

@@ -31,7 +31,7 @@ const AnimatedButton = ({
         letterSpacing: '0.02em',
         textDecoration: 'none',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        opacity: disabled ? 0.5 : 1,
+        opacity: disabled ? 0.7 : 1,
         outline: 'none',
         position: 'relative',
     }

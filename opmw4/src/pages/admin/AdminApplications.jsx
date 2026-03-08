@@ -86,7 +86,7 @@ const AdminApplications = () => {
                     <div style={{ display: 'flex', gap: 12, marginBottom: 24, flexWrap: 'wrap', alignItems: 'center' }}>
                         <form onSubmit={handleSearch} style={{ display: 'flex', gap: 8, flex: '1 1 260px', maxWidth: 360 }}>
                             <div style={{ position: 'relative', flex: 1 }}>
-                                <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                                <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
                                 <input
                                     type="text"
                                     placeholder="Search name, email, role..."
@@ -107,7 +107,7 @@ const AdminApplications = () => {
                                         padding: '6px 14px', borderRadius: 6, fontSize: 12, fontFamily: 'JetBrains Mono,monospace', fontWeight: 500, cursor: 'pointer', border: '1px solid',
                                         ...(statusFilter === s
                                             ? { background: 'rgba(110,231,250,0.1)', borderColor: 'rgba(110,231,250,0.3)', color: 'var(--accent)' }
-                                            : { background: 'transparent', borderColor: 'var(--border)', color: 'var(--text-muted)' }),
+                                            : { background: 'transparent', borderColor: 'var(--border)', color: 'var(--text-secondary)' }),
                                         transition: 'all 200ms ease',
                                     }}
                                 >
@@ -127,27 +127,27 @@ const AdminApplications = () => {
                                     <thead>
                                         <tr style={{ borderBottom: '1px solid var(--border)' }}>
                                             {['Applicant', 'Role', 'Location', 'Status', 'Date', 'Actions'].map((h) => (
-                                                <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
+                                                <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
                                             ))}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {applications.length === 0 ? (
-                                            <tr><td colSpan={6} style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No applications found.</td></tr>
+                                            <tr><td colSpan={6} style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No applications found.</td></tr>
                                         ) : applications.map((app) => {
                                             const c = STATUS_COLORS[app.status] || STATUS_COLORS.Pending
                                             return (
                                                 <tr key={app.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                                                     <td style={{ padding: '14px 20px' }}>
                                                         <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.applicant_name}</p>
-                                                        <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{app.applicant_email}</p>
+                                                        <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{app.applicant_email}</p>
                                                     </td>
                                                     <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.role}</td>
-                                                    <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-muted)' }}>{app.location}</td>
+                                                    <td style={{ padding: '14px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.location}</td>
                                                     <td style={{ padding: '14px 20px' }}>
                                                         <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: c.color, background: c.bg, border: `1px solid ${c.border}`, borderRadius: 4, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', fontWeight: 700, boxShadow: `0 2px 8px ${c.bg}` }}>{app.status}</span>
                                                     </td>
-                                                    <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(app.created_at).toLocaleDateString('en-IN')}</td>
+                                                    <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(app.created_at).toLocaleDateString('en-IN')}</td>
                                                     <td style={{ padding: '14px 20px', display: 'flex', gap: 8 }}>
                                                         <button
                                                             onClick={() => { setSelectedApp(app); setNewStatus(app.status); setAdminNotes(app.admin_notes || '') }}
@@ -177,7 +177,7 @@ const AdminApplications = () => {
                                 {pagination.last_page > 1 && (
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
                                         <button onClick={() => loadApplications(pagination.current_page - 1)} disabled={pagination.current_page <= 1} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page <= 1 ? 'not-allowed' : 'pointer', opacity: pagination.current_page <= 1 ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronLeft size={14} /></button>
-                                        <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>Page {pagination.current_page} of {pagination.last_page}</span>
+                                        <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>Page {pagination.current_page} of {pagination.last_page}</span>
                                         <button onClick={() => loadApplications(pagination.current_page + 1)} disabled={pagination.current_page >= pagination.last_page} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page >= pagination.last_page ? 'not-allowed' : 'pointer', opacity: pagination.current_page >= pagination.last_page ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronRight size={14} /></button>
                                     </div>
                                 )}
@@ -199,11 +199,11 @@ const AdminApplications = () => {
 
                         <div style={{ marginBottom: 16 }}>
                             <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{selectedApp.applicant_name}</p>
-                            <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 4 }}>{selectedApp.applicant_email}</p>
+                            <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 4 }}>{selectedApp.applicant_email}</p>
                             <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{selectedApp.role} — {selectedApp.location}</p>
                         </div>
 
-                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Select Next Step</p>
+                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Select Next Step</p>
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
                             {['Pending', 'Reviewed', 'Shortlisted', 'Selected', 'Rejected'].map((s) => {
                                 const isCurrent = (newStatus || selectedApp.status) === s;
@@ -229,7 +229,7 @@ const AdminApplications = () => {
                                             padding: '8px 14px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', border: '1px solid',
                                             background: isCurrent ? c.bg : 'rgba(255,255,255,0.03)',
                                             borderColor: isCurrent ? c.color : 'var(--border)',
-                                            color: isCurrent ? c.color : 'var(--text-muted)',
+                                            color: isCurrent ? c.color : 'var(--text-secondary)',
                                             transition: 'all 200ms ease',
                                             fontFamily: 'JetBrains Mono, monospace'
                                         }}
@@ -246,7 +246,7 @@ const AdminApplications = () => {
                         )}
 
                         <div style={{ marginBottom: 20 }}>
-                            <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Admin Notes</label>
+                            <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Admin Notes</label>
                             <textarea value={adminNotes} onChange={(e) => setAdminNotes(e.target.value)} rows={3} placeholder="Optional internal notes..." style={{ width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)', fontSize: 13, outline: 'none', resize: 'vertical', minHeight: 80, boxSizing: 'border-box' }} />
                         </div>
 

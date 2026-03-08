@@ -333,19 +333,19 @@ const Register = () => {
                     {/* Divider */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0' }}>
                         <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
-                        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.06em' }}>OR</span>
+                        <span style={{ fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.06em' }}>OR</span>
                         <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
                     </div>
                     {/* Name */}
                     <div>
-                        <label htmlFor="reg-name" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Full Name *</label>
+                        <label htmlFor="reg-name" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Full Name *</label>
                         <input id="reg-name" name="name" type="text" required value={form.name} onChange={handleChange} placeholder="Your full name" style={{ ...fieldStyle, borderColor: fieldErrors.name ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
                         {fieldErrors.name && <p style={{ fontSize: 11, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.name}</p>}
                     </div>
 
                     {/* Email */}
                     <div>
-                        <label htmlFor="reg-email" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Email *</label>
+                        <label htmlFor="reg-email" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Email *</label>
                         <input id="reg-email" name="email" type="email" required value={form.email} onChange={handleChange} placeholder="you@example.com" style={{ ...fieldStyle, borderColor: fieldErrors.email ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
                         {fieldErrors.email && <p style={{ fontSize: 11, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.email}</p>}
                     </div>
@@ -353,7 +353,7 @@ const Register = () => {
                     {/* Phone + City row */}
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                         <div>
-                            <label htmlFor="reg-phone" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Phone *</label>
+                            <label htmlFor="reg-phone" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Phone *</label>
                             <input id="reg-phone" name="phone" type="tel" required value={form.phone} onChange={(e) => {
                                 const val = e.target.value.replace(/\D/g, '').slice(0, 10)
                                 setForm((prev) => ({ ...prev, phone: val }))
@@ -363,7 +363,7 @@ const Register = () => {
                             {fieldErrors.phone && <p style={{ fontSize: 11, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.phone}</p>}
                         </div>
                         <div>
-                            <label htmlFor="reg-city" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>City *</label>
+                            <label htmlFor="reg-city" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>City *</label>
                             <select id="reg-city" name="city" required value={form.city} onChange={handleChange} style={{ ...fieldStyle, borderColor: fieldErrors.city ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)', colorScheme: 'dark' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)}>
                                 <option value="" style={{ background: '#1a1a2e', color: '#e2e8f0' }}>Select city</option>
                                 {CITIES.map((c) => <option key={c} value={c} style={{ background: '#1a1a2e', color: '#e2e8f0' }}>{c}</option>)}
@@ -374,10 +374,10 @@ const Register = () => {
 
                     {/* Password */}
                     <div>
-                        <label htmlFor="reg-password" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Password *</label>
+                        <label htmlFor="reg-password" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Password *</label>
                         <div style={{ position: 'relative' }}>
                             <input id="reg-password" name="password" type={showPw ? 'text' : 'password'} required value={form.password} onChange={handleChange} placeholder="Min. 8 characters" style={{ ...fieldStyle, paddingRight: 44, borderColor: fieldErrors.password ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
-                            <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4, display: 'flex' }} aria-label="Toggle password visibility">
+                            <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', padding: 4, display: 'flex' }} aria-label="Toggle password visibility">
                                 {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
                             </button>
                         </div>
@@ -398,10 +398,10 @@ const Register = () => {
 
                     {/* Confirm password */}
                     <div>
-                        <label htmlFor="reg-confirm" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>Confirm Password *</label>
+                        <label htmlFor="reg-confirm" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>Confirm Password *</label>
                         <div style={{ position: 'relative' }}>
                             <input id="reg-confirm" name="confirmPassword" type={showCpw ? 'text' : 'password'} required value={form.confirmPassword} onChange={handleChange} placeholder="Repeat password" style={{ ...fieldStyle, paddingRight: 44, borderColor: fieldErrors.confirmPassword ? 'rgba(248,113,113,0.5)' : 'rgba(255,255,255,0.10)' }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
-                            <button type="button" onClick={() => setShowCpw(!showCpw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4, display: 'flex' }} aria-label="Toggle confirm password visibility">
+                            <button type="button" onClick={() => setShowCpw(!showCpw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', padding: 4, display: 'flex' }} aria-label="Toggle confirm password visibility">
                                 {showCpw ? <EyeOff size={16} /> : <Eye size={16} />}
                             </button>
                         </div>

@@ -7,11 +7,11 @@ import { SkeletonDashboard } from '@/components/shared/Skeleton'
 import OPMWLogo from '@/components/shared/OPMWLogo'
 
 const STATUS_COLORS = {
-    Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
-    Reviewed: { color: '#60a5fa', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.25)' },
-    Shortlisted: { color: '#4ade80', bg: 'rgba(74,222,128,0.1)', border: 'rgba(74,222,128,0.25)' },
-    Rejected: { color: '#f87171', bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.25)' },
-    Selected: { color: '#6EE7FA', bg: 'rgba(110,231,250,0.1)', border: 'rgba(110,231,250,0.25)' },
+    Pending: { color: '#FFB84D', bg: 'rgba(251,176,64,0.15)', border: 'rgba(251,176,64,0.3)' },
+    Reviewed: { color: '#7FB3FF', bg: 'rgba(127,179,255,0.15)', border: 'rgba(127,179,255,0.3)' },
+    Shortlisted: { color: '#66FF99', bg: 'rgba(102,255,153,0.15)', border: 'rgba(102,255,153,0.3)' },
+    Rejected: { color: '#f87171', bg: 'rgba(248,113,113,0.15)', border: 'rgba(248,113,113,0.3)' },
+    Selected: { color: '#6EE7FA', bg: 'rgba(110,231,250,0.15)', border: 'rgba(110,231,250,0.3)' },
 }
 
 const NAV_ITEMS = [
@@ -50,7 +50,7 @@ const AdminSidebar = ({ mobileOpen, setMobileOpen }) => {
                     <Shield size={14} style={{ color: 'var(--accent)' }} />
                     <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>{admin?.name || 'Admin'}</p>
                 </div>
-                <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{admin?.email}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{admin?.email}</p>
             </div>
 
             <nav style={{ flex: 1, padding: '12px 8px' }}>
@@ -73,7 +73,7 @@ const AdminSidebar = ({ mobileOpen, setMobileOpen }) => {
             </nav>
 
             <div style={{ padding: '12px 8px', borderTop: '1px solid var(--border)' }}>
-                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '11px 14px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-muted)', transition: 'all 200ms ease' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.06)' }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'transparent' }}>
+                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '11px 14px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'all 200ms ease' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.06)' }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent' }}>
                     <LogOut size={16} /> Logout
                 </button>
             </div>
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
                                     { label: 'Unread Contacts', value: data.unread_contacts, color: '#f87171' },
                                 ].map((card) => (
                                     <div key={card.label} style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, padding: '20px 24px' }}>
-                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{card.label}</p>
+                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>{card.label}</p>
                                         <p style={{ fontSize: 32, fontWeight: 700, color: card.color, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '-0.02em' }}>{card.value}</p>
                                     </div>
                                 ))}
@@ -185,7 +185,7 @@ const AdminDashboard = () => {
                                             <thead>
                                                 <tr style={{ borderBottom: '1px solid var(--border)' }}>
                                                     {['Applicant', 'Role', 'Status', 'Date'].map((h) => (
-                                                        <th key={h} style={{ padding: '12px 24px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>{h}</th>
+                                                        <th key={h} style={{ padding: '12px 24px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 600 }}>{h}</th>
                                                     ))}
                                                 </tr>
                                             </thead>
@@ -196,7 +196,7 @@ const AdminDashboard = () => {
                                                         <tr key={app.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                                                             <td style={{ padding: '14px 24px' }}>
                                                                 <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.applicant_name}</p>
-                                                                <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{app.applicant_email}</p>
+                                                                <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{app.applicant_email}</p>
                                                             </td>
                                                             <td style={{ padding: '14px 24px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.role}</td>
                                                             <td style={{ padding: '14px 24px' }}>
@@ -204,7 +204,7 @@ const AdminDashboard = () => {
                                                                     {app.status}
                                                                 </span>
                                                             </td>
-                                                            <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>
+                                                            <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace' }}>
                                                                 {new Date(app.created_at).toLocaleDateString('en-IN')}
                                                             </td>
                                                         </tr>
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
                                         </table>
                                     </div>
                                 ) : (
-                                    <div style={{ padding: '40px 24px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No applications yet.</div>
+                                    <div style={{ padding: '40px 24px', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No applications yet.</div>
                                 )}
                             </div>
                         </>

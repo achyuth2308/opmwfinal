@@ -94,7 +94,7 @@ const Terms = () => {
                     style={{
                         fontSize: 13,
                         fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
+                        color: 'var(--text-secondary)',
                         marginBottom: 48,
                     }}
                 >

@@ -95,13 +95,14 @@ const Footer = () => {
                             <span
                                 style={{
                                     display: 'flex',
-                                    alignItems: 'center',
+                                    alignItems: 'flex-start',
                                     gap: 8,
                                     color: 'var(--text-secondary)',
                                     fontSize: 13,
+                                    lineHeight: 1.6,
                                 }}
                             >
-                                <MapPin size={13} />
+                                <MapPin size={13} style={{ marginTop: 5, flexShrink: 0 }} />
                                 Chennai · Hyderabad · Bangalore · Noida · Indore
                             </span>
                         </div>
@@ -115,7 +116,7 @@ const Footer = () => {
                                 fontFamily: 'JetBrains Mono, monospace',
                                 letterSpacing: '0.14em',
                                 textTransform: 'uppercase',
-                                color: 'var(--text-muted)',
+                                color: 'var(--text-secondary)',
                                 marginBottom: 16,
                             }}
                         >
@@ -150,7 +151,7 @@ const Footer = () => {
                                 fontFamily: 'JetBrains Mono, monospace',
                                 letterSpacing: '0.14em',
                                 textTransform: 'uppercase',
-                                color: 'var(--text-muted)',
+                                color: 'var(--text-secondary)',
                                 marginBottom: 16,
                             }}
                         >
@@ -185,7 +186,7 @@ const Footer = () => {
                                 fontFamily: 'JetBrains Mono, monospace',
                                 letterSpacing: '0.14em',
                                 textTransform: 'uppercase',
-                                color: 'var(--text-muted)',
+                                color: 'var(--text-secondary)',
                                 marginBottom: 16,
                             }}
                         >
@@ -218,7 +219,7 @@ const Footer = () => {
                                     fontFamily: 'JetBrains Mono, monospace',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase',
-                                    color: 'var(--text-muted)',
+                                    color: 'var(--text-secondary)',
                                     marginBottom: 8,
                                 }}
                             >
@@ -231,7 +232,7 @@ const Footer = () => {
                                         style={{
                                             fontSize: 11,
                                             fontFamily: 'JetBrains Mono, monospace',
-                                            color: 'var(--text-muted)',
+                                            color: 'var(--text-secondary)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 6,
@@ -270,7 +271,7 @@ const Footer = () => {
                 >
                     <p
                         style={{
-                            color: 'var(--text-muted)',
+                            color: 'var(--text-secondary)',
                             fontSize: 13,
                             fontFamily: 'JetBrains Mono, monospace',
                         }}
@@ -279,7 +280,7 @@ const Footer = () => {
                     </p>
                     <p
                         style={{
-                            color: 'var(--text-muted)',
+                            color: 'var(--text-secondary)',
                             fontSize: 12,
                             fontFamily: 'JetBrains Mono, monospace',
                             letterSpacing: '0.08em',

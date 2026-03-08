@@ -186,7 +186,7 @@ const Contact = () => {
                                     { label: 'Operating Hours', value: 'Mon–Sat, 9AM–7PM IST' },
                                 ].map((item) => (
                                     <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
-                                        <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', letterSpacing: '0.06em' }}>
+                                        <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-secondary)', letterSpacing: '0.06em' }}>
                                             {item.label}
                                         </span>
                                         {item.href ? (

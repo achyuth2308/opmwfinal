@@ -32,7 +32,7 @@ const ProjectModal = ({ project, onClose }) => {
 
     if (!project) return null
     const colors = categoryColors[project.category] || categoryColors.BPO
-    const statusColor = statusColors[project.status] || 'var(--text-muted)'
+    const statusColor = statusColors[project.status] || 'var(--text-secondary)'
 
     return (
         <AnimatePresence>
@@ -232,7 +232,7 @@ const ProjectModal = ({ project, onClose }) => {
                                             fontFamily: 'JetBrains Mono, monospace',
                                             letterSpacing: '0.12em',
                                             textTransform: 'uppercase',
-                                            color: 'var(--text-muted)',
+                                            color: 'var(--text-secondary)',
                                             marginBottom: 10,
                                             display: 'flex',
                                             alignItems: 'center',
@@ -257,7 +257,7 @@ const ProjectModal = ({ project, onClose }) => {
                                             fontFamily: 'JetBrains Mono, monospace',
                                             letterSpacing: '0.12em',
                                             textTransform: 'uppercase',
-                                            color: 'var(--text-muted)',
+                                            color: 'var(--text-secondary)',
                                             marginBottom: 10,
                                             display: 'flex',
                                             alignItems: 'center',
@@ -281,7 +281,7 @@ const ProjectModal = ({ project, onClose }) => {
                                         fontFamily: 'JetBrains Mono, monospace',
                                         letterSpacing: '0.12em',
                                         textTransform: 'uppercase',
-                                        color: 'var(--text-muted)',
+                                        color: 'var(--text-secondary)',
                                         marginBottom: 10,
                                         display: 'flex',
                                         alignItems: 'center',
@@ -307,7 +307,7 @@ const ProjectModal = ({ project, onClose }) => {
                                         fontFamily: 'JetBrains Mono, monospace',
                                         letterSpacing: '0.12em',
                                         textTransform: 'uppercase',
-                                        color: 'var(--text-muted)',
+                                        color: 'var(--text-secondary)',
                                         marginBottom: 10,
                                         display: 'flex',
                                         alignItems: 'center',

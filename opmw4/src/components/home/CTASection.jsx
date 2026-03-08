@@ -159,7 +159,7 @@ const CTASection = () => {
                                         gap: 6,
                                         fontSize: 12,
                                         fontFamily: 'JetBrains Mono, monospace',
-                                        color: 'var(--text-muted)',
+                                        color: 'var(--text-secondary)',
                                         letterSpacing: '0.06em',
                                     }}
                                 >

@@ -236,7 +236,10 @@ const Navbar = () => {
                                             textDecoration: 'none', fontSize: 13, fontWeight: 600,
                                             color: 'var(--accent)', transition: 'all 200ms ease',
                                         }}
-                                        onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.16)' }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = 'rgba(110,231,250,0.16)'
+                                            import('@/pages/portal/Dashboard')
+                                        }}
                                         onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.08)' }}
                                     >
                                         <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(110,231,250,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden' }}>
@@ -255,9 +258,9 @@ const Navbar = () => {
                                     <button
                                         onClick={handleLogout}
                                         title="Logout"
-                                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '7px 8px', borderRadius: 7, display: 'flex', alignItems: 'center', transition: 'color 200ms ease' }}
+                                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', padding: '7px 8px', borderRadius: 7, display: 'flex', alignItems: 'center', transition: 'color 200ms ease' }}
                                         onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171' }}
-                                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)' }}
+                                        onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)' }}
                                     >
                                         <LogOut size={15} />
                                     </button>
@@ -274,7 +277,10 @@ const Navbar = () => {
                                         textDecoration: 'none', fontSize: 13, fontWeight: 600,
                                         color: 'var(--accent)', transition: 'all 200ms ease',
                                     }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.16)' }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = 'rgba(110,231,250,0.16)'
+                                        import('@/pages/auth/Login')
+                                    }}
                                     onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(110,231,250,0.08)' }}
                                 >
                                     <LogIn size={14} /> Sign In
@@ -334,7 +340,7 @@ const Navbar = () => {
                                     <div key={link.label}>
                                         <p
                                             style={{
-                                                color: 'var(--text-muted)',
+                                                color: 'var(--text-secondary)',
                                                 fontSize: 11,
                                                 fontFamily: 'JetBrains Mono, monospace',
                                                 letterSpacing: '0.12em',

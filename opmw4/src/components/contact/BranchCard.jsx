@@ -82,7 +82,7 @@ const BranchCard = ({ location }) => {
                     style={{
                         fontSize: 12,
                         fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
+                        color: 'var(--text-secondary)',
                         letterSpacing: '0.06em',
                     }}
                 >
@@ -101,7 +101,7 @@ const BranchCard = ({ location }) => {
                     alignItems: 'flex-start',
                 }}
             >
-                <Building2 size={13} style={{ flexShrink: 0, color: 'var(--text-muted)', marginTop: 2 }} />
+                <Building2 size={13} style={{ flexShrink: 0, color: 'var(--text-secondary)', marginTop: 2 }} />
                 {location.address}, {location.pincode}
             </p>
 

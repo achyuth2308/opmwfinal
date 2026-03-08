@@ -56,7 +56,7 @@ const RoleCard = ({ role, onApply }) => {
                     style={{
                         fontSize: 11,
                         fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
+                        color: 'var(--text-secondary)',
                         letterSpacing: '0.06em',
                     }}
                 >
@@ -102,7 +102,7 @@ const RoleCard = ({ role, onApply }) => {
                         gap: 5,
                         fontSize: 12,
                         fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
+                        color: 'var(--text-secondary)',
                     }}
                 >
                     <MapPin size={11} />
@@ -115,7 +115,7 @@ const RoleCard = ({ role, onApply }) => {
                         gap: 5,
                         fontSize: 12,
                         fontFamily: 'JetBrains Mono, monospace',
-                        color: 'var(--text-muted)',
+                        color: 'var(--text-secondary)',
                     }}
                 >
                     <Briefcase size={11} />

@@ -261,7 +261,7 @@ const ApplyForm = ({ role, onClose }) => {
                                 justifyContent: 'center',
                                 gap: 12,
                                 fontSize: 14,
-                                color: 'var(--text-muted)',
+                                color: 'var(--text-secondary)',
                                 background: 'rgba(255,255,255,0.02)',
                                 padding: '16px 20px',
                                 borderRadius: 12,
@@ -308,7 +308,7 @@ const ApplyForm = ({ role, onClose }) => {
                                     value={form.full_name}
                                     readOnly
                                     className="field-input"
-                                    style={{ opacity: 0.7, cursor: 'not-allowed' }}
+                                    style={{ opacity: 0.85, cursor: 'not-allowed' }}
                                 />
                                 {fieldErrors.full_name && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.full_name}</p>}
                             </div>
@@ -324,7 +324,7 @@ const ApplyForm = ({ role, onClose }) => {
                                     value={form.email}
                                     readOnly
                                     className="field-input"
-                                    style={{ opacity: 0.7, cursor: 'not-allowed' }}
+                                    style={{ opacity: 0.85, cursor: 'not-allowed' }}
                                 />
                                 {fieldErrors.email && <p style={{ fontSize: 12, color: 'rgba(248,113,113,0.9)', marginTop: 4 }}>{fieldErrors.email}</p>}
                             </div>
@@ -353,7 +353,7 @@ const ApplyForm = ({ role, onClose }) => {
                             {/* Position (pre-filled, read-only) */}
                             <div>
                                 <label htmlFor="apply-position" className="field-label">Position</label>
-                                <input id="apply-position" name="position" type="text" value={form.position} readOnly className="field-input" style={{ opacity: 0.6, cursor: 'not-allowed' }} />
+                                <input id="apply-position" name="position" type="text" value={form.position} readOnly className="field-input" style={{ opacity: 0.85, cursor: 'not-allowed' }} />
                             </div>
 
                             {/* Preferred city */}
@@ -380,7 +380,7 @@ const ApplyForm = ({ role, onClose }) => {
                                 <label className="field-label" htmlFor="apply-resume">Resume (PDF, max 5MB) *</label>
                                 <label
                                     htmlFor="apply-resume"
-                                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', border: `1px dashed ${fieldErrors.resume ? 'rgba(248,113,113,0.4)' : 'rgba(110,231,250,0.2)'}`, borderRadius: 8, cursor: 'pointer', fontSize: 13, color: fileName ? 'var(--text-primary)' : 'var(--text-muted)', background: 'rgba(110,231,250,0.03)', transition: 'border-color 200ms ease' }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', border: `1px dashed ${fieldErrors.resume ? 'rgba(248,113,113,0.4)' : 'rgba(110,231,250,0.2)'}`, borderRadius: 8, cursor: 'pointer', fontSize: 13, color: fileName ? 'var(--text-primary)' : 'var(--text-secondary)', background: 'rgba(110,231,250,0.03)', transition: 'border-color 200ms ease' }}
                                     onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.4)' }}
                                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = fieldErrors.resume ? 'rgba(248,113,113,0.4)' : 'rgba(110,231,250,0.2)' }}
                                 >
@@ -395,7 +395,7 @@ const ApplyForm = ({ role, onClose }) => {
                             <div>
                                 <label htmlFor="apply-cover" className="field-label">
                                     Cover Note
-                                    <span style={{ color: 'var(--text-muted)', fontWeight: 400, marginLeft: 8 }}>({form.cover_note.length}/2000)</span>
+                                    <span style={{ color: 'var(--text-secondary)', fontWeight: 400, marginLeft: 8 }}>({form.cover_note.length}/2000)</span>
                                 </label>
                                 <textarea
                                     id="apply-cover"

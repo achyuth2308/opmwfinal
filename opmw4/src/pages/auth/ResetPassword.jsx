@@ -122,12 +122,12 @@ const ResetPassword = () => {
                         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             {/* New password */}
                             <div>
-                                <label htmlFor="reset-pw" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
+                                <label htmlFor="reset-pw" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>
                                     New Password
                                 </label>
                                 <div style={{ position: 'relative' }}>
                                     <input id="reset-pw" name="password" type={showPw ? 'text' : 'password'} required value={form.password} onChange={handleChange} placeholder="Min. 8 characters" style={{ ...fieldStyle, paddingRight: 44 }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
-                                    <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4, display: 'flex' }} aria-label="Toggle password">
+                                    <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', padding: 4, display: 'flex' }} aria-label="Toggle password">
                                         {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
                                     </button>
                                 </div>
@@ -135,12 +135,12 @@ const ResetPassword = () => {
 
                             {/* Confirm password */}
                             <div>
-                                <label htmlFor="reset-cpw" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
+                                <label htmlFor="reset-cpw" style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>
                                     Confirm Password
                                 </label>
                                 <div style={{ position: 'relative' }}>
                                     <input id="reset-cpw" name="confirmPassword" type={showCpw ? 'text' : 'password'} required value={form.confirmPassword} onChange={handleChange} placeholder="Repeat password" style={{ ...fieldStyle, paddingRight: 44 }} onFocus={(e) => Object.assign(e.target.style, FocusStyle)} onBlur={(e) => Object.assign(e.target.style, BlurStyle)} />
-                                    <button type="button" onClick={() => setShowCpw(!showCpw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: 4, display: 'flex' }} aria-label="Toggle confirm password">
+                                    <button type="button" onClick={() => setShowCpw(!showCpw)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)', padding: 4, display: 'flex' }} aria-label="Toggle confirm password">
                                         {showCpw ? <EyeOff size={16} /> : <Eye size={16} />}
                                     </button>
                                 </div>

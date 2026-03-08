@@ -59,7 +59,7 @@ const AdminContacts = () => {
                     {isLoading ? (
                         <SkeletonDashboard statCount={0} rowCount={6} cols={3} />
                     ) : contacts.length === 0 ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No contact submissions yet.</div>
+                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No contact submissions yet.</div>
                     ) : (
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
                             {contacts.map((contact) => (
@@ -85,12 +85,12 @@ const AdminContacts = () => {
                                         <Mail size={14} style={{ color: 'var(--accent)', flexShrink: 0 }} />
                                         <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.name}</p>
                                     </div>
-                                    <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.email}</p>
+                                    <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.email}</p>
                                     <p style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 500, marginBottom: 6 }}>{contact.subject}</p>
-                                    <p style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{contact.message}</p>
+                                    <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{contact.message}</p>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 10 }}>
-                                        <Clock size={11} style={{ color: 'var(--text-muted)' }} />
-                                        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>
+                                        <Clock size={11} style={{ color: 'var(--text-secondary)' }} />
+                                        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>
                                             {new Date(contact.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                         </span>
                                     </div>
@@ -119,7 +119,7 @@ const AdminContacts = () => {
                                 { label: 'Received', value: new Date(selectedContact.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) },
                             ].map((item) => (
                                 <div key={item.label}>
-                                    <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 4 }}>{item.label}</p>
+                                    <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 4 }}>{item.label}</p>
                                     {item.isLink ? (
                                         <a href={`mailto:${item.value}`} style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none' }}>{item.value}</a>
                                     ) : (
@@ -128,7 +128,7 @@ const AdminContacts = () => {
                                 </div>
                             ))}
                             <div>
-                                <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 4 }}>Message</p>
+                                <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 4 }}>Message</p>
                                 <div style={{ padding: '14px 16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 8, fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
                                     {selectedContact.message}
                                 </div>

@@ -184,7 +184,7 @@ const Careers = () => {
                         }}
                     >
                         <div>
-                            <p className="text-label" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>City</p>
+                            <p className="text-label" style={{ color: 'var(--text-secondary)', marginBottom: 8 }}>City</p>
                             <FilterBar
                                 filters={CAREER_CITY_FILTERS}
                                 activeFilter={cityFilter}
@@ -192,7 +192,7 @@ const Careers = () => {
                             />
                         </div>
                         <div>
-                            <p className="text-label" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>Department</p>
+                            <p className="text-label" style={{ color: 'var(--text-secondary)', marginBottom: 8 }}>Department</p>
                             <FilterBar
                                 filters={CAREER_DEPT_FILTERS}
                                 activeFilter={deptFilter}
@@ -206,7 +206,7 @@ const Careers = () => {
                         style={{
                             fontSize: 12,
                             fontFamily: 'JetBrains Mono, monospace',
-                            color: 'var(--text-muted)',
+                            color: 'var(--text-secondary)',
                             marginBottom: 20,
                             letterSpacing: '0.06em',
                         }}
@@ -246,7 +246,7 @@ const Careers = () => {
                     </AnimatePresence>
 
                     {filtered.length === 0 && (
-                        <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-muted)' }}>
+                        <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--text-secondary)' }}>
                             <p style={{ fontSize: 16 }}>No positions match the selected filters.</p>
                         </div>
                     )}

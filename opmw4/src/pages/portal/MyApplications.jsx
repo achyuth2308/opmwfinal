@@ -7,11 +7,11 @@ import { SkeletonDashboard } from '@/components/shared/Skeleton'
 import apiClient from '@/services/api'
 
 const STATUS_COLORS = {
-    Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
-    Reviewed: { color: '#60a5fa', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.25)' },
-    Shortlisted: { color: '#4ade80', bg: 'rgba(74,222,128,0.1)', border: 'rgba(74,222,128,0.25)' },
-    Rejected: { color: '#f87171', bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.25)' },
-    Selected: { color: '#6EE7FA', bg: 'rgba(110,231,250,0.1)', border: 'rgba(110,231,250,0.25)' },
+    Pending: { color: '#FFB84D', bg: 'rgba(251,176,64,0.15)', border: 'rgba(251,176,64,0.3)' },
+    Reviewed: { color: '#7FB3FF', bg: 'rgba(127,179,255,0.15)', border: 'rgba(127,179,255,0.3)' },
+    Shortlisted: { color: '#66FF99', bg: 'rgba(102,255,153,0.15)', border: 'rgba(102,255,153,0.3)' },
+    Rejected: { color: '#f87171', bg: 'rgba(248,113,113,0.15)', border: 'rgba(248,113,113,0.3)' },
+    Selected: { color: '#6EE7FA', bg: 'rgba(110,231,250,0.15)', border: 'rgba(110,231,250,0.3)' },
 }
 
 const NAV_ITEMS = [
@@ -53,7 +53,7 @@ const PortalNav = ({ mobileOpen, setMobileOpen }) => {
                     {user?.name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>{user?.name || 'Candidate'}</p>
-                <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
             </div>
             <nav style={{ flex: 1, padding: '8px' }}>
                 {NAV_ITEMS.map(({ path, label, icon: Icon }) => {
@@ -69,9 +69,9 @@ const PortalNav = ({ mobileOpen, setMobileOpen }) => {
                 })}
             </nav>
             <div style={{ padding: '8px', borderTop: '1px solid var(--border)' }}>
-                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 12px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-muted)', transition: 'all 200ms ease' }}
+                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 12px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'all 200ms ease' }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.06)' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'transparent' }}>
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent' }}>
                     <LogOut size={15} />Logout
                 </button>
             </div>
@@ -143,7 +143,7 @@ const MyApplications = () => {
                             <SkeletonDashboard statCount={0} rowCount={6} cols={5} />
                         ) : applications.length === 0 ? (
                             <div style={{ padding: '48px 24px', textAlign: 'center' }}>
-                                <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
+                                <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
                                 <Link to="/careers" style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>Browse open roles →</Link>
                             </div>
                         ) : (
@@ -152,7 +152,7 @@ const MyApplications = () => {
                                     <thead>
                                         <tr style={{ borderBottom: '1px solid var(--border)' }}>
                                             {['#', 'Role', 'Location', 'Applied Date', 'Status'].map((h) => (
-                                                <th key={h} style={{ padding: '11px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>{h}</th>
+                                                <th key={h} style={{ padding: '11px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 600 }}>{h}</th>
                                             ))}
                                         </tr>
                                     </thead>
@@ -161,10 +161,10 @@ const MyApplications = () => {
                                             <tr key={app.id || i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', transition: 'background 150ms ease' }}
                                                 onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)' }}
                                                 onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent' }}>
-                                                <td style={{ padding: '13px 20px', fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>{i + 1}</td>
+                                                <td style={{ padding: '13px 20px', fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>{i + 1}</td>
                                                 <td style={{ padding: '13px 20px', fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.role}</td>
                                                 <td style={{ padding: '13px 20px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.location}</td>
-                                                <td style={{ padding: '13px 20px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
+                                                <td style={{ padding: '13px 20px', fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
                                                 <td style={{ padding: '13px 20px' }}><StatusBadge status={app.status} /></td>
                                             </tr>
                                         ))}
@@ -184,7 +184,7 @@ const MyApplications = () => {
                                 {notifications.map((n, i) => (
                                     <div key={n.id || i} style={{ padding: '12px 16px', borderRadius: 8, marginBottom: 4, background: 'rgba(255,255,255,0.02)' }}>
                                         <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{n.data?.message || JSON.stringify(n.data)}</p>
-                                        {n.created_at && <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', marginTop: 4 }}>{new Date(n.created_at).toLocaleDateString('en-IN')}</p>}
+                                        {n.created_at && <p style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', marginTop: 4 }}>{new Date(n.created_at).toLocaleDateString('en-IN')}</p>}
                                     </div>
                                 ))}
                             </div>

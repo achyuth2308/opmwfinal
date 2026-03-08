@@ -54,7 +54,7 @@ const AdminCandidates = () => {
                     {/* Search */}
                     <form onSubmit={handleSearch} style={{ display: 'flex', gap: 8, marginBottom: 24, maxWidth: 400 }}>
                         <div style={{ position: 'relative', flex: 1 }}>
-                            <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+                            <Search size={14} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }} />
                             <input
                                 type="text"
                                 placeholder="Search name, email, city..."
@@ -75,13 +75,13 @@ const AdminCandidates = () => {
                                 <thead>
                                     <tr style={{ borderBottom: '1px solid var(--border)' }}>
                                         {['Candidate', 'Phone', 'City', 'Applications', 'Joined'].map((h) => (
-                                            <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
+                                            <th key={h} style={{ padding: '12px 20px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
                                         ))}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {candidates.length === 0 ? (
-                                        <tr><td colSpan={5} style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--text-muted)', fontSize: 14 }}>No candidates found.</td></tr>
+                                        <tr><td colSpan={5} style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No candidates found.</td></tr>
                                     ) : candidates.map((user) => (
                                         <tr key={user.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                                             <td style={{ padding: '14px 20px' }}>
@@ -91,7 +91,7 @@ const AdminCandidates = () => {
                                                     </div>
                                                     <div>
                                                         <p style={{ fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{user.name}</p>
-                                                        <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{user.email}</p>
+                                                        <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{user.email}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -100,7 +100,7 @@ const AdminCandidates = () => {
                                             <td style={{ padding: '14px 20px' }}>
                                                 <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--accent)', fontFamily: 'JetBrains Mono,monospace' }}>{user.applications_count}</span>
                                             </td>
-                                            <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(user.created_at).toLocaleDateString('en-IN')}</td>
+                                            <td style={{ padding: '14px 20px', fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', whiteSpace: 'nowrap' }}>{new Date(user.created_at).toLocaleDateString('en-IN')}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -109,7 +109,7 @@ const AdminCandidates = () => {
                             {pagination.last_page > 1 && (
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
                                     <button onClick={() => loadCandidates(pagination.current_page - 1)} disabled={pagination.current_page <= 1} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page <= 1 ? 'not-allowed' : 'pointer', opacity: pagination.current_page <= 1 ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronLeft size={14} /></button>
-                                    <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-muted)' }}>Page {pagination.current_page} of {pagination.last_page}</span>
+                                    <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>Page {pagination.current_page} of {pagination.last_page}</span>
                                     <button onClick={() => loadCandidates(pagination.current_page + 1)} disabled={pagination.current_page >= pagination.last_page} style={{ padding: '6px 10px', borderRadius: 6, background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: pagination.current_page >= pagination.last_page ? 'not-allowed' : 'pointer', opacity: pagination.current_page >= pagination.last_page ? 0.4 : 1, display: 'flex', alignItems: 'center' }}><ChevronRight size={14} /></button>
                                 </div>
                             )}

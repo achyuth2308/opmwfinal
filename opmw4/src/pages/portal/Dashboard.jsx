@@ -8,11 +8,11 @@ import OPMWLogo from '@/components/shared/OPMWLogo'
 import apiClient from '@/services/api'
 
 const STATUS_COLORS = {
-    Pending: { color: '#FBB040', bg: 'rgba(251,176,64,0.1)', border: 'rgba(251,176,64,0.25)' },
-    Reviewed: { color: '#60a5fa', bg: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.25)' },
-    Shortlisted: { color: '#4ade80', bg: 'rgba(74,222,128,0.1)', border: 'rgba(74,222,128,0.25)' },
-    Rejected: { color: '#f87171', bg: 'rgba(248,113,113,0.1)', border: 'rgba(248,113,113,0.25)' },
-    Selected: { color: '#6EE7FA', bg: 'rgba(110,231,250,0.1)', border: 'rgba(110,231,250,0.25)' },
+    Pending: { color: '#FFB84D', bg: 'rgba(251,176,64,0.15)', border: 'rgba(251,176,64,0.3)' },
+    Reviewed: { color: '#7FB3FF', bg: 'rgba(127,179,255,0.15)', border: 'rgba(127,179,255,0.3)' },
+    Shortlisted: { color: '#66FF99', bg: 'rgba(102,255,153,0.15)', border: 'rgba(102,255,153,0.3)' },
+    Rejected: { color: '#f87171', bg: 'rgba(248,113,113,0.15)', border: 'rgba(248,113,113,0.3)' },
+    Selected: { color: '#6EE7FA', bg: 'rgba(110,231,250,0.15)', border: 'rgba(110,231,250,0.3)' },
 }
 
 const NAV_ITEMS = [
@@ -59,7 +59,7 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
                     </div>
                 </div>
                 <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>{user?.name || 'Candidate'}</p>
-                <p style={{ fontSize: 11, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.email}</p>
             </div>
 
             {/* Nav links */}
@@ -84,7 +84,7 @@ const PortalSidebar = ({ mobileOpen, setMobileOpen }) => {
 
             {/* Logout */}
             <div style={{ padding: '12px 8px', borderTop: '1px solid var(--border)' }}>
-                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '11px 14px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-muted)', transition: 'all 200ms ease' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.06)' }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.background = 'transparent' }}>
+                <button onClick={handleLogout} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '11px 14px', borderRadius: 8, background: 'none', border: 'none', cursor: 'pointer', fontSize: 14, fontWeight: 500, color: 'var(--text-secondary)', transition: 'all 200ms ease' }} onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.06)' }} onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent' }}>
                     <LogOut size={16} /> Logout
                 </button>
             </div>
@@ -168,10 +168,10 @@ const Dashboard = () => {
                                 {[
                                     { label: 'Total Applications', value: stats.total, color: '#6EE7FA' },
                                     { label: 'Pending Review', value: stats.pending, color: '#FBB040' },
-                                    { label: 'Latest Status', value: stats.latest, color: STATUS_COLORS[stats.latest]?.color || 'var(--text-muted)', isText: true },
+                                    { label: 'Latest Status', value: stats.latest, color: STATUS_COLORS[stats.latest]?.color || 'var(--text-secondary)', isText: true },
                                 ].map((card) => (
                                     <div key={card.label} style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12, padding: '20px 24px' }}>
-                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>{card.label}</p>
+                                        <p style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>{card.label}</p>
                                         <p style={{ fontSize: card.isText ? 18 : 32, fontWeight: 700, color: card.color, fontFamily: card.isText ? 'inherit' : 'JetBrains Mono,monospace', letterSpacing: card.isText ? '-0.01em' : '-0.02em' }}>{card.value}</p>
                                     </div>
                                 ))}
@@ -186,7 +186,7 @@ const Dashboard = () => {
 
                                 {applications.length === 0 ? (
                                     <div style={{ padding: '40px 24px', textAlign: 'center' }}>
-                                        <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
+                                        <p style={{ color: 'var(--text-secondary)', fontSize: 15, marginBottom: 12 }}>No applications yet.</p>
                                         <Link to="/careers" style={{ fontSize: 14, color: 'var(--accent)', textDecoration: 'none' }}>Browse open roles →</Link>
                                     </div>
                                 ) : (
@@ -195,7 +195,7 @@ const Dashboard = () => {
                                             <thead>
                                                 <tr style={{ borderBottom: '1px solid var(--border)' }}>
                                                     {['Role', 'Location', 'Date', 'Status'].map((h) => (
-                                                        <th key={h} style={{ padding: '12px 24px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 600 }}>{h}</th>
+                                                        <th key={h} style={{ padding: '12px 24px', textAlign: 'left', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 600 }}>{h}</th>
                                                     ))}
                                                 </tr>
                                             </thead>
@@ -204,7 +204,7 @@ const Dashboard = () => {
                                                     <tr key={app.id || i} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                                                         <td style={{ padding: '14px 24px', fontSize: 14, color: 'var(--text-primary)', fontWeight: 500 }}>{app.role}</td>
                                                         <td style={{ padding: '14px 24px', fontSize: 13, color: 'var(--text-secondary)' }}>{app.location}</td>
-                                                        <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
+                                                        <td style={{ padding: '14px 24px', fontSize: 12, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace' }}>{app.created_at ? new Date(app.created_at).toLocaleDateString('en-IN') : '—'}</td>
                                                         <td style={{ padding: '14px 24px' }}><StatusBadge status={app.status} /></td>
                                                     </tr>
                                                 ))}

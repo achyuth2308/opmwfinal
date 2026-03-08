@@ -15,8 +15,8 @@
   --border: rgba(255, 255, 255, 0.055);
   --border-hover: rgba(255, 255, 255, 0.11);
   --text-primary: #F0F4F8;
-  --text-secondary: #8A9BB0;
-  --text-muted: #4A5568;
+  --text-secondary: #A0AEC0;
+  --text-muted: #718096;
   --accent: #6EE7FA;
   --accent-warm: #FBB040;
   --accent-dim: rgba(110, 231, 250, 0.1);
@@ -770,7 +770,7 @@ select.field-input option {
   font-family: 'JetBrains Mono', monospace;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-weight: 600;
   border-bottom: 1px solid var(--border);
 }

@@ -141,7 +141,7 @@ const AboutOPMW = () => {
                                                 fontFamily: 'JetBrains Mono, monospace',
                                                 letterSpacing: '0.12em',
                                                 textTransform: 'uppercase',
-                                                color: 'var(--text-muted)',
+                                                color: 'var(--text-secondary)',
                                                 marginBottom: 3,
                                             }}
                                         >
@@ -150,7 +150,7 @@ const AboutOPMW = () => {
                                         <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>
                                             {item.value}
                                         </p>
-                                        <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{item.detail}</p>
+                                        <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{item.detail}</p>
                                     </div>
                                 </motion.div>
                             )

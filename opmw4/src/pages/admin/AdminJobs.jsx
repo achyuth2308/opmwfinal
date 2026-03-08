@@ -119,8 +119,8 @@ const AdminJobs = () => {
                         <SkeletonCareerGrid count={4} />
                     ) : jobs.length === 0 ? (
                         <div style={{ padding: '80px 24px', textAlign: 'center', background: 'var(--surface-2)', borderRadius: 16, border: '1px solid var(--border)' }}>
-                            <Briefcase size={40} style={{ color: 'var(--text-muted)', marginBottom: 16, opacity: 0.5 }} />
-                            <p style={{ color: 'var(--text-muted)', fontSize: 16, marginBottom: 20 }}>No jobs listed yet. Start by adding one!</p>
+                            <Briefcase size={40} style={{ color: 'var(--text-secondary)', marginBottom: 16, opacity: 0.5 }} />
+                            <p style={{ color: 'var(--text-secondary)', fontSize: 16, marginBottom: 20 }}>No jobs listed yet. Start by adding one!</p>
                             <button onClick={() => setShowAddForm(true)} style={{ padding: '10px 24px', borderRadius: 8, background: 'var(--accent)', color: '#000', border: 'none', fontSize: 14, fontWeight: 700, cursor: 'pointer' }}>Add First Job</button>
                         </div>
                     ) : (
@@ -131,7 +131,7 @@ const AdminJobs = () => {
                                         <div>
                                             <span style={{ fontSize: 10, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--accent)', background: 'rgba(110,231,250,0.08)', padding: '2px 8px', borderRadius: 4, marginBottom: 8, display: 'inline-block' }}>{job.department}</span>
                                             <h3 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>{job.title}</h3>
-                                            <p style={{ fontSize: 13, color: 'var(--text-muted)' }}>{job.type} €¢ {job.experience}</p>
+                                            <p style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{job.type} €¢ {job.experience}</p>
                                         </div>
                                         <button onClick={() => handleDelete(job.id)} style={{ padding: 8, borderRadius: 8, background: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.2)', color: '#f87171', cursor: 'pointer' }} title="Delete Job">
                                             <Trash2 size={16} />
@@ -166,25 +166,25 @@ const AdminJobs = () => {
 
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Job Title</label>
+                                <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Job Title</label>
                                 <input required type="text" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} placeholder="e.g. Web Developer (Full Stack)" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }} />
                             </div>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Department</label>
+                                    <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Department</label>
                                     <select value={formData.department} onChange={e => setFormData({ ...formData, department: e.target.value })} style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }}>
                                         {['BPO', 'IT', 'HR', 'Operations', 'Finance', 'Marketing'].map(d => <option key={d} value={d}>{d}</option>)}
                                     </select>
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Experience</label>
+                                    <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Experience</label>
                                     <input required type="text" value={formData.experience} onChange={e => setFormData({ ...formData, experience: e.target.value })} placeholder="e.g. 0–2 years" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none' }} />
                                 </div>
                             </div>
 
                             <div>
-                                <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Cities (Add multiple with commas or Enter)</label>
+                                <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Cities (Add multiple with commas or Enter)</label>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
                                     {formData.cities.map(city => (
                                         <span key={city} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--accent)', background: 'rgba(110,231,250,0.08)', padding: '4px 10px', borderRadius: 6, border: '1px solid rgba(110,231,250,0.2)' }}>
@@ -204,7 +204,7 @@ const AdminJobs = () => {
                             </div>
 
                             <div>
-                                <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>Description</label>
+                                <label style={{ display: 'block', fontSize: 11, fontFamily: 'JetBrains Mono,monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 8 }}>Description</label>
                                 <textarea required rows={4} value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} placeholder="Job description and requirements..." style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, outline: 'none', resize: 'vertical' }} />
                             </div>
 

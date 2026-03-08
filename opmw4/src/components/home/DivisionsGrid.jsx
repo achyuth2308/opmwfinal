@@ -124,7 +124,7 @@ const DivisionsGrid = () => {
                                                 height: 44,
                                                 borderRadius: 12,
                                                 border: '1px solid var(--border)',
-                                                color: 'var(--text-muted)',
+                                                color: 'var(--text-secondary)',
                                                 transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                                                 textDecoration: 'none',
                                                 background: 'rgba(255,255,255,0.03)'
@@ -136,7 +136,7 @@ const DivisionsGrid = () => {
                                             }}
                                             onMouseLeave={(e) => {
                                                 e.currentTarget.style.borderColor = 'var(--border)'
-                                                e.currentTarget.style.color = 'var(--text-muted)'
+                                                e.currentTarget.style.color = 'var(--text-secondary)'
                                                 e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
                                             }}
                                         >

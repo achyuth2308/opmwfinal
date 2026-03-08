@@ -106,7 +106,7 @@ const LocationsSection = () => {
                                             whiteSpace: 'nowrap',
                                             fontSize: 12,
                                             fontWeight: activeIndex === i ? 700 : 400,
-                                            color: activeIndex === i ? 'var(--text-primary)' : 'var(--text-muted)',
+                                            color: activeIndex === i ? 'var(--text-primary)' : 'var(--text-secondary)',
                                             transition: 'all 0.3s ease',
                                             fontFamily: 'JetBrains Mono, monospace',
                                             opacity: activeIndex === i ? 1 : 0.6
@@ -217,7 +217,7 @@ const LocationsSection = () => {
                                         border: '1px solid',
                                         borderColor: activeIndex === i ? 'var(--accent)' : 'rgba(255,255,255,0.08)',
                                         background: activeIndex === i ? 'rgba(110,231,250,0.08)' : 'transparent',
-                                        color: activeIndex === i ? 'var(--accent)' : 'var(--text-muted)',
+                                        color: activeIndex === i ? 'var(--accent)' : 'var(--text-secondary)',
                                         fontSize: 11,
                                         fontWeight: 700,
                                         letterSpacing: '0.1em',

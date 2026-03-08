@@ -183,7 +183,7 @@ const ForgotPassword = () => {
                             <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>.
                             Please check your inbox and click the link to reset your password.
                         </p>
-                        <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 28 }}>
+                        <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 28 }}>
                             Didn't receive it? Check your spam folder or wait a few minutes.
                         </p>
                         <Link
@@ -212,7 +212,7 @@ const ForgotPassword = () => {
 
                         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             <div>
-                                <label htmlFor="forgot-email" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 6 }}>
+                                <label htmlFor="forgot-email" style={{ display: 'block', fontSize: 12, fontFamily: 'JetBrains Mono, monospace', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>
                                     Email Address
                                 </label>
                                 <input
