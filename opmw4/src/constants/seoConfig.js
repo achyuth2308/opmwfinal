@@ -9,7 +9,7 @@ export const DEFAULT_OG_IMAGE = '/logo.png'
 
 const seoConfig = {
     '/': {
-        title: 'OPMW — One Platform, Multiple Workforce Dimensions',
+        title: 'OPMW — One Place Multi Work',
         description:
             'OPMW is India\'s integrated execution platform combining BPO, IT & Web Development, and HRMS under one unified brand. 300+ professionals across 5 cities.',
         keywords:
