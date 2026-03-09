@@ -179,13 +179,27 @@ const HeroSection = () => {
                         textAlign: 'center',
                     }}
                 >
-                    <TypewriterText
-                        text={[
-                            { text: 'One ' },
-                            { text: 'Place', shimmer: true }
-                        ]}
-                        delay={0.4}
-                    />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)' }}>
+                        <TypewriterText
+                            text={[
+                                { text: 'One ' },
+                                { text: 'Place', shimmer: true }
+                            ]}
+                            delay={0.4}
+                        />
+                        <motion.img
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 1, duration: 0.5 }}
+                            src="/favicon.png"
+                            style={{
+                                width: 'clamp(32px, 5vw, 64px)',
+                                height: 'clamp(32px, 5vw, 64px)',
+                                objectFit: 'contain'
+                            }}
+                            alt=""
+                        />
+                    </div>
                     <TypewriterText
                         text={[
                             { text: 'Multi ', shimmer: true },
