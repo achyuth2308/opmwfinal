@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion'
 import TypewriterText from '@/components/shared/TypewriterText'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const SECTIONS = [
     {
@@ -53,6 +54,7 @@ const SECTIONS = [
 ]
 
 const Terms = () => {
+    usePageMeta('/terms')
     return (
         <div
             style={{

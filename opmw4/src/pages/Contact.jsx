@@ -5,8 +5,10 @@ import TypewriterText from '@/components/shared/TypewriterText'
 import BranchCard from '@/components/contact/BranchCard'
 import ContactForm from '@/components/contact/ContactForm'
 import { LOCATIONS } from '@/constants/locations'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const Contact = () => {
+    usePageMeta('/contact')
     return (
         <>
             {/* Hero */}

@@ -10,6 +10,7 @@ import FeatureGrid from '@/components/services/FeatureGrid'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import CTASection from '@/components/home/CTASection'
 import { motion } from 'framer-motion'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const IT_FEATURES = [
     {
@@ -59,6 +60,7 @@ const STACK_ITEMS = [
 ]
 
 const ITWeb = () => {
+    usePageMeta('/services/it-web')
     return (
         <>
             <ServiceHero

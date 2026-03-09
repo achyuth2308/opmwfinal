@@ -6,8 +6,10 @@ import ProjectCard from '@/components/projects/ProjectCard'
 import ProjectModal from '@/components/projects/ProjectModal'
 import FilterBar from '@/components/projects/FilterBar'
 import { PROJECTS, PROJECT_FILTERS } from '@/constants/projects'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const Projects = () => {
+    usePageMeta('/projects')
     const [activeFilter, setActiveFilter] = useState('All')
     const [selectedProject, setSelectedProject] = useState(null)
 

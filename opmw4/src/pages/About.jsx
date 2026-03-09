@@ -1,6 +1,7 @@
 ﻿import { motion } from 'framer-motion'
 import { Linkedin, Target, TrendingUp, Award, Globe, Users, Zap, BarChart2 } from 'lucide-react'
 import SectionWrapper from '@/components/shared/SectionWrapper'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const LEADERSHIP = [
     { name: 'Founder & CEO', role: 'Strategic Vision & Operations', initials: 'FC' },
@@ -85,6 +86,7 @@ const sectionGutter = {
 }
 
 const About = () => {
+    usePageMeta('/about')
     return (
         <>
             {/* ”€”€”€ Company Overview ”€”€”€ */}
