@@ -1,4 +1,5 @@
-﻿import { Suspense } from 'react'
+﻿// Deployment trigger by owner
+import { Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AdminLayout from '@/layout/AdminLayout'
 import RootLayout from '@/layout/RootLayout'
