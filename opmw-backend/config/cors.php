@@ -26,7 +26,9 @@ return [
         'https://opmwfinal-six.vercel.app/',
         'https://opmwfinal.vercel.app',
         'https://opmwfinal-lake.vercel.app',
-        'https://opmwfinal-lake.vercel.app/'
+        'https://opmwfinal-lake.vercel.app/',
+        'https://opmw.in',
+        'https://www.opmw.in'
     ],
 
     'allowed_origins_patterns' => [],
