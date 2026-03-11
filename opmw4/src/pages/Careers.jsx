@@ -9,8 +9,10 @@ import { SkeletonCareerGrid } from '@/components/shared/Skeleton'
 import { CAREERS, CAREER_CITY_FILTERS, CAREER_DEPT_FILTERS } from '@/constants/careers'
 
 import apiClient from '@/services/api'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const Careers = () => {
+    usePageMeta('/careers')
     const [jobs, setJobs] = useState(CAREERS)
     const [isLoading, setIsLoading] = useState(true)
     const [cityFilter, setCityFilter] = useState('All')

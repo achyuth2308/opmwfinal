@@ -13,6 +13,7 @@ import FeatureGrid from '@/components/services/FeatureGrid'
 import DemoRequestForm from '@/components/services/DemoRequestForm'
 import SectionWrapper from '@/components/shared/SectionWrapper'
 import { motion } from 'framer-motion'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const HRMS_FEATURES = [
     {
@@ -219,6 +220,7 @@ const HRMSDashboardMockup = () => (
 
 
 const HRMS = () => {
+    usePageMeta('/services/hrms')
 
     return (
         <>

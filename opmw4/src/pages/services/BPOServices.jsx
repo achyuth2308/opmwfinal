@@ -9,6 +9,7 @@ import ServiceHero from '@/components/services/ServiceHero'
 import FeatureGrid from '@/components/services/FeatureGrid'
 import ProcessSteps from '@/components/services/ProcessSteps'
 import CTASection from '@/components/home/CTASection'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 const BPO_FEATURES = [
     {
@@ -57,6 +58,7 @@ const BPO_STEPS = [
 ]
 
 const BPOServices = () => {
+    usePageMeta('/services/bpo')
     return (
         <>
             <ServiceHero

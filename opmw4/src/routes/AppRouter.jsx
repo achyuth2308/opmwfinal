@@ -1,7 +1,10 @@
-﻿import { Suspense } from 'react'
+﻿// Deployment trigger by owner
+import { Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import AdminLayout from '@/layout/AdminLayout'
 import RootLayout from '@/layout/RootLayout'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
+import AdminProtectedRoute from '@/components/auth/AdminProtectedRoute'
 import { lazyWithRetry as lazy } from '@/utils/lazyWithRetry'
 
 // Public pages
@@ -140,12 +143,14 @@ const AppRouter = () => (
 
             {/* ——— Admin routes (no Navbar/Footer) ——— */}
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/applications" element={<AdminApplications />} />
-            <Route path="/admin/candidates" element={<AdminCandidates />} />
-            <Route path="/admin/contacts" element={<AdminContacts />} />
-            <Route path="/admin/demo-requests" element={<AdminDemoRequests />} />
-            <Route path="/admin/jobs" element={<AdminJobs />} />
+            <Route element={<AdminProtectedRoute><AdminLayout /></AdminProtectedRoute>}>
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/applications" element={<AdminApplications />} />
+                <Route path="/admin/candidates" element={<AdminCandidates />} />
+                <Route path="/admin/contacts" element={<AdminContacts />} />
+                <Route path="/admin/demo-requests" element={<AdminDemoRequests />} />
+                <Route path="/admin/jobs" element={<AdminJobs />} />
+            </Route>
 
             {/* ——— Public routes (with Navbar + Footer via RootLayout) ——— */}
             <Route element={<RootLayout />}>

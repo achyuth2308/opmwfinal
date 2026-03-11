@@ -29,8 +29,16 @@ export const getAdminApplication = async (id) => {
     return apiClient.get(`admin/applications/${id}`)
 }
 
-export const updateApplicationStatus = async (id, status, admin_notes = '') => {
-    return apiClient.patch(`admin/applications/${id}/status`, { status, admin_notes })
+export const updateApplicationStatus = async (id, status) => {
+    return apiClient.patch(`admin/applications/${id}/status`, { status })
+}
+
+export const addAdminNote = async (id, admin_notes) => {
+    return apiClient.patch(`admin/applications/${id}/notes`, { admin_notes })
+}
+
+export const deleteAdminApplication = async (id) => {
+    return apiClient.delete(`admin/applications/${id}`)
 }
 
 /**
@@ -47,8 +55,8 @@ export const getAdminCandidate = async (id) => {
 /**
  * Admin Contacts
  */
-export const getAdminContacts = async () => {
-    return apiClient.get('admin/contacts')
+export const getAdminContacts = async (params = {}) => {
+    return apiClient.get('admin/contacts', { params })
 }
 
 export const markContactAsRead = async (id) => {
@@ -58,8 +66,8 @@ export const markContactAsRead = async (id) => {
 /**
  * Admin Jobs
  */
-export const getAdminJobs = async () => {
-    return apiClient.get('admin/jobs')
+export const getAdminJobs = async (params = {}) => {
+    return apiClient.get('admin/jobs', { params })
 }
 
 export const createAdminJob = async (jobData) => {
@@ -77,8 +85,8 @@ export const deleteAdminJob = async (id) => {
 /**
  * Admin Demo Requests
  */
-export const getAdminDemoRequests = async () => {
-    return apiClient.get('admin/demo-requests')
+export const getAdminDemoRequests = async (params = {}) => {
+    return apiClient.get('admin/demo-requests', { params })
 }
 
 export const markDemoRequestAsRead = async (id) => {

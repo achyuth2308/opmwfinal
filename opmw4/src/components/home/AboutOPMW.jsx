@@ -74,7 +74,7 @@ const AboutOPMW = () => {
                                 marginBottom: 16,
                             }}
                         >
-                            OPMW (One Platform Multiple Work) was founded to solve a fragmented problem enterprises
+                            OPMW (One Place Multi Work) was founded to solve a fragmented problem enterprises
                             juggling separate vendors for BPO, IT, and HR. We built a single delivery engine that
                             handles all three.
                         </p>

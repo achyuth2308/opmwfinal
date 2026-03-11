@@ -1,16 +1,13 @@
 ﻿import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { X, Menu, Mail, Clock } from 'lucide-react'
-import { AdminSidebar } from './AdminDashboard'
+import { X, Mail, Clock, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getAdminContacts, markContactAsRead } from '@/services/admin.service'
 import { SkeletonDashboard } from '@/components/shared/Skeleton'
 
 const AdminContacts = () => {
-    const navigate = useNavigate()
     const [contacts, setContacts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [selectedContact, setSelectedContact] = useState(null)
+    const [pagination, setPagination] = useState({ current_page: 1, last_page: 1 })
 
     const handleSelectContact = async (contact) => {
         setSelectedContact(contact)
@@ -25,85 +22,124 @@ const AdminContacts = () => {
         }
     }
 
-    useEffect(() => {
-        const load = async () => {
-            try {
-                const result = await getAdminContacts()
+    const load = async (page = 1) => {
+        if (isLoading && page !== 1) return
+        setIsLoading(true)
+        try {
+            const result = await getAdminContacts({ page: Number(page) })
+            if (result.data) {
+                setContacts(result.data)
+                setPagination({
+                    current_page: Number(result.current_page || 1),
+                    last_page: Number(result.last_page || 1)
+                })
+            } else {
                 setContacts(Array.isArray(result) ? result : [])
-            } catch (err) {
-                // Error handled by apiClient interceptor
-                console.error(err)
-            } finally {
-                setIsLoading(false)
+                setPagination({ current_page: 1, last_page: 1 })
             }
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setIsLoading(false)
         }
-        load()
-    }, [navigate])
+    }
+
+    useEffect(() => { load() }, [])
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--surface-1)' }}>
-            <AdminSidebar mobileOpen={mobileMenuOpen} setMobileOpen={setMobileMenuOpen} />
+        <div style={{ padding: 'clamp(24px, 4vw, 40px)' }}>
+            <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: 8 }}>Contact Submissions</h1>
+            <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24 }}>Messages received from the website contact form.</p>
 
-            <main style={{ flex: 1, overflowY: 'auto' }}>
-                <div style={{ display: 'none', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px', height: 56, background: 'var(--surface-2)', borderBottom: '1px solid var(--border)' }} className="admin-mobile-topbar">
-                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-primary)' }}>Contacts</span>
-                    <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-primary)', padding: 6 }}>
-                        {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                    </button>
-                </div>
-
-                <div style={{ padding: 'clamp(24px, 4vw, 40px)' }}>
-                    <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.02em', marginBottom: 8 }}>Contact Submissions</h1>
-                    <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 24 }}>Messages received from the website contact form.</p>
-
-                    {isLoading ? (
-                        <SkeletonDashboard statCount={0} rowCount={6} cols={3} />
-                    ) : contacts.length === 0 ? (
-                        <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No contact submissions yet.</div>
-                    ) : (
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
-                            {contacts.map((contact) => (
-                                <div
-                                    key={contact.id}
-                                    onClick={() => handleSelectContact(contact)}
-                                    style={{
-                                        background: 'var(--surface-2)',
-                                        border: `1px solid ${contact.is_read ? 'var(--border)' : 'rgba(110,231,250,0.2)'}`,
-                                        borderRadius: 12,
-                                        padding: '20px 24px',
-                                        cursor: 'pointer',
-                                        transition: 'all 200ms ease',
-                                        position: 'relative',
-                                    }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.3)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.borderColor = contact.is_read ? 'var(--border)' : 'rgba(110,231,250,0.2)'; e.currentTarget.style.transform = 'translateY(0)' }}
-                                >
-                                    {!contact.is_read && (
-                                        <div style={{ position: 'absolute', top: 12, right: 12, width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }} />
-                                    )}
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                                        <Mail size={14} style={{ color: 'var(--accent)', flexShrink: 0 }} />
-                                        <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.name}</p>
-                                    </div>
-                                    <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.email}</p>
-                                    <p style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 500, marginBottom: 6 }}>{contact.subject}</p>
-                                    <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{contact.message}</p>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 10 }}>
-                                        <Clock size={11} style={{ color: 'var(--text-secondary)' }} />
-                                        <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>
-                                            {new Date(contact.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                                        </span>
-                                    </div>
+            {isLoading ? (
+                <SkeletonDashboard statCount={0} rowCount={6} cols={3} />
+            ) : contacts.length === 0 ? (
+                <div style={{ padding: '60px 0', textAlign: 'center', color: 'var(--text-secondary)', fontSize: 14 }}>No contact submissions yet.</div>
+            ) : (
+                <div style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 12 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16, padding: 24 }}>
+                        {contacts.map((contact) => (
+                            <div
+                                key={contact.id}
+                                onClick={() => handleSelectContact(contact)}
+                                style={{
+                                    background: 'rgba(255,255,255,0.02)',
+                                    border: `1px solid ${contact.is_read ? 'var(--border)' : 'rgba(110,231,250,0.2)'}`,
+                                    borderRadius: 12,
+                                    padding: '20px 24px',
+                                    cursor: 'pointer',
+                                    transition: 'all 200ms ease',
+                                    position: 'relative',
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(110,231,250,0.3)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                                onMouseLeave={(e) => { e.currentTarget.style.borderColor = contact.is_read ? 'var(--border)' : 'rgba(110,231,250,0.2)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                            >
+                                {!contact.is_read && (
+                                    <div style={{ position: 'absolute', top: 12, right: 12, width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)' }} />
+                                )}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                                    <Mail size={14} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+                                    <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.name}</p>
                                 </div>
-                            ))}
+                                <p style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{contact.email}</p>
+                                <p style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 500, marginBottom: 6 }}>{contact.subject}</p>
+                                <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>{contact.message}</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 10 }}>
+                                    <Clock size={11} style={{ color: 'var(--text-secondary)' }} />
+                                    <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono,monospace', color: 'var(--text-secondary)' }}>
+                                        {new Date(contact.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Pagination */}
+                    {pagination.last_page > 1 && (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, padding: '24px 20px', borderTop: '1px solid var(--border)', background: 'rgba(255,255,255,0.01)' }}>
+                            <button
+                                onClick={() => {
+                                    if (pagination.current_page > 1 && !isLoading) {
+                                        load(pagination.current_page - 1);
+                                        window.scrollTo({ top: 0, behavior: 'auto' });
+                                    }
+                                }}
+                                disabled={pagination.current_page <= 1 || isLoading}
+                                style={{
+                                    padding: '8px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', color: 'var(--text-secondary)',
+                                    cursor: (pagination.current_page <= 1 || isLoading) ? 'not-allowed' : 'pointer', opacity: (pagination.current_page <= 1 || isLoading) ? 0.4 : 1, display: 'flex', alignItems: 'center'
+                                }}
+                            >
+                                <ChevronLeft size={16} />
+                            </button>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)', fontFamily: 'JetBrains Mono,monospace' }}>{pagination.current_page}</span>
+                                <span style={{ fontSize: 13, color: 'var(--text-secondary)', opacity: 0.5 }}>/</span>
+                                <span style={{ fontSize: 13, color: 'var(--text-secondary)', fontFamily: 'JetBrains Mono,monospace' }}>{pagination.last_page}</span>
+                            </div>
+                            <button
+                                onClick={() => {
+                                    if (pagination.current_page < pagination.last_page && !isLoading) {
+                                        load(pagination.current_page + 1);
+                                        window.scrollTo({ top: 0, behavior: 'auto' });
+                                    }
+                                }}
+                                disabled={pagination.current_page >= pagination.last_page || isLoading}
+                                style={{
+                                    padding: '8px 12px', borderRadius: 8, background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', color: 'var(--text-secondary)',
+                                    cursor: (pagination.current_page >= pagination.last_page || isLoading) ? 'not-allowed' : 'pointer', opacity: (pagination.current_page >= pagination.last_page || isLoading) ? 0.4 : 1, display: 'flex', alignItems: 'center'
+                                }}
+                            >
+                                <ChevronRight size={16} />
+                            </button>
                         </div>
                     )}
                 </div>
-            </main>
+            )}
 
             {/* Contact detail modal */}
             {selectedContact && (
-                <div style={{ position: 'fixed', inset: 0, zIndex: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+                <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
                     <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(4px)' }} onClick={() => setSelectedContact(null)} />
                     <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 520, background: 'var(--surface-2)', border: '1px solid var(--border)', borderRadius: 16, padding: 'clamp(24px, 4vw, 36px)', maxHeight: '80vh', overflowY: 'auto' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -161,11 +197,8 @@ const AdminContacts = () => {
                     </div>
                 </div>
             )}
-
-            <style>{`@media(max-width:768px) { .admin-mobile-topbar { display: flex !important; } }`}</style>
         </div>
     )
 }
 
 export default AdminContacts
-

@@ -1,4 +1,5 @@
-﻿import HeroSection from '@/components/home/HeroSection'
+﻿import { usePageMeta } from '@/hooks/usePageMeta'
+import HeroSection from '@/components/home/HeroSection'
 import CorporatePositioning from '@/components/home/CorporatePositioning'
 import AboutOPMW from '@/components/home/AboutOPMW'
 import DivisionsGrid from '@/components/home/DivisionsGrid'
@@ -8,6 +9,7 @@ import WhyOPMW from '@/components/home/WhyOPMW'
 import CTASection from '@/components/home/CTASection'
 
 const Home = () => {
+    usePageMeta('/')
     return (
         <>
             <HeroSection />
