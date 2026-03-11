@@ -41,7 +41,8 @@ class AuthController extends Controller
             \Log::error('Welcome Mail failed during registration', [
                 'user_id' => $user->id,
                 'email' => $user->email,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
             ]);
         }
 
